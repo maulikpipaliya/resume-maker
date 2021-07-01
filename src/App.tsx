@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import {
     Container,
     Row,
@@ -8,7 +10,6 @@ import {
     Table,
     Button,
 } from "react-bootstrap";
-import jsPDF from "jspdf";
 
 function App() {
     const [state, setState] = useState({
@@ -19,22 +20,48 @@ function App() {
         city: "",
     });
 
-    const generatePDF = () => {
-        console.log("Generating PDF");
-        const doc = new jsPDF("p", "pt", "a4");
-        // const htmlCode: any = document.querySelector("#ctr-view");
-        // console.log(htmlCode);
+    const getCanvas = (page: any) => {
+        const a4 = [595, 842]; // for a4 size paper width and height in pixels
 
-        doc.setFontSize(40);
-
-        doc.addImage("daiict-logo.png", "JPEG", 15, 40, 180, 180);
-
-        doc.text("My name is Maulik Pipaliya", 40, 20);
-
-        // new DOMParser.parseFromString(htmlCode, "text/xml");
-        doc.save("haha.pdf");
+        //page.height((a4[1] * 1.3333) - 80).css('max-height','none');
+        return html2canvas(page, {
+            imageTimeout: 2000,
+            removeContainer: true,
+        });
     };
 
+    const generatePDF = () => {
+        console.log("Generating PDF");
+        const doc = new jsPDF("p", "px", "a4");
+        // var doc = new jsPDF({
+        //     unit: 'mm',
+        //     format: 'a4',
+        // });
+        // console.log(htmlCode);
+
+        const a4width = 210; //in mm
+        const a4height = 297;
+        const a4 = [595, 842]; // for a4 size paper width and height in pixels
+
+        const input: any = document.querySelector("#ctr-view");
+
+        getCanvas(input).then(function (canvas) {
+            const img = canvas.toDataURL("image/png");
+            const height = 0;
+            // = 0.264583 * canvas.height;
+            console.log(canvas.width);
+            doc.addImage(
+                img,
+                "JPEG",
+                2,
+                7,
+                canvas.width / 3,
+                canvas.height / 3
+            );
+
+            doc.save("download.pdf");
+        });
+    };
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setState((prevState) => ({ ...prevState, [name]: value }));
@@ -44,7 +71,7 @@ function App() {
         <>
             <Container fluid={true} className='p-0'>
                 <Row>
-                    <Col xs={10} md={4} className='ctr-form'>
+                    <Col xs={10} md={4} className='ctr-form' id='ctr-form'>
                         <Container>
                             <Form className='p-4'>
                                 <Form.Group controlId='name'>
