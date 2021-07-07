@@ -148,7 +148,7 @@ const FormComponent: FC = () => {
                                 <Form.Group controlId='igusername'>
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
-                                        name='basics.profile.username'
+                                        name='basics.profile.0.username'
                                         className='rm-textbox'
                                         onChange={masterHandler}
                                     />
