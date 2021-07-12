@@ -26,7 +26,10 @@ const BasicDetailsComponent: FC = () => {
         switch (name) {
             case "name":
             case "email":
-            case "contact":
+            case "phone":
+            case "contacts":
+            case "dob":
+            case "summary":
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
@@ -37,6 +40,9 @@ const BasicDetailsComponent: FC = () => {
                 break;
             case "city":
             case "address":
+            case "postalCode":
+            case "countryCode":
+            case "region":
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
@@ -48,7 +54,9 @@ const BasicDetailsComponent: FC = () => {
                     },
                 }));
                 break;
-            case "username":
+            
+            
+                case "username": 
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
@@ -100,11 +108,21 @@ const BasicDetailsComponent: FC = () => {
                                 onChange={basicDetailHandler}
                             />
                         </Form.Group>
-      
-                        <Form.Group controlId='contact'>
-                            <Form.Label>Contact</Form.Label>
+                        <Form.Group controlId='dob'>
+                            <Form.Label>Date Of Birth</Form.Label>
                             <Form.Control
-                                name='contact'
+                                type='date'
+                                name='dob'
+                                className='rm-textbox'
+                                placeholder="dd-mm-yyyy"
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+      
+                        <Form.Group controlId='phone'>
+                            <Form.Label>phone</Form.Label>
+                            <Form.Control
+                                name='phone'
                                 className='rm-textbox'
                                 onChange={basicDetailHandler}
                             />
@@ -134,6 +152,56 @@ const BasicDetailsComponent: FC = () => {
                                 onChange={basicDetailHandler}
                             />
                         </Form.Group>
+                        <Form.Group controlId='network'>
+                            <Form.Label>Network</Form.Label>
+                            <Form.Control
+                                name='network'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='summary'>
+                            <Form.Label>Summary</Form.Label>
+                            <Form.Control
+                                name='summary'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='postalCode'>
+                            <Form.Label>Postal Code</Form.Label>
+                            <Form.Control
+                                name='postalCode'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='countryCode'>
+                            <Form.Label>Country Code</Form.Label>
+                            <Form.Control
+                                name='countryCode'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='region'>
+                            <Form.Label>Region</Form.Label>
+                            <Form.Control
+                                name='region'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId='contacts'>
+                            <Form.Label>contacts</Form.Label>
+                            <Form.Control
+                                name='contacts'
+                                className='rm-textbox'
+                                onChange={basicDetailHandler}
+                            />
+                        </Form.Group>
+                        
                     </Form>
                 </Container>
             </Col>
