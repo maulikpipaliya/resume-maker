@@ -35,11 +35,11 @@ const initialState: IResumeDataState = {
         ],
         education: [
             {
-                institution: "University",
-                area: "Software Development",
-                studyType: "Bachelor",
-                gpa: 4.0,
-                courses: ["DB1101 - Basic SQL"],
+                institution: "",
+                area: "",
+                studyType: "",
+                gpa: 0,
+                courses: [],
             },
         ],
         skills: [
