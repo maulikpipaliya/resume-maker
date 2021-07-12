@@ -1,18 +1,22 @@
-import React, { useState, useEffect, FormEvent, FC } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-
-import ResumeComponent from "./ResumeComponent";
-import BasicDetailsComponent from "./BasicDetailsComponent";
+import React, { FC } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import EducationDetailsComponent from "./EducationDetailsComponent";
-
+import BasicDetailsComponent from "./BasicDetailsComponent";
+import ResumeComponent from "./ResumeComponent";
 
 const FormComponent: FC = () => {
     return (
         <div>
             <Container fluid={true} className='p-0'>
-                <BasicDetailsComponent></BasicDetailsComponent>
-                <EducationDetailsComponent></EducationDetailsComponent>
+                <Row>
+                    <Col xs={10} md={4} className='ctr-form' id='ctr-form'>
+                        <BasicDetailsComponent></BasicDetailsComponent>
+                        <EducationDetailsComponent></EducationDetailsComponent>
+                    </Col>
+                    <Col md={8} className='ctr-view' id='ctr-view'>
+                        <ResumeComponent></ResumeComponent>
+                    </Col>
+                </Row>
             </Container>
         </div>
     );

@@ -17,12 +17,11 @@ export interface IBasic {
     picture?: string;
     dob?: Date;
     email: string[];
-    phone?: string[];
     website?: string[];
     summary?: string;
     location?: ILocation;
     profile?: IProfile[];
-    contact?: string;
+    contact?: string[];
 }
 
 export interface IWork {

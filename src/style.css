@@ -1,33 +1,44 @@
 .ctr-form {
-  color: white;
-  background-color: #000000;
-  height: 100%;
+    color: white;
+    background-color: #000000;
+    min-height: 100vh;
+    height: 100%;
+    font-size: 0.8rem;
+}
+
+hr {
+    background-color: #212121;
 }
 
 .bg-grey {
-  background-color: #212121;
+    background-color: #212121;
+}
+
+.rm-form-btn {
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
 }
 
 .ctr-view {
-  /* A4 size */
-  /* width: 21cm;
+    /* A4 size */
+    /* width: 21cm;
     height: 29.7cm;
     margin: 30mm 45mm 30mm 45mm; */
 }
 
 .rm-textbox,
 .rm-textbox:focus {
-  background-color: #212121;
-  color: white;
-  border: 0;
+    background-color: #212121;
+    color: white;
+    border: 0;
 }
 
 .rm-textbox:focus {
-  border: 1px solid white;
+    border: 1px solid white;
 }
 
 #btnGeneratePDF {
-  position: fixed;
-  right: 50px;
-  bottom: 50px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
 }

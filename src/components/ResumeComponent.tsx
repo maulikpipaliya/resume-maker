@@ -62,8 +62,8 @@ const ResumeComponent: FC = () => {
     };
 
     const tableStyle = {
-        font: "small"
-    }
+        font: "small",
+    };
     return (
         <>
             <Container fluid={true} className='p-0'>
@@ -84,10 +84,13 @@ const ResumeComponent: FC = () => {
                                 <Table bordered={false} style={tableStyle}>
                                     <tbody>
                                         <tr>
-                                            <td colSpan={5} >
+                                            <td colSpan={5}>
+                                                <h3>
+
                                                 {stateObj.basics.name
                                                     ? stateObj.basics.name
-                                                    : "Hrithik"}
+                                                    : "Your good name here"}
+                                                    </h3>
                                             </td>
                                         </tr>
                                         <tr>
@@ -109,19 +112,25 @@ const ResumeComponent: FC = () => {
                                             <td className='font-weight-bold'>
                                                 DOB
                                             </td>
-                                            {/* <td>{stateObj.dob}</td> */}
+                                            <td>{stateObj.basics.dob}</td>
                                         </tr>
                                         <tr>
                                             <td className='font-weight-bold'>
                                                 Contact
                                             </td>
                                             <td colSpan={2}>
-                                                {/* {stateObj.contact} */}
+                                                {stateObj.basics.contact}
                                             </td>
                                             <td className='font-weight-bold'>
                                                 City
                                             </td>
-                                            {/* <td>{stateObj.city}</td> */}
+                                            <td>
+                                                {stateObj?.basics?.location
+                                                    ?.city +
+                                                    ", " +
+                                                    stateObj?.basics?.location
+                                                        ?.region}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </Table>

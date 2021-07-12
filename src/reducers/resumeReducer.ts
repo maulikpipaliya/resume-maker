@@ -6,7 +6,6 @@ const initialState: IResumeDataState = {
             name: "",
             picture: "",
             email: [""],
-            phone: [""],
             website: [""],
             summary: "",
             location: {
@@ -23,6 +22,7 @@ const initialState: IResumeDataState = {
                     url: "",
                 },
             ],
+            contact: [""]
         },
         work: [
             {
