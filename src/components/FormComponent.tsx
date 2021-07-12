@@ -62,18 +62,51 @@ const FormComponent: FC = () => {
         setStateObj(newstate);
     };
 
-    // const basicDetailHandler = (e: any) => {
-    //     const { name, value } = e.currentTarget;
-    //     console.log(e.currentTarget.name + " : ");
-    //     console.log(e.currentTarget.value);
-    //     setStateObj((prevState: any) => ({
-    //         ...prevState,
-    //         basics: {
-    //             ...prevState.basics,
-    //             [name]: value,
-    //         },
-    //     }));
-    // };
+    const basicDetailHandler = (e: any) => {
+        const { name, value } = e.currentTarget;
+        console.log(e.currentTarget.name + " : ");
+        console.log(e.currentTarget.value);
+
+        switch (name) {
+            case "name":
+            case "email":
+            case "contact":
+                setStateObj((prevState: any) => ({
+                    ...prevState,
+                    basics: {
+                        ...prevState.basics,
+                        [name]: value,
+                    },
+                }));
+                break;
+            case "city":
+            case "address":
+                setStateObj((prevState: any) => ({
+                    ...prevState,
+                    basics: {
+                        ...prevState.basics,
+                        location: {
+                            ...prevState.basics.location,
+                            [name]: value,
+                        },
+                    },
+                }));
+                break;
+            case 'username':
+                setStateObj((prevState: any) => ({
+                    ...prevState,
+                    basics: {
+                        ...prevState.basics,
+                        profile: [{
+                            [name] : value
+                        }]
+                    }
+                }));
+                break;
+            default:
+            // code block
+        }
+    };
 
     console.log(stateObj);
 
@@ -97,8 +130,8 @@ const FormComponent: FC = () => {
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control
                                         className='rm-textbox'
-                                        name='basics.name'
-                                        onChange={masterHandler}
+                                        name='name'
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
 
@@ -106,9 +139,9 @@ const FormComponent: FC = () => {
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type='email'
-                                        name='basics.email'
+                                        name='email'
                                         className='rm-textbox'
-                                        onChange={masterHandler}
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
                                 {/* <Form.Group controlId='dob'>
@@ -123,34 +156,34 @@ const FormComponent: FC = () => {
                                 <Form.Group controlId='contact'>
                                     <Form.Label>Contact</Form.Label>
                                     <Form.Control
-                                        name='basics.contact'
+                                        name='contact'
                                         className='rm-textbox'
-                                        onChange={masterHandler}
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId='city'>
                                     <Form.Label>City</Form.Label>
                                     <Form.Control
-                                        name='basics.location.city'
+                                        name='city'
                                         className='rm-textbox'
-                                        onChange={masterHandler}
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
                                 <Form.Group controlId='address'>
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
-                                        name='basics.location.address'
+                                        name='address'
                                         className='rm-textbox'
-                                        onChange={masterHandler}
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
 
                                 <Form.Group controlId='igusername'>
-                                    <Form.Label>Address</Form.Label>
+                                    <Form.Label>Username</Form.Label>
                                     <Form.Control
-                                        name='basics.profile.0.username'
+                                        name='username'
                                         className='rm-textbox'
-                                        onChange={masterHandler}
+                                        onChange={basicDetailHandler}
                                     />
                                 </Form.Group>
                             </Form>
