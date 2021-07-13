@@ -2,9 +2,8 @@ import React, { useState, useEffect, FormEvent, FC } from "react";
 import { Container, Row, Col, Form, Button, Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import ResumeComponent from "./ResumeComponent";
 import { RootState } from "../store";
-import { IResumeData, IResumeDataState } from "../schema";
+import { IResumeData, IResumeDataState, IBasic } from "../schema";
 import { updateResumeData } from "../actions/resumeAction";
 
 const BasicDetailsComponent: FC = () => {
@@ -25,7 +24,6 @@ const BasicDetailsComponent: FC = () => {
 
         switch (name) {
             case "name":
-            case "email":
             case "phone":
             case "contact":
             case "dob":
@@ -73,6 +71,43 @@ const BasicDetailsComponent: FC = () => {
         }
     };
 
+    const emailHandler = (e: any, idx: number) => {
+        const { name, value } = e.currentTarget;
+        const tempEmails = [...stateObj.basics.email];
+        tempEmails[idx] = value;
+
+        setStateObj((prevState: any) => ({
+            ...prevState,
+            basics: {
+                ...prevState.basics,
+                [name]: tempEmails,
+            },
+        }));
+    };
+
+    const addEmailBox = () => {
+        const emails = [];
+        setStateObj((prevState: any) => ({
+            ...prevState,
+            basics: {
+                ...prevState.basics,
+                email: [...prevState.basics.email, ""],
+            },
+        }));
+    };
+
+    const removeEmailHandler = (idx: number) => {
+        const emails = [];
+        const tempEmails = [...stateObj.basics.email];
+        tempEmails.splice(idx, 1);
+        setStateObj((prevState: any) => ({
+            ...prevState,
+            basics: {
+                ...prevState.basics,
+                email: tempEmails,
+            },
+        }));
+    };
     console.log(stateObj);
 
     useEffect(() => {
@@ -118,17 +153,48 @@ const BasicDetailsComponent: FC = () => {
                 </Row>
 
                 <Row>
-                    <Col>
-                        <Form.Group controlId='email'>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type='email'
-                                name='email'
-                                className='rm-textbox'
-                                onChange={basicDetailHandler}
-                            />
-                        </Form.Group>
-                    </Col>
+                    {stateObj?.basics?.email.map((emailItem, idx) => (
+                        <>
+                            <Col xs={10} md={10}>
+                                <Form.Group controlId='email'>
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type='email'
+                                        name='email'
+                                        className='rm-textbox'
+                                        onChange={(e) => emailHandler(e, idx)}
+                                    />
+                                </Form.Group>
+                            </Col>
+
+                            {stateObj?.basics.email.length !== 1 && (
+                                <Col xs={1} md={1} className='px-1'>
+                                    <Form.Group controlId='removeEmail'>
+                                        <Button
+                                            className='rm-remove-button'
+                                            onClick={() =>
+                                                removeEmailHandler(idx)
+                                            }
+                                        >
+                                            -
+                                        </Button>
+                                    </Form.Group>
+                                </Col>
+                            )}
+                            {stateObj?.basics.email.length - 1 === idx && (
+                                <Col xs={1} md={1} className='px-1'>
+                                    <Form.Group controlId='addEmail'>
+                                        <Button
+                                            className='rm-add-button'
+                                            onClick={addEmailBox}
+                                        >
+                                            +
+                                        </Button>
+                                    </Form.Group>
+                                </Col>
+                            )}
+                        </>
+                    ))}
                 </Row>
 
                 <Row>

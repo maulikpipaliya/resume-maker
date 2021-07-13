@@ -42,3 +42,22 @@ hr {
     right: 50px;
     bottom: 50px;
 }
+
+.rm-add-button, .rm-remove-button {
+    background-color: #212121;
+    color: white;
+    font-size: 1rem;
+    width: 38px;
+    border: 0px;
+    height: 38px;
+    margin-top: 27px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.rm-add-button:hover, .rm-add-button:focus{
+    background-color: green;
+}
+.rm-remove-button:hover,.rm-remove-button:focus{
+    background-color:red;
+}
