@@ -188,10 +188,10 @@ const EducationDetailsComponent: FC = () => {
                             </Row>
 
                             <Row>
-                                <Col xs={10} md={8}></Col>
+                                <Col xs={10} md={10}></Col>
 
                                 {stateObj?.education.length !== 1 && (
-                                    <Col xs={10} md={4}>
+                                    <Col xs={10} md={1}>
                                         <Form.Group controlId='addEducation'>
                                             <Button
                                                 className='rm-remove-button'
@@ -206,7 +206,7 @@ const EducationDetailsComponent: FC = () => {
                                 )}
 
                                 {stateObj?.education.length - 1 === idx && (
-                                    <Col xs={10} md={4}>
+                                    <Col xs={10} md={1}>
                                         <Form.Group controlId='addEducation'>
                                             <Button
                                                 className='rm-add-button'

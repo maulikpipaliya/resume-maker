@@ -86,11 +86,10 @@ const ResumeComponent: FC = () => {
                                         <tr>
                                             <td colSpan={5}>
                                                 <h3>
-
-                                                {stateObj.basics.name
-                                                    ? stateObj.basics.name
-                                                    : "Your good name here"}
-                                                    </h3>
+                                                    {stateObj.basics.name
+                                                        ? stateObj.basics.name
+                                                        : "Your good name here"}
+                                                </h3>
                                             </td>
                                         </tr>
                                         <tr>
@@ -105,9 +104,16 @@ const ResumeComponent: FC = () => {
                                                 Email
                                             </td>
                                             <td colSpan={2}>
-                                                {stateObj.basics.email
-                                                    ? stateObj.basics.email
-                                                    : "Hrithik"}
+                                                {stateObj?.basics?.email.map(
+                                                    (item, idx) => {
+                                                        return (
+                                                            <>
+                                                            {stateObj.basics.email[idx] ? stateObj.basics.email[idx] : ""}
+                                                            <br></br>
+                                                            </>
+                                                        );
+                                                    }
+                                                )}
                                             </td>
                                             <td className='font-weight-bold'>
                                                 DOB
@@ -136,6 +142,48 @@ const ResumeComponent: FC = () => {
                                 </Table>
                             </Col>
                         </Row>
+
+                        <Row className='mx-4 my-4'>
+                            <Col>
+                                <h4>EDUCATION DETAILS</h4>
+                                <hr />
+
+                                <Table bordered>
+                                    <thead>
+                                        <tr>
+                                            <th>Degree</th>
+                                            <th>University</th>
+                                            <th>Year</th>
+                                            <th>CPI/Aggregate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stateObj?.education?.map(
+                                            (item, idx) => {
+                                                return (
+                                                    <>
+                                                        <tr>
+                                                            <td>{item.area}</td>
+                                                            <td>
+                                                                {
+                                                                    item.institution
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {item.startDate}{" "}
+                                                                - {item.endDate}
+                                                            </td>
+                                                            <td>{item.gpa}</td>
+                                                        </tr>
+                                                    </>
+                                                );
+                                            }
+                                        )}
+                                    </tbody>
+                                </Table>
+                            </Col>
+                        </Row>
+
                         <Button id='btnGeneratePDF' onClick={generatePDF}>
                             Generate PDF One
                         </Button>
