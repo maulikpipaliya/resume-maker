@@ -117,7 +117,7 @@ const BasicDetailsComponent: FC = () => {
         console.log("State updated");
 
         return () => {};
-    }, [stateObj]);
+    }, [stateObj, dispatch]);
 
     return (
         <Container>
