@@ -43,7 +43,8 @@ hr {
     bottom: 50px;
 }
 
-.rm-add-button, .rm-remove-button {
+.rm-add-button,
+.rm-remove-button {
     background-color: #212121;
     color: white;
     font-size: 1rem;
@@ -55,9 +56,60 @@ hr {
     border-radius: 50%;
 }
 
-.rm-add-button:hover, .rm-add-button:focus{
+.rm-add-button:hover,
+.rm-add-button:focus {
     background-color: green;
 }
-.rm-remove-button:hover,.rm-remove-button:focus{
-    background-color:red;
+.rm-remove-button:hover,
+.rm-remove-button:focus {
+    background-color: red;
+}
+
+/* tags */
+
+.rm-tag {
+    display: inline-block;
+    background-color: #212121;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.3rem;
+    width: fit-content;
+}
+
+.rm-tags-input {
+    margin: 0.3rem;
+}
+.rm-tags-textbox {
+    background-color: #212121;
+    color: white;
+    border: 0;
+    padding: 0.5rem 0.3rem;
+    border-radius: 0.5rem;
+}
+
+datalist {
+    position: absolute;
+    background-color: red;
+    border: 1px solid blue;
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+    font-family: sans-serif;
+    width: 350px;
+    padding: 5px;
+}
+
+.rm-remove-tag-icon{
+    margin: 0rem 0.5rem 0rem 0.8rem;
+    color:red;
+}
+
+.rm-tags-suggestions{
+    border: 1px solid;
+  padding: 5px;
+  position: absolute;
+  top: 45px;
+  bottom: 0px;
+  height: fit-content;
+  width: 100%;
 }
