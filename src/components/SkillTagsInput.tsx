@@ -1,6 +1,5 @@
 import React, { useState, FC, useEffect } from "react";
-import { Button, Col, Dropdown, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Col, Row } from "react-bootstrap";
 
 import allValues from "../itdata";
 import { IResumeDataState, ISkill } from "../schema";

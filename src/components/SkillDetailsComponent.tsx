@@ -1,9 +1,5 @@
 import React, { FC } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-
-import { RootState } from "../store";
-import { IEducation, IResumeData, IResumeDataState } from "../schema";
 import SkillTagsInput from "./SkillTagsInput";
 
 const SkillDetailsComponent: FC = () => {

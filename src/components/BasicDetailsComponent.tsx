@@ -1,9 +1,9 @@
-import React, { useState, useEffect, FormEvent, FC } from "react";
-import { Container, Row, Col, Form, Button, Badge } from "react-bootstrap";
+import React, { useState, useEffect, FC } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../store";
-import { IResumeData, IResumeDataState, IBasic } from "../schema";
+import { IResumeDataState } from "../schema";
 import { updateResumeData } from "../actions/resumeAction";
 
 const BasicDetailsComponent: FC = () => {
@@ -12,15 +12,15 @@ const BasicDetailsComponent: FC = () => {
     );
 
     const dispatch = useDispatch();
-    console.log(initialState);
+    // console.log(initialState);
     const [stateObj, setStateObj] = useState(initialState.data);
 
-    console.log(stateObj);
+    // console.log(stateObj);
 
     const basicDetailHandler = (e: any) => {
         const { name, value } = e.currentTarget;
-        console.log(e.currentTarget.name + " : ");
-        console.log(e.currentTarget.value);
+        // console.log(e.currentTarget.name + " : ");
+        // console.log(e.currentTarget.value);
 
         switch (name) {
             case "name":
@@ -86,7 +86,6 @@ const BasicDetailsComponent: FC = () => {
     };
 
     const addEmailBox = () => {
-        const emails = [];
         setStateObj((prevState: any) => ({
             ...prevState,
             basics: {
@@ -97,7 +96,6 @@ const BasicDetailsComponent: FC = () => {
     };
 
     const removeEmailHandler = (idx: number) => {
-        const emails = [];
         const tempEmails = [...stateObj.basics.email];
         tempEmails.splice(idx, 1);
         setStateObj((prevState: any) => ({
@@ -108,13 +106,13 @@ const BasicDetailsComponent: FC = () => {
             },
         }));
     };
-    console.log(stateObj);
+    // console.log(stateObj);
 
     useEffect(() => {
-        console.log("State updating");
+        // console.log("State updating");
         dispatch(updateResumeData(stateObj));
-        console.log(stateObj);
-        console.log("State updated");
+        // console.log(stateObj);
+        // console.log("State updated");
 
         return () => {};
     }, [stateObj, dispatch]);
@@ -154,8 +152,8 @@ const BasicDetailsComponent: FC = () => {
 
                 <Row>
                     {stateObj?.basics?.email.map((emailItem, idx) => (
-                        <>
-                            <Col xs={10} md={10}>
+                        <React.Fragment key={idx}>
+                            <Col xs={10} md={10} key={idx}>
                                 <Form.Group controlId='email'>
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
@@ -168,7 +166,7 @@ const BasicDetailsComponent: FC = () => {
                             </Col>
 
                             {stateObj?.basics.email.length !== 1 && (
-                                <Col xs={1} md={1} className='px-1'>
+                                <Col xs={1} md={1} className='px-1' key={idx}>
                                     <Form.Group controlId='removeEmail'>
                                         <Button
                                             className='rm-remove-button'
@@ -193,7 +191,7 @@ const BasicDetailsComponent: FC = () => {
                                     </Form.Group>
                                 </Col>
                             )}
-                        </>
+                        </React.Fragment>
                     ))}
                 </Row>
 

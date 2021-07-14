@@ -1,52 +1,25 @@
-import React, { useState, useEffect, FC } from "react";
-import html2canvas from "html2canvas";
+import React, { useEffect, FC } from "react";
 import jsPDF from "jspdf";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { IResumeData, IResumeDataState } from "../schema";
-import { updateResumeData } from "../actions/resumeAction";
+import { IResumeData } from "../schema";
 
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    Figure,
-    Table,
-    Button,
-} from "react-bootstrap";
+import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
 
 const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
         (state: RootState) => state.resumeData.data
     );
 
-    console.log("--from resume page--");
-    console.log(stateObj);
-
     useEffect(() => {
-        console.log("--from resume page--");
-        console.log(stateObj);
         return () => {};
     }, [stateObj]);
-
-    const getCanvas = (page: any) => {
-        const a4 = [595, 842]; // for a4 size paper width and height in pixels
-
-        //page.height((a4[1] * 1.3333) - 80).css('max-height','none');
-        return html2canvas(page, {
-            imageTimeout: 2000,
-            removeContainer: true,
-        });
-    };
-
-    const previewPDF = () => {};
 
     const generatePDF = () => {
         console.log("Generating PDF");
         const doc = new jsPDF("p", "pt", "a4");
         const htmlCode: any = document.querySelector("#ctr-view");
-        console.log(htmlCode);
+        // console.log(htmlCode);
 
         // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
@@ -107,7 +80,7 @@ const ResumeComponent: FC = () => {
                                                 {stateObj?.basics?.email.map(
                                                     (item, idx) => {
                                                         return (
-                                                            <>
+                                                            <div key={idx}>
                                                                 {stateObj.basics
                                                                     .email[idx]
                                                                     ? stateObj
@@ -117,7 +90,7 @@ const ResumeComponent: FC = () => {
                                                                       ]
                                                                     : ""}
                                                                 <br></br>
-                                                            </>
+                                                            </div>
                                                         );
                                                     }
                                                 )}
@@ -168,7 +141,7 @@ const ResumeComponent: FC = () => {
                                         {stateObj?.education?.map(
                                             (item, idx) => {
                                                 return (
-                                                    <>
+                                                    <React.Fragment key={idx}>
                                                         <tr>
                                                             <td>{item.area}</td>
                                                             <td>
@@ -182,7 +155,7 @@ const ResumeComponent: FC = () => {
                                                             </td>
                                                             <td>{item.gpa}</td>
                                                         </tr>
-                                                    </>
+                                                    </React.Fragment>
                                                 );
                                             }
                                         )}
@@ -206,7 +179,9 @@ const ResumeComponent: FC = () => {
                                             <td>
                                                 {stateObj?.skills[0]?.keywords.map(
                                                     (keyword, idx) => (
-                                                        <>{keyword + ", "}</>
+                                                        <div key={idx}>
+                                                            {keyword + ", "}
+                                                        </div>
                                                     )
                                                 )}
                                             </td>

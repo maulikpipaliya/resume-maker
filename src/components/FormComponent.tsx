@@ -4,7 +4,7 @@ import EducationDetailsComponent from "./EducationDetailsComponent";
 import BasicDetailsComponent from "./BasicDetailsComponent";
 import SkillDetailsComponent from "./SkillDetailsComponent";
 import ResumeComponent from "./ResumeComponent";
-import { skipPartiallyEmittedExpressions } from "typescript";
+
 
 const FormComponent: FC = () => {
     return (

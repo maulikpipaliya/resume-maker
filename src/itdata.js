@@ -1,4 +1,4 @@
-export default [
+const allPossibleValues = [
     { id: 1, text: "React" },
     { id: 2, text: "JavaScript" },
     { id: 3, text: "Angular" },
@@ -6,3 +6,5 @@ export default [
     { id: 5, text: "Symphony" },
     { id: 6, text: "PHP" },
 ];
+
+export default allPossibleValues;

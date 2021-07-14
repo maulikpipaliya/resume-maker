@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../store";
-import { IEducation, IResumeData, IResumeDataState } from "../schema";
+import { IEducation, IResumeDataState } from "../schema";
 import { updateResumeData } from "../actions/resumeAction";
 
 const EducationDetailsComponent: FC = () => {
@@ -15,32 +15,8 @@ const EducationDetailsComponent: FC = () => {
 
     const [stateObj, setStateObj] = useState(initialState.data);
 
-    console.log(stateObj);
-
-    const educationDetailsHandlerOld = (e: any) => {
-        const { name, value } = e.currentTarget;
-
-        switch (name) {
-            case "institution":
-            case "area":
-            case "studyType":
-            case "startDate":
-            case "endDate":
-            case "gpa":
-                setStateObj((prevState: any) => ({
-                    ...prevState,
-                    education: [...prevState.education],
-                }));
-                break;
-
-            default:
-                break;
-        }
-    };
-
     const educationDetailsHandlerNew = (e: any, idx: number) => {
         const { name: keyName, value } = e.currentTarget;
-        const tempEducation: IEducation[] = [...stateObj?.education];
 
         switch (keyName) {
             case "institution":
@@ -63,7 +39,7 @@ const EducationDetailsComponent: FC = () => {
                 break;
         }
     };
-    console.log(stateObj);
+    // console.log(stateObj);
 
     const addEducationFields = () => {
         const newEducation = {
@@ -89,10 +65,7 @@ const EducationDetailsComponent: FC = () => {
     };
 
     useEffect(() => {
-        console.log("State updating");
         dispatch(updateResumeData(stateObj));
-        console.log(stateObj);
-        console.log("State updated");
 
         return () => {};
     }, [stateObj, dispatch]);
@@ -106,7 +79,7 @@ const EducationDetailsComponent: FC = () => {
                 </h5>
                 {stateObj?.education?.map((item, idx) => {
                     return (
-                        <>
+                        <React.Fragment key={idx}>
                             <Row>
                                 <Col xs={10} md={4}>
                                     <Form.Group controlId='area'>
@@ -218,7 +191,7 @@ const EducationDetailsComponent: FC = () => {
                                     </Col>
                                 )}
                             </Row>
-                        </>
+                        </React.Fragment>
                     );
                 })}
             </Form>

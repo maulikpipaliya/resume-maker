@@ -1,16 +1,7 @@
 import React, { FC } from "react";
 import jsPDF from "jspdf";
-import { resumeStyle, oldStyle } from "../resumeStyle";
-
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    Figure,
-    Table,
-    Button,
-} from "react-bootstrap";
+import { oldStyle } from "../resumeStyle";
+import { Button } from "react-bootstrap";
 
 const ResumeView: FC = () => {
     const generatePDF = () => {
@@ -29,8 +20,7 @@ const ResumeView: FC = () => {
 
     return (
         <>
-            <div style={oldStyle["container"]} id="ctr-view">
-         
+            <div style={oldStyle["container"]} id='ctr-view'>
                 <header style={oldStyle["hdr-ctr"]}>
                     <section style={oldStyle["logo-ctr"]}>
                         <img
@@ -70,7 +60,7 @@ const ResumeView: FC = () => {
                 </header>
                 <section>
                     <h5 style={oldStyle["dtl-title"]}>EDUCATION</h5>
-                    <table  className="dtl-edu-tbl">
+                    <table className='dtl-edu-tbl'>
                         <tr>
                             <th>Degree</th>
                             <th>University</th>
