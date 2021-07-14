@@ -108,8 +108,15 @@ const ResumeComponent: FC = () => {
                                                     (item, idx) => {
                                                         return (
                                                             <>
-                                                            {stateObj.basics.email[idx] ? stateObj.basics.email[idx] : ""}
-                                                            <br></br>
+                                                                {stateObj.basics
+                                                                    .email[idx]
+                                                                    ? stateObj
+                                                                          .basics
+                                                                          .email[
+                                                                          idx
+                                                                      ]
+                                                                    : ""}
+                                                                <br></br>
                                                             </>
                                                         );
                                                     }
@@ -179,6 +186,31 @@ const ResumeComponent: FC = () => {
                                                 );
                                             }
                                         )}
+                                    </tbody>
+                                </Table>
+                            </Col>
+                        </Row>
+
+                        <Row className='mx-4 my-4'>
+                            <Col>
+                                <h4>SKILLS</h4>
+                                <hr />
+                                <Table bordered>
+                                    <thead>
+                                        <tr>
+                                            <th>Expertise</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {stateObj?.skills[0]?.keywords.map(
+                                                    (keyword, idx) => (
+                                                        <>{keyword + ", "}</>
+                                                    )
+                                                )}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </Table>
                             </Col>

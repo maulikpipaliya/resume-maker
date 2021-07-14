@@ -15,7 +15,7 @@ const SkillDetailsComponent: FC = () => {
                     <hr />
                 </h5>
                 <Row>
-                    <Col xs={10} md={7}>
+                    <Col xs={10} md={10}>
                         <SkillTagsInput></SkillTagsInput>
                     </Col>
                 </Row>

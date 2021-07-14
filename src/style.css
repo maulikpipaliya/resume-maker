@@ -4,6 +4,7 @@
     min-height: 100vh;
     height: 100%;
     font-size: 0.8rem;
+    padding-bottom: 5rem;
 }
 
 hr {
@@ -24,6 +25,7 @@ hr {
     /* width: 21cm;
     height: 29.7cm;
     margin: 30mm 45mm 30mm 45mm; */
+    
 }
 
 .rm-textbox,
@@ -84,32 +86,43 @@ hr {
     background-color: #212121;
     color: white;
     border: 0;
-    padding: 0.5rem 0.3rem;
+    width: 100%;
+    padding: 0.5rem 0.5rem;
     border-radius: 0.5rem;
 }
 
-datalist {
-    position: absolute;
-    background-color: red;
-    border: 1px solid blue;
-    border-radius: 0 0 5px 5px;
-    border-top: none;
-    font-family: sans-serif;
-    width: 350px;
-    padding: 5px;
-}
-
-.rm-remove-tag-icon{
+.rm-remove-tag-icon {
     margin: 0rem 0.5rem 0rem 0.8rem;
-    color:red;
+    color: white;
+    border-radius: 0.5rem;
 }
 
-.rm-tags-suggestions{
-    border: 1px solid;
-  padding: 5px;
-  position: absolute;
-  top: 45px;
-  bottom: 0px;
-  height: fit-content;
-  width: 100%;
+.rm-remove-tag-icon:hover {
+    cursor: pointer;
+}
+
+.rm-tags-suggestions {
+    background-color: #212121;
+
+    bottom: 0px;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: 0.3rem;
+    padding: 5px 0px;
+    border-radius: 0.5rem;
+}
+
+.rm-tags-suggestion {
+    background-color: #212121;
+    color: white;
+    margin: 0.3rem;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    /* width:100%; */
+    /* border: 1px solid #212121; */
+}
+
+.rm-tags-suggestion:hover,
+.rm-tags-suggestion:active {
+    background-color: black;
 }

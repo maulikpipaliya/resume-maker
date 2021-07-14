@@ -1,4 +1,8 @@
-import { IResumeDataState, IResumeAction, UPDATE_RESUME_DATA } from "./../schema";
+import {
+    IResumeDataState,
+    IResumeAction,
+    UPDATE_RESUME_DATA,
+} from "./../schema";
 
 const initialState: IResumeDataState = {
     data: {
@@ -22,7 +26,7 @@ const initialState: IResumeDataState = {
                     url: "",
                 },
             ],
-            contact: [""]
+            contact: [],
         },
         work: [
             {
@@ -39,14 +43,14 @@ const initialState: IResumeDataState = {
                 area: "",
                 studyType: "",
                 gpa: 0,
-                courses: [],
+                courses: [""],
             },
         ],
         skills: [
             {
                 name: "",
                 level: "",
-                keywords: [""],
+                keywords: [],
             },
         ],
     },
@@ -61,7 +65,7 @@ const resumeReducer = (
     switch (action.type) {
         case UPDATE_RESUME_DATA: {
             return {
-                ...state, 
+                ...state,
                 data: action.payload,
                 error: "",
                 loading: false,
