@@ -4,7 +4,9 @@ import EducationDetailsComponent from "./EducationDetailsComponent";
 import BasicDetailsComponent from "./BasicDetailsComponent";
 import SkillDetailsComponent from "./SkillDetailsComponent";
 import ResumeComponent from "./ResumeComponent";
+import TagsInput from "./TagsInput";
 
+import tagInputPropDataX from "./tagInputPropData";
 
 const FormComponent: FC = () => {
     return (
@@ -12,9 +14,12 @@ const FormComponent: FC = () => {
             <Container fluid={true} className='p-0'>
                 <Row>
                     <Col xs={10} md={4} className='ctr-form' id='ctr-form'>
-                        <BasicDetailsComponent></BasicDetailsComponent>
-                        <EducationDetailsComponent></EducationDetailsComponent>
-                        <SkillDetailsComponent></SkillDetailsComponent>
+                        <TagsInput
+                            tagInputData={tagInputPropDataX}
+                        ></TagsInput>
+                        {/* <BasicDetailsComponent></BasicDetailsComponent> */}
+                        {/* <EducationDetailsComponent></EducationDetailsComponent> */}
+                        {/* <SkillDetailsComponent></SkillDetailsComponent> */}
                     </Col>
                     <Col md={8} className='ctr-view' id='ctr-view'>
                         <ResumeComponent></ResumeComponent>
