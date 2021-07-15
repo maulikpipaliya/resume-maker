@@ -2,7 +2,7 @@ import React, { useEffect, FC } from "react";
 import jsPDF from "jspdf";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { IResumeData, ISkill, ISkillState } from "../schema";
+import { IResumeData } from "../schema";
 
 import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
 

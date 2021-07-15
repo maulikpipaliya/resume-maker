@@ -4,9 +4,7 @@ import EducationDetailsComponent from "./EducationDetailsComponent";
 import BasicDetailsComponent from "./BasicDetailsComponent";
 import SkillDetailsComponent from "./SkillDetailsComponent";
 import ResumeComponent from "./ResumeComponent";
-import TagsInput from "./TagsInput";
 
-import tagInputPropDataX from "./tagInputPropData";
 
 const FormComponent: FC = () => {
     return (

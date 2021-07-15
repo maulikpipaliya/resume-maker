@@ -1,14 +1,10 @@
 import React, { useState, FC, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-
-import { expertiseData } from "../skillsData";
 import { IResumeDataState, ISkill } from "../schema";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { updateResumeData } from "../actions/resumeAction";
 import { addKeyword, removeKeyword } from "../actions/skillActions";
-
-const allValues = expertiseData;
 
 interface Props {
     skillType: string;
@@ -73,7 +69,7 @@ const SkillTagsInput: FC<Props> = ({
         const skill: ISkill = { ...tempSkills[0] };
 
         dispatch(removeKeyword(skillType, tags[i]));
-        
+
         skill.keywords.splice(i, 1);
         tempSkills[0] = skill;
 

@@ -14,15 +14,6 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
     const [input, setInput] = useState("");
     const [suggestions, setSuggestions] = useState<typeof tagInputData>([]);
 
-    const allValues = tagInputData.map(({ text }) => text);
-
-    const handleSuggestion = () => {
-        console.log("Input is" + input);
-        const suggestions = allValues.filter((item) =>
-            item.toLowerCase().includes(input.toLowerCase())
-        );
-        console.log("suggestions are " + suggestions);
-    };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInput(e.currentTarget.value);
     };

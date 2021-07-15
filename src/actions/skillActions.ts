@@ -7,7 +7,6 @@ import {
     IResumeAction,
     IResumeData,
     ISkill,
-    ISkillAction,
     ISkillKeywordAction,
     REMOVE_KEYWORD,
     UPDATE_RESUME_DATA,
