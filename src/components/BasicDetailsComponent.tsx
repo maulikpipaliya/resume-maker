@@ -186,7 +186,7 @@ const BasicDetailsComponent: FC = () => {
                 <Row>
                     {stateObj?.basics?.email.map((emailItem, idx) => (
                         <React.Fragment key={idx}>
-                            <Col xs={10} md={10} key={idx}>
+                            <Col xs={10} md={10}>
                                 <Form.Group controlId='email'>
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
@@ -199,7 +199,7 @@ const BasicDetailsComponent: FC = () => {
                             </Col>
 
                             {stateObj?.basics.email.length !== 1 && (
-                                <Col xs={1} md={1} className='px-1' key={idx}>
+                                <Col xs={1} md={1} className='px-1'>
                                     <Form.Group controlId='removeEmail'>
                                         <Button
                                             className='rm-remove-button'
