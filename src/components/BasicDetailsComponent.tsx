@@ -1,46 +1,80 @@
-import React, { useState, useEffect, FC } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, FC } from 'react'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { RootState } from "../store";
-import { IResumeDataState } from "../schema";
-import { updateResumeData } from "../actions/resumeAction";
+import { RootState } from '../store'
+import { IResumeDataState } from '../schema'
+import { updateResumeData } from '../actions/resumeAction'
 
 const BasicDetailsComponent: FC = () => {
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
-    );
+    )
 
-    const dispatch = useDispatch();
+    const convertDate = (dateTimeStamp: number) => {
+        let monthNames = [
+            'January,',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ]
+
+        let day = new Date(dateTimeStamp).getDate()
+
+        let monthIndex = new Date(dateTimeStamp).getMonth()
+        let monthName = monthNames[monthIndex]
+
+        let year = new Date(dateTimeStamp).getFullYear()
+
+        return `${monthName} ${day}, ${year}`
+    }
+
+    const dispatch = useDispatch()
     // console.log(initialState);
-    const [stateObj, setStateObj] = useState(initialState.data);
+    const [stateObj, setStateObj] = useState(initialState.data)
 
     // console.log(stateObj);
 
     const basicDetailHandler = (e: any) => {
-        const { name, value } = e.currentTarget;
+        const { name, value } = e.currentTarget
         // console.log(e.currentTarget.name + " : ");
         // console.log(e.currentTarget.value);
 
         switch (name) {
-            case "name":
-            case "phone":
-            case "contact":
-            case "dob":
-            case "summary":
+            case 'name':
+            case 'phone':
+            case 'contact':
+            case 'summary':
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
                         ...prevState.basics,
                         [name]: value,
                     },
-                }));
-                break;
-            case "city":
-            case "address":
-            case "postalCode":
-            case "countryCode":
-            case "region":
+                }))
+                break
+            case 'dob':
+                setStateObj((prevState: any) => ({
+                    ...prevState,
+                    basics: {
+                        ...prevState.basics,
+                        [name]: convertDate(e.target.valueAsNumber),
+                    },
+                }))
+                break
+            case 'city':
+            case 'address':
+            case 'postalCode':
+            case 'countryCode':
+            case 'region':
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
@@ -50,10 +84,10 @@ const BasicDetailsComponent: FC = () => {
                             [name]: value,
                         },
                     },
-                }));
-                break;
+                }))
+                break
 
-            case "username":
+            case 'username':
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     basics: {
@@ -64,17 +98,17 @@ const BasicDetailsComponent: FC = () => {
                             },
                         ],
                     },
-                }));
-                break;
+                }))
+                break
             default:
             // code block
         }
-    };
+    }
 
     const emailHandler = (e: any, idx: number) => {
-        const { name, value } = e.currentTarget;
-        const tempEmails = [...stateObj.basics.email];
-        tempEmails[idx] = value;
+        const { name, value } = e.currentTarget
+        const tempEmails = [...stateObj.basics.email]
+        tempEmails[idx] = value
 
         setStateObj((prevState: any) => ({
             ...prevState,
@@ -82,40 +116,40 @@ const BasicDetailsComponent: FC = () => {
                 ...prevState.basics,
                 [name]: tempEmails,
             },
-        }));
-    };
+        }))
+    }
 
     const addEmailBox = () => {
         setStateObj((prevState: any) => ({
             ...prevState,
             basics: {
                 ...prevState.basics,
-                email: [...prevState.basics.email, ""],
+                email: [...prevState.basics.email, ''],
             },
-        }));
-    };
+        }))
+    }
 
     const removeEmailHandler = (idx: number) => {
-        const tempEmails = [...stateObj.basics.email];
-        tempEmails.splice(idx, 1);
+        const tempEmails = [...stateObj.basics.email]
+        tempEmails.splice(idx, 1)
         setStateObj((prevState: any) => ({
             ...prevState,
             basics: {
                 ...prevState.basics,
                 email: tempEmails,
             },
-        }));
-    };
+        }))
+    }
     // console.log(stateObj);
 
     useEffect(() => {
         // console.log("State updating");
-        dispatch(updateResumeData(stateObj));
+        dispatch(updateResumeData(stateObj))
         // console.log(stateObj);
         // console.log("State updated");
 
-        return () => {};
-    }, [stateObj, dispatch]);
+        return () => {}
+    }, [stateObj, dispatch])
 
     return (
         <Container>
@@ -143,8 +177,7 @@ const BasicDetailsComponent: FC = () => {
                                 type='date'
                                 name='dob'
                                 className='rm-textbox'
-                                placeholder='dd-mm-yyyy'
-                                onChange={basicDetailHandler}
+                                onBlur={basicDetailHandler}
                             />
                         </Form.Group>
                     </Col>
@@ -228,7 +261,7 @@ const BasicDetailsComponent: FC = () => {
                 </Form.Group>
             </Form>
         </Container>
-    );
-};
+    )
+}
 
-export default BasicDetailsComponent;
+export default BasicDetailsComponent
