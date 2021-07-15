@@ -1,74 +1,74 @@
-import React, { useState, useEffect, FC } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, FC } from 'react'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { RootState } from "../store";
-import { IEducation, IResumeDataState } from "../schema";
-import { updateResumeData } from "../actions/resumeAction";
+import { RootState } from '../store'
+import { IEducation, IResumeDataState } from '../schema'
+import { updateResumeData } from '../actions/resumeAction'
 
 const EducationDetailsComponent: FC = () => {
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
-    );
+    )
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const [stateObj, setStateObj] = useState(initialState.data);
+    const [stateObj, setStateObj] = useState(initialState.data)
 
     const educationDetailsHandlerNew = (e: any, idx: number) => {
-        const { name: keyName, value } = e.currentTarget;
+        const { name: keyName, value } = e.currentTarget
 
         switch (keyName) {
-            case "institution":
-            case "area":
-            case "studyType":
-            case "startDate":
-            case "endDate":
-            case "gpa":
-                const tempEducation: IEducation[] = [...stateObj?.education];
-                const ed: any = { ...tempEducation[idx] };
+            case 'institution':
+            case 'area':
+            case 'studyType':
+            case 'startDate':
+            case 'endDate':
+            case 'gpa':
+                const tempEducation: IEducation[] = [...stateObj?.education]
+                const ed: any = { ...tempEducation[idx] }
 
-                ed[keyName] = value;
-                tempEducation[idx] = ed;
+                ed[keyName] = value
+                tempEducation[idx] = ed
                 setStateObj((prevState: any) => ({
                     ...prevState,
                     education: tempEducation,
-                }));
-                break;
+                }))
+                break
             default:
-                break;
+                break
         }
-    };
+    }
     // console.log(stateObj);
 
     const addEducationFields = () => {
         const newEducation = {
-            institution: "",
-            area: "",
-            studyType: "",
+            institution: '',
+            area: '',
+            studyType: '',
             gpa: 0,
             courses: [],
-        };
+        }
         setStateObj((prevState: any) => ({
             ...prevState,
             education: [...prevState.education, newEducation],
-        }));
-    };
+        }))
+    }
 
     const removeEducationFields = (idx: number) => {
-        const tempEducation = [...stateObj.education];
-        tempEducation.splice(idx, 1);
+        const tempEducation = [...stateObj.education]
+        tempEducation.splice(idx, 1)
         setStateObj((prevState: any) => ({
             ...prevState,
             education: tempEducation,
-        }));
-    };
+        }))
+    }
 
     useEffect(() => {
-        dispatch(updateResumeData(stateObj));
+        dispatch(updateResumeData(stateObj))
 
-        return () => {};
-    }, [stateObj, dispatch]);
+        return () => {}
+    }, [stateObj, dispatch])
 
     return (
         <Container>
@@ -165,7 +165,7 @@ const EducationDetailsComponent: FC = () => {
 
                                 {stateObj?.education.length !== 1 && (
                                     <Col xs={10} md={1}>
-                                        <Form.Group controlId='addEducation'>
+                                        <Form.Group controlId='removeEducation'>
                                             <Button
                                                 className='rm-remove-button'
                                                 onClick={() =>
@@ -192,11 +192,11 @@ const EducationDetailsComponent: FC = () => {
                                 )}
                             </Row>
                         </React.Fragment>
-                    );
+                    )
                 })}
             </Form>
         </Container>
-    );
-};
+    )
+}
 
-export default EducationDetailsComponent;
+export default EducationDetailsComponent

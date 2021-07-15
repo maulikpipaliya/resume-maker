@@ -56,9 +56,9 @@ export interface IEducation {
 
 export interface IAward {
     title: string;
-    date: Date;
-    awarder: string;
-    summary: string;
+    date?: Date;
+    awarder?: string;
+    summary?: string;
 }
 
 export interface IPublication {
@@ -114,6 +114,10 @@ export interface ISkillState {
     data: ISkill[];
     error: string;
 }
+export interface IAwardState{
+    data:IAward[];
+    error:string;
+}
 
 export interface IResumeDataError {
     errorCode: number;
@@ -128,6 +132,8 @@ export const RESET_SKILLS = "RESET_SKILLS";
 export const ADD_KEYWORD = "ADD_KEYWORD";
 export const REMOVE_KEYWORD = "REMOVE_KEYWORD";
 export const RESET_KEYWORD = "RESET_KEYWORD";
+export const ADD_AWARD = "ADD_AWARD";
+export const REMOVE_AWARD = "REMOVE_AWARD";
 
 interface IUpdateSkillsAction {
     type: typeof ADD_SKILL | typeof REMOVE_SKILL;
@@ -139,6 +145,11 @@ export type IAddSkillAction = {
     payload: ISkill;
 };
 
+interface IUpdateAwardsAction{
+    type: typeof ADD_AWARD| typeof REMOVE_AWARD;
+    payload:IAward;
+
+}
 //Action Type
 
 interface IUpdateSkillKeywordsAction {
@@ -150,6 +161,7 @@ interface IUpdateSkillKeywordsAction {
 }
 
 export type ISkillAction = IUpdateSkillsAction | IUpdateSkillKeywordsAction;
+export type IAwardAction= IUpdateAwardsAction;
 export type ISkillKeywordAction = IUpdateSkillKeywordsAction;
 // export type IAddSkillAction = IAddSkillAction;
 

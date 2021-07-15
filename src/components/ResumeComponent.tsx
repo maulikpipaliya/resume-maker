@@ -1,44 +1,45 @@
-import React, { useEffect, FC } from "react";
-import jsPDF from "jspdf";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { IResumeData } from "../schema";
+import React, { useEffect, FC } from 'react'
+import jsPDF from 'jspdf'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { IResumeData } from '../schema'
 
-import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
+import { Container, Row, Col, Figure, Table, Button } from 'react-bootstrap'
 
 const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
         (state: RootState) => state.resumeData.data
-    );
+    )
 
-    const skills = useSelector((state: RootState) => state.skills.data);
+    const skills = useSelector((state: RootState) => state.skills.data)
+    const awards = useSelector((state: RootState) => state.awards.data)
 
     useEffect(() => {
-        return () => {};
-    }, [stateObj]);
+        return () => {}
+    }, [stateObj])
 
     const generatePDF = () => {
-        console.log("Generating PDF");
-        const doc = new jsPDF("p", "pt", "a4");
-        const htmlCode: any = document.querySelector("#ctr-view");
+        console.log('Generating PDF')
+        const doc = new jsPDF('p', 'pt', 'a4')
+        const htmlCode: any = document.querySelector('#ctr-view')
         // console.log(htmlCode);
 
         // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
             callback: function (pdf: any) {
-                pdf.save("resume-maulik.pdf");
+                pdf.save('resume-maulik.pdf')
             },
-        });
-    };
+        })
+    }
 
     var divStyle = {
-        color: "blak",
-        width: "600px",
-    };
+        color: 'blak',
+        width: '600px',
+    }
 
     const tableStyle = {
-        font: "small",
-    };
+        font: 'small',
+    }
     return (
         <>
             <Container fluid={true} className='p-0'>
@@ -63,7 +64,7 @@ const ResumeComponent: FC = () => {
                                                 <h3>
                                                     {stateObj.basics.name
                                                         ? stateObj.basics.name
-                                                        : "Your good name here"}
+                                                        : 'Your good name here'}
                                                 </h3>
                                             </td>
                                         </tr>
@@ -90,10 +91,10 @@ const ResumeComponent: FC = () => {
                                                                           .email[
                                                                           idx
                                                                       ]
-                                                                    : ""}
+                                                                    : ''}
                                                                 <br></br>
                                                             </div>
-                                                        );
+                                                        )
                                                     }
                                                 )}
                                             </td>
@@ -115,7 +116,7 @@ const ResumeComponent: FC = () => {
                                             <td>
                                                 {stateObj?.basics?.location
                                                     ?.city +
-                                                    ", " +
+                                                    ', ' +
                                                     stateObj?.basics?.location
                                                         ?.region}
                                             </td>
@@ -152,13 +153,13 @@ const ResumeComponent: FC = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                {item.startDate}{" "}
+                                                                {item.startDate}{' '}
                                                                 - {item.endDate}
                                                             </td>
                                                             <td>{item.gpa}</td>
                                                         </tr>
                                                     </React.Fragment>
-                                                );
+                                                )
                                             }
                                         )}
                                     </tbody>
@@ -184,7 +185,7 @@ const ResumeComponent: FC = () => {
                                                 {skills[0]?.keywords.map(
                                                     (keyword, idx) => (
                                                         <div key={idx}>
-                                                            {keyword + ", "}
+                                                            {keyword + ', '}
                                                         </div>
                                                     )
                                                 )}
@@ -193,7 +194,7 @@ const ResumeComponent: FC = () => {
                                                 {skills[2]?.keywords.map(
                                                     (keyword, idx) => (
                                                         <div key={idx}>
-                                                            {keyword + ", "}
+                                                            {keyword + ', '}
                                                         </div>
                                                     )
                                                 )}
@@ -202,7 +203,7 @@ const ResumeComponent: FC = () => {
                                                 {skills[1]?.keywords.map(
                                                     (keyword, idx) => (
                                                         <div key={idx}>
-                                                            {keyword + ", "}
+                                                            {keyword + ', '}
                                                         </div>
                                                     )
                                                 )}
@@ -213,6 +214,22 @@ const ResumeComponent: FC = () => {
                             </Col>
                         </Row>
 
+                        <Row className='mx-4 my-4'>
+                            <Col>
+                                <h4>Awards</h4>
+                                <hr />
+
+                                <ul>
+                                    {awards.map((award, idx) => (
+                                        <li key={idx}>
+                                            {award.title} - {award.awarder} -{' '}
+                                            {award.summary}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Col>
+                        </Row>
+
                         <Button id='btnGeneratePDF' onClick={generatePDF}>
                             Generate PDF One
                         </Button>
@@ -220,7 +237,7 @@ const ResumeComponent: FC = () => {
                 </Row>
             </Container>
         </>
-    );
-};
+    )
+}
 
-export default ResumeComponent;
+export default ResumeComponent
