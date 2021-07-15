@@ -48,8 +48,8 @@ const SkillTagsInput: FC<Props> = ({
             (element) => !tags.includes(element.text)
         )
 
-        console.log('hahah')
-        console.log(suggestionExceptTagsTaken)
+        // console.log('hahah')
+        // console.log(suggestionExceptTagsTaken)
 
         setSuggestions(suggestionExceptTagsTaken)
     }
@@ -87,7 +87,6 @@ const SkillTagsInput: FC<Props> = ({
     }
 
     const addTag = (text: any) => {
-        console.log('onclick called')
         // const list: string[] = [...tags];
         if (!tags.includes(text)) {
             setTags([...tags, text])
@@ -116,7 +115,11 @@ const SkillTagsInput: FC<Props> = ({
         //const { tags, input, suggestions } = this.state;
         const text = e.currentTarget.value
         if ([13].includes(e.keyCode) && text) {
-            addTag(text)
+            const similarTags = tags.filter(
+                (tag) => tag.toLowerCase() === text.toLowerCase()
+            )
+
+            if (similarTags.length === 0) addTag(text)
         }
     }
 
@@ -170,8 +173,8 @@ const SkillTagsInput: FC<Props> = ({
                 <Row>
                     <Col md={12}>
                         <div className='rm-tags-suggestions'>
-                            {console.log('suggestions')}
-                            {console.log(suggestions)}
+                            {/* {console.log('suggestions')}
+                            {console.log(suggestions)} */}
                             {suggestions?.map((suggestion, idx) => (
                                 <div
                                     className='rm-tags-suggestion'

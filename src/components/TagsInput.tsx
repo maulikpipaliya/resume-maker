@@ -1,54 +1,61 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from 'react'
 
 interface Props {
     tagInputData: {
-        id: number;
-        text: string;
-    }[];
+        id: number
+        text: string
+    }[]
 }
 
 const TagsInput: FC<Props> = ({ tagInputData }) => {
-    console.log(tagInputData);
+    console.log(tagInputData)
 
-    const [tags, setTags] = useState<string[]>([]);
-    const [input, setInput] = useState("");
-    const [suggestions, setSuggestions] = useState<typeof tagInputData>([]);
+    const [tags, setTags] = useState<string[]>([])
+    const [input, setInput] = useState('')
+    const [suggestions, setSuggestions] = useState<typeof tagInputData>([])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput(e.currentTarget.value);
-    };
+        setInput(e.currentTarget.value)
+    }
 
     const handleKeyDown = (e: any) => {
         if (e.keyCode === 13) {
-            e.preventDefault();
+            console.log('hello')
+            e.preventDefault()
         }
-        const text = e.currentTarget.value;
+
+        const text = e.currentTarget.value
         if ([13].includes(e.keyCode) && text) {
-            addTag(text);
+            const similarTags = tags.filter(
+                (tag) => tag.toLowerCase() === text.toLowerCase()
+            )
+
+            if (similarTags.length === 0) addTag(text)
         }
-    };
+    }
 
     const addTag = (text: string) => {
         if (!tags.includes(text)) {
-            setTags([...tags, text]);
+            setTags([...tags, text])
         }
-        setInput("");
-    };
+        setInput('')
+    }
 
     useEffect(() => {
-        console.log("Input is" + input);
+        console.log('Input is' + input)
+
         const suggestions = tagInputData.filter((item) =>
             item.text.toLowerCase().includes(input.toLowerCase())
-        );
+        )
 
         const suggestionExceptTagsTaken = suggestions.filter(
             (item) => !tags.includes(item.text)
-        );
+        )
 
-        setSuggestions(suggestionExceptTagsTaken);
+        setSuggestions(suggestionExceptTagsTaken)
 
-        return () => {};
-    }, [input, tags, tagInputData]);
+        return () => {}
+    }, [input, tags, tagInputData])
 
     return (
         <div>
@@ -69,13 +76,13 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
                 {suggestions?.map((suggestion, idx) => (
                     <React.Fragment key={idx}>
                         <div onClick={(e) => addTag(suggestion.text)}>
-                            {suggestion.text}{" "}
+                            {suggestion.text}{' '}
                         </div>
                     </React.Fragment>
                 ))}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TagsInput;
+export default TagsInput
