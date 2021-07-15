@@ -1,13 +1,30 @@
 import React, { useState, FC, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import allValues from "../itdata";
+import { expertiseData } from "../skillsData";
 import { IResumeDataState, ISkill } from "../schema";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { updateResumeData } from "../actions/resumeAction";
+import { addKeyword, removeKeyword } from "../actions/skillActions";
 
-const SkillTagsInput: FC = () => {
+const allValues = expertiseData;
+
+interface Props {
+    skillType: string;
+    tagInputData: {
+        id: number;
+        text: string;
+    }[];
+
+    placeholder: string;
+}
+
+const SkillTagsInput: FC<Props> = ({
+    tagInputData,
+    placeholder,
+    skillType,
+}) => {
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
     );
@@ -27,7 +44,7 @@ const SkillTagsInput: FC = () => {
 
     const handleSuggestion = () => {
         //  const { input, tags } = this.state;
-        const suggestFilterInput = allValues.filter((suggest) =>
+        const suggestFilterInput = tagInputData.filter((suggest) =>
             suggest.text.toLowerCase().includes(input.toLowerCase())
         );
 
@@ -55,6 +72,8 @@ const SkillTagsInput: FC = () => {
         const tempSkills: ISkill[] = [...stateObj?.skills];
         const skill: ISkill = { ...tempSkills[0] };
 
+        dispatch(removeKeyword(skillType, tags[i]));
+        
         skill.keywords.splice(i, 1);
         tempSkills[0] = skill;
 
@@ -86,6 +105,8 @@ const SkillTagsInput: FC = () => {
         skill.keywords.push(text);
         tempSkills[0] = skill;
 
+        dispatch(addKeyword(skillType, text));
+
         setStateObj((prevState: any) => ({
             ...prevState,
             skills: [tempSkills[0]],
@@ -105,6 +126,7 @@ const SkillTagsInput: FC = () => {
 
     useEffect(() => {
         dispatch(updateResumeData(stateObj));
+
         return () => {};
     }, [stateObj, dispatch]);
 
@@ -141,7 +163,7 @@ const SkillTagsInput: FC = () => {
                             name='expertise'
                             id='expertise'
                             value={input}
-                            placeholder='Press Enter to Select Tag Or Click from below suggestions'
+                            placeholder={placeholder}
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
                         />
@@ -166,6 +188,7 @@ const SkillTagsInput: FC = () => {
                     </Col>
                 </Row>
             )}
+            {suggestions.length === 0 && <div className='mb-5'></div>}
         </>
     );
 };

@@ -55,7 +55,7 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
         );
 
         setSuggestions(suggestionExceptTagsTaken);
-        
+
         return () => {};
     }, [input, tags, tagInputData]);
 
@@ -70,7 +70,6 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
                 ))}
             </div>
             <input
-                // placeholder='Press Enter to Select Tag Or Click from below suggestions'
                 onChange={(e) => handleChange(e)}
                 onKeyDown={(e) => handleKeyDown(e)}
                 value={input}

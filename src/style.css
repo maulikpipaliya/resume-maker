@@ -25,7 +25,6 @@ hr {
     /* width: 21cm;
     height: 29.7cm;
     margin: 30mm 45mm 30mm 45mm; */
-    
 }
 
 .rm-textbox,
@@ -89,7 +88,10 @@ hr {
     width: 100%;
     padding: 0.5rem 0.5rem;
     border-radius: 0.5rem;
+    /* margin-bottom: 2rem; */
 }
+
+
 
 .rm-remove-tag-icon {
     margin: 0rem 0.5rem 0rem 0.8rem;
@@ -103,19 +105,23 @@ hr {
 
 .rm-tags-suggestions {
     background-color: #212121;
-
     bottom: 0px;
     height: -moz-fit-content;
     height: fit-content;
     margin: 0.3rem;
     padding: 5px 0px;
     border-radius: 0.5rem;
+    min-height: fit-content;
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-bottom: 2rem;
 }
 
 .rm-tags-suggestion {
     background-color: #212121;
     color: white;
     margin: 0.3rem;
+    /* max-height: 5rem; */
     padding: 0.2rem;
     border-radius: 0.5rem;
     /* width:100%; */

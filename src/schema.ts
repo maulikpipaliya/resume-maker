@@ -71,7 +71,7 @@ export interface IPublication {
 
 export interface ISkill {
     name: string;
-    level: string;
+    level?: string;
     keywords: string[];
 }
 
@@ -110,12 +110,48 @@ export interface IResumeDataState {
     error: string;
 }
 
+export interface ISkillState {
+    data: ISkill[];
+    error: string;
+}
+
 export interface IResumeDataError {
     errorCode: number;
     message: string;
 }
 
 export const UPDATE_RESUME_DATA = "UPDATE_RESUME_DATA";
+
+export const ADD_SKILL = "ADD_SKILL";
+export const REMOVE_SKILL = "REMOVE_SKILL";
+export const RESET_SKILLS = "RESET_SKILLS";
+export const ADD_KEYWORD = "ADD_KEYWORD";
+export const REMOVE_KEYWORD = "REMOVE_KEYWORD";
+export const RESET_KEYWORD = "RESET_KEYWORD";
+
+interface IUpdateSkillsAction {
+    type: typeof ADD_SKILL | typeof REMOVE_SKILL;
+    payload: ISkill;
+}
+
+export type IAddSkillAction = {
+    type: typeof ADD_SKILL;
+    payload: ISkill;
+};
+
+//Action Type
+
+interface IUpdateSkillKeywordsAction {
+    type: typeof ADD_KEYWORD | typeof REMOVE_KEYWORD;
+    payload: {
+        skillName: string;
+        keywordText: string;
+    };
+}
+
+export type ISkillAction = IUpdateSkillsAction | IUpdateSkillKeywordsAction;
+export type ISkillKeywordAction = IUpdateSkillKeywordsAction;
+// export type IAddSkillAction = IAddSkillAction;
 
 // action interface
 interface IGetResumeDataAction {

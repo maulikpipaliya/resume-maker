@@ -2,7 +2,7 @@ import React, { useEffect, FC } from "react";
 import jsPDF from "jspdf";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { IResumeData } from "../schema";
+import { IResumeData, ISkill, ISkillState } from "../schema";
 
 import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
 
@@ -10,6 +10,8 @@ const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
         (state: RootState) => state.resumeData.data
     );
+
+    const skills = useSelector((state: RootState) => state.skills.data);
 
     useEffect(() => {
         return () => {};
@@ -172,12 +174,32 @@ const ResumeComponent: FC = () => {
                                     <thead>
                                         <tr>
                                             <th>Expertise</th>
+                                            <th>Languages</th>
+                                            <th>Tools and Technologies</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                {stateObj?.skills[0]?.keywords.map(
+                                                {skills[0]?.keywords.map(
+                                                    (keyword, idx) => (
+                                                        <div key={idx}>
+                                                            {keyword + ", "}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </td>
+                                            <td>
+                                                {skills[2]?.keywords.map(
+                                                    (keyword, idx) => (
+                                                        <div key={idx}>
+                                                            {keyword + ", "}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </td>
+                                            <td>
+                                                {skills[1]?.keywords.map(
                                                     (keyword, idx) => (
                                                         <div key={idx}>
                                                             {keyword + ", "}

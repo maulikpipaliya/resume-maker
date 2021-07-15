@@ -14,12 +14,12 @@ const FormComponent: FC = () => {
             <Container fluid={true} className='p-0'>
                 <Row>
                     <Col xs={10} md={4} className='ctr-form' id='ctr-form'>
-                        <TagsInput
-                            tagInputData={tagInputPropDataX}
-                        ></TagsInput>
-                        {/* <BasicDetailsComponent></BasicDetailsComponent> */}
-                        {/* <EducationDetailsComponent></EducationDetailsComponent> */}
-                        {/* <SkillDetailsComponent></SkillDetailsComponent> */}
+                        {/* <TagsInput
+                            // tagInputData={tagInputPropDataX}
+                        // ></TagsInput> */}
+                        <BasicDetailsComponent></BasicDetailsComponent>
+                        <EducationDetailsComponent></EducationDetailsComponent>
+                        <SkillDetailsComponent></SkillDetailsComponent>
                     </Col>
                     <Col md={8} className='ctr-view' id='ctr-view'>
                         <ResumeComponent></ResumeComponent>
