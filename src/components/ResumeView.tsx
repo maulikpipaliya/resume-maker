@@ -20,13 +20,13 @@ const ResumeView: FC = () => {
 
     return (
         <>
-            <div style={oldStyle["container"]} id='ctr-view'>
+            <div style={oldStyle["container"]} id="ctr-view">
                 <header style={oldStyle["hdr-ctr"]}>
                     <section style={oldStyle["logo-ctr"]}>
                         <img
-                            src='http://intranet.daiict.ac.in/~daiict_nt01/Announcement/LOGO/DA-IICT-Emblem-Final%20Colour.png'
-                            alt='DAIICT Logo'
-                            id='daiict-emblem'
+                            src="http://intranet.daiict.ac.in/~daiict_nt01/Announcement/LOGO/DA-IICT-Emblem-Final%20Colour.png"
+                            alt="DAIICT Logo"
+                            id="daiict-emblem"
                             style={oldStyle["daiict-emblem"]}
                         />
                     </section>
@@ -37,22 +37,22 @@ const ResumeView: FC = () => {
                             Communication Technology
                         </div>
                         <div style={oldStyle["dtl-email"]}>
-                            <label htmlFor=''>Email:</label>
-                            <a href='mailto:maulik.pipaliya@gmail.com'>
+                            <label htmlFor="">Email:</label>
+                            <a href="mailto:maulik.pipaliya@gmail.com">
                                 maulik.pipaliya@gmail.com
                             </a>
                         </div>
                         <div style={oldStyle["dtl-dob"]}>
-                            <label htmlFor=''>DOB:</label> December 11, 1997
+                            <label htmlFor="">DOB:</label> December 11, 1997
                         </div>
                         <div style={oldStyle["dtl-github"]}>
-                            <label htmlFor=''>GitHub: </label>
-                            <a href='https://github.com/maulikpipaliya/'>
+                            <label htmlFor="">GitHub: </label>
+                            <a href="https://github.com/maulikpipaliya/">
                                 https://github.com/maulikpipaliya/
                             </a>
                         </div>
                         <div style={oldStyle["dtl-address"]}>
-                            <label htmlFor=''>Address:</label>
+                            <label htmlFor="">Address:</label>
                             55, Patel Park, Sitaram Chowk, Chhaprabhatha, Amroli
                             - Variav Road, Surat - 394107
                         </div>
@@ -60,7 +60,7 @@ const ResumeView: FC = () => {
                 </header>
                 <section>
                     <h5 style={oldStyle["dtl-title"]}>EDUCATION</h5>
-                    <table className='dtl-edu-tbl'>
+                    <table className="dtl-edu-tbl">
                         <tr>
                             <th>Degree</th>
                             <th>University</th>
@@ -116,7 +116,7 @@ const ResumeView: FC = () => {
                             <td>
                                 <p>
                                     <label
-                                        htmlFor=''
+                                        htmlFor=""
                                         style={oldStyle["bold-text"]}
                                     >
                                         Basics
@@ -126,7 +126,7 @@ const ResumeView: FC = () => {
                                 </p>
                                 <p>
                                     <label
-                                        htmlFor=''
+                                        htmlFor=""
                                         style={oldStyle["bold-text"]}
                                     >
                                         Tech:
@@ -136,7 +136,7 @@ const ResumeView: FC = () => {
                                 </p>
                                 <p>
                                     <label
-                                        htmlFor=''
+                                        htmlFor=""
                                         style={oldStyle["bold-text"]}
                                     >
                                         Database:{" "}
@@ -247,7 +247,7 @@ const ResumeView: FC = () => {
                     </div>
                 </section>
             </div>
-            <Button id='btnGeneratePDF' onClick={generatePDF}>
+            <Button id="btnGeneratePDF" onClick={generatePDF}>
                 Generate PDF
             </Button>
         </>

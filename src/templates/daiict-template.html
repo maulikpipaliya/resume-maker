@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DAIICT Template</title>
+        <style>
+            #container {
+                display: flex;
+                margin-top: 70px;
+                margin-left: 180px;
+            }
+            #img {
+                margin: 0 50px;
+                height: 150px;
+                width: 150px;
+                border: 1px solid black;
+            }
+            .name{
+                border-top: 1px solid grey;
+            }
+            .col
+            {
+
+                padding-top: 5px ;
+                padding-bottom: 5px;
+                border-top: 1px solid grey;
+                border-bottom: 1px solid grey;
+            }
+            .details {
+                display: flex;
+                flex-direction: column;
+            }
+            .edob,
+            .cdob {
+                display: flex;
+                max-height: 40px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid grey;
+            }
+            .email,
+            .contact {
+                width: 240px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="img">
+                <!-- <img
+                    src="http://intranet.daiict.ac.in/~daiict_nt01/Announcement/LOGO/DA-IICT-Emblem-Final%20Colour.png"
+                    alt="DAIICT_logo"
+                    style="height: 50px; width: 50px;" 
+                /> -->
+            </div>
+            <div class="details">
+                <div class="name">
+                    <h1>Gaurangi Chandra</h1>
+                </div>
+                <div class="col">
+                    <p>
+                        Dhirubhai Ambani Institute of Information and
+                        Communication Technology
+                    </p>
+                </div>
+                <div class="edob">
+                    <div class="email">
+                        <h3>Email</h3>
+                    </div>
+                    <div class="dob">
+                        <h3>DOB</h3>
+                    </div>
+                </div>
+                <div class="cdob">
+                    <div class="contact">
+                        <h3>Contact</h3>
+                    </div>
+                    <div class="city">
+                        <h3>City</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="createPdf()">Generate PDF</button>
+    </body>
+
+    <!-- JS PDF SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script>
+        function createPdf() {
+            var pdf = document.getElementById("container");
+            var doc = new jsPDF();
+
+            doc.fromHTML(container,5,0);
+
+            doc.save("Sample.pdf");
+            console.log("Downloading");
+        }
+    </script>
+</html>
