@@ -41,6 +41,7 @@ const initialState: IResumeDataState = {
         ],
         education: [
             {
+                id: 1,
                 institution: "",
                 area: "",
                 studyType: "",
