@@ -1,10 +1,9 @@
 import {
-    ISkillState,
+    SkillActionType,
     ISkillAction,
-    ADD_SKILL,
-    ADD_KEYWORD,
-    REMOVE_KEYWORD,
-} from "./../schema";
+} from "./../schema/action-types/ISkillAction";
+
+import { ISkillState } from "./../schema/state/ISkillState";
 
 // For DAIICT Resume Format
 const initialSkillState: ISkillState = {
@@ -30,18 +29,18 @@ export const skillReducer = (
     action: ISkillAction
 ): ISkillState => {
     switch (action.type) {
-        case ADD_SKILL: {
+        case SkillActionType.ADD_SKILL: {
             return {
                 ...state,
                 data: [...state.data, action.payload],
             };
         }
 
-        case ADD_KEYWORD: {
+        case SkillActionType.ADD_KEYWORD: {
             const skillFound = state.data.find(
-                (skill) => skill.name === action.payload.skillName
+                (skill) => skill.name === action.payload.name
             );
-            skillFound?.keywords.push(action.payload.keywordText);
+            skillFound?.keywords.push(action.payload.keyword);
 
             if (skillFound) {
                 return {
@@ -55,13 +54,13 @@ export const skillReducer = (
             }
         }
 
-        case REMOVE_KEYWORD: {
+        case SkillActionType.DELETE_KEYWORD: {
             const skillFound = state.data.find(
-                (skill) => skill.name === action.payload.skillName
+                (skill) => skill.name === action.payload.name
             );
             if (skillFound) {
                 const keywordIndex = skillFound.keywords.indexOf(
-                    action.payload.keywordText
+                    action.payload.keyword
                 );
                 if (keywordIndex !== -1) {
                     skillFound.keywords.splice(keywordIndex, 1);

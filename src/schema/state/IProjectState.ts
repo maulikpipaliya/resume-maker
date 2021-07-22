@@ -1,4 +1,4 @@
-import { IProject } from "../project-schema";
+import { IProject } from "../../schema";
 
 export interface IProjectState {
     data: IProject[];

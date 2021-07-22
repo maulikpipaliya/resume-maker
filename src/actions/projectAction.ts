@@ -1,8 +1,8 @@
-import { ProjectActionType } from "./../schema/action-types/project-action-types";
+import { ProjectActionType } from "../schema/action-types/IProjectAction";
 import { Dispatch } from "redux";
-import { IProjectAction } from "../schema/action-types/project-action-types";
+import { IProjectAction } from "../schema/action-types/IProjectAction";
 
-import { IProject } from "../schema/project-schema";
+import { IProject } from "../schema";
 
 export const addProject =
     (project: IProject) => (dispatch: Dispatch<IProjectAction>) => {

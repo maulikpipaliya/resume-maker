@@ -1,25 +1,29 @@
-import { ThunkAction } from 'redux-thunk'
-import { RootState } from '../store'
-import { ADD_AWARD, IAward, IAwardAction, REMOVE_AWARD } from '../schema'
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../store";
+import { IAward } from "../schema";
+import {
+    AwardActionType,
+    IAwardAction,
+} from "../schema/action-types/IAwardAction";
 
 export const addAward = (
     awardObj: IAward
 ): ThunkAction<void, RootState, null, IAwardAction> => {
     return async (dispatch) => {
         dispatch({
-            type: ADD_AWARD,
+            type: AwardActionType.ADD_AWARD,
             payload: awardObj,
-        })
-    }
-}
+        });
+    };
+};
 
 export const removeAward = (
     awardObj: IAward
 ): ThunkAction<void, RootState, null, IAwardAction> => {
     return async (dispatch) => {
         dispatch({
-            type: REMOVE_AWARD,
+            type: AwardActionType.DELETE_AWARD,
             payload: awardObj,
-        })
-    }
-}
+        });
+    };
+};

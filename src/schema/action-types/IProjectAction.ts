@@ -1,4 +1,4 @@
-import { IProject } from "../project-schema";
+import { IProject } from "../../schema";
 
 export enum ProjectActionType {
     ADD_PROJECT = "ADD_PROJECT",
@@ -43,7 +43,6 @@ interface IResetProjectsAction {
     type: ProjectActionType.RESET_PROJECTS;
 }
 
-
 export type IProjectAction =
     | IAddProjectAction
     | IUpdateProjectAction
@@ -52,4 +51,3 @@ export type IProjectAction =
     | IGetProjectByIndexAction
     | IGetProjectByNameAction
     | IResetProjectsAction;
-    

@@ -1,25 +1,27 @@
-import { ADD_AWARD, IAwardAction, IAwardState, REMOVE_AWARD } from '../schema'
+import { IAwardAction } from "../schema/action-types/IAwardAction";
+import { IAwardState } from "../schema/state/IAwardState";
+import { AwardActionType } from "../schema/action-types/IAwardAction";
 
 const initialAwardState: IAwardState = {
-    data: [{ title: '' }],
-    error: '',
-}
+    data: [{ title: "" }],
+    error: "",
+};
 
 export const awardReducer = (
     state = initialAwardState,
     action: IAwardAction
 ) => {
     switch (action.type) {
-        case ADD_AWARD:
-            return { ...state, data: [...state.data, action.payload] }
+        case AwardActionType.ADD_AWARD:
+            return { ...state, data: [...state.data, action.payload] };
 
-        case REMOVE_AWARD:
+        case AwardActionType.DELETE_AWARD:
             const indexOfTitle: number = state.data.findIndex(
                 (item) => item.title === action.payload.title
-            )
-            console.log(indexOfTitle)
+            );
+            console.log(indexOfTitle);
             if (indexOfTitle !== -1) {
-                const awardToRemove = state.data.splice(indexOfTitle, 1)
+                const awardToRemove = state.data.splice(indexOfTitle, 1);
                 return {
                     ...state,
                     data: [
@@ -27,12 +29,12 @@ export const awardReducer = (
                             (award) => award !== awardToRemove[0]
                         ),
                     ],
-                }
+                };
             } else {
-                return state
+                return state;
             }
 
         default:
-            return state
+            return state;
     }
-}
+};

@@ -1,8 +1,8 @@
-import { IProjectState } from "../schema/state/project-state";
+import { IProjectState } from "../schema/state/IProjectState";
 import {
     IProjectAction,
     ProjectActionType,
-} from "./../schema/action-types/project-action-types";
+} from "../schema/action-types/IProjectAction";
 
 const initialProjectState: IProjectState = {
     data: [

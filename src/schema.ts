@@ -1,4 +1,26 @@
-import { IProject } from "./schema/project-schema";
+export interface IProject {
+    name: string;
+    guide?: string;
+    startDate?: Date;
+    endDate?: Date;
+    website?: string;
+    summary: string;
+    teamSize?: number;
+}
+
+
+export interface ISkill {
+    name: string;
+    level?: string;
+    keywords: string[];
+}
+
+export interface IAward {
+    title: string;
+    date?: Date;
+    awarder?: string;
+    summary?: string;
+}
 
 export interface ILocation {
     address: string;
@@ -56,19 +78,6 @@ export interface IEducation {
     courses: string[];
 }
 
-export interface IAward {
-    title: string;
-    date?: Date;
-    awarder?: string;
-    summary?: string;
-}
-
-export interface ISkill {
-    name: string;
-    level?: string;
-    keywords: string[];
-}
-
 export interface ILanguage {
     language: string;
     fluency: string;
@@ -104,59 +113,12 @@ export interface IResumeDataState {
     error: string;
 }
 
-export interface ISkillState {
-    data: ISkill[];
-    error: string;
-}
-export interface IAwardState {
-    data: IAward[];
-    error: string;
-}
-
 export interface IResumeDataError {
     errorCode: number;
     message: string;
 }
 
 export const UPDATE_RESUME_DATA = "UPDATE_RESUME_DATA";
-
-export const ADD_SKILL = "ADD_SKILL";
-export const REMOVE_SKILL = "REMOVE_SKILL";
-export const RESET_SKILLS = "RESET_SKILLS";
-export const ADD_KEYWORD = "ADD_KEYWORD";
-export const REMOVE_KEYWORD = "REMOVE_KEYWORD";
-export const RESET_KEYWORD = "RESET_KEYWORD";
-export const ADD_AWARD = "ADD_AWARD";
-export const REMOVE_AWARD = "REMOVE_AWARD";
-
-interface IUpdateSkillsAction {
-    type: typeof ADD_SKILL | typeof REMOVE_SKILL;
-    payload: ISkill;
-}
-
-export type IAddSkillAction = {
-    type: typeof ADD_SKILL;
-    payload: ISkill;
-};
-
-interface IUpdateAwardsAction {
-    type: typeof ADD_AWARD | typeof REMOVE_AWARD;
-    payload: IAward;
-}
-//Action Type
-
-interface IUpdateSkillKeywordsAction {
-    type: typeof ADD_KEYWORD | typeof REMOVE_KEYWORD;
-    payload: {
-        skillName: string;
-        keywordText: string;
-    };
-}
-
-export type ISkillAction = IUpdateSkillsAction | IUpdateSkillKeywordsAction;
-export type IAwardAction = IUpdateAwardsAction;
-export type ISkillKeywordAction = IUpdateSkillKeywordsAction;
-// export type IAddSkillAction = IAddSkillAction;
 
 // action interface
 interface IGetResumeDataAction {

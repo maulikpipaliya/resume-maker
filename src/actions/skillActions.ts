@@ -1,16 +1,16 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store";
 import {
-    ADD_KEYWORD,
-    ADD_SKILL,
-    IAddSkillAction,
     IResumeAction,
     IResumeData,
     ISkill,
-    ISkillKeywordAction,
-    REMOVE_KEYWORD,
     UPDATE_RESUME_DATA,
 } from "../schema";
+
+import {
+    ISkillAction,
+    SkillActionType,
+} from "../schema/action-types/ISkillAction";
 
 export const updateResumeData = (
     stateObj: IResumeData
@@ -25,32 +25,32 @@ export const updateResumeData = (
     };
 };
 
-//Action Builder
+//Action Creator
 export const addKeyword = (
-    skillName: string,
-    keywordText: string
-): ThunkAction<void, RootState, null, ISkillKeywordAction> => {
+    name: string,
+    keyword: string
+): ThunkAction<void, RootState, null, ISkillAction> => {
     return async (dispatch) => {
         dispatch({
-            type: ADD_KEYWORD,
+            type: SkillActionType.ADD_KEYWORD,
             payload: {
-                skillName,
-                keywordText,
+                name,
+                keyword,
             },
         });
     };
 };
 
 export const removeKeyword = (
-    skillName: string,
-    keywordText: string
-): ThunkAction<void, RootState, null, ISkillKeywordAction> => {
+    name: string,
+    keyword: string
+): ThunkAction<void, RootState, null, ISkillAction> => {
     return async (dispatch) => {
         dispatch({
-            type: REMOVE_KEYWORD,
+            type: SkillActionType.DELETE_KEYWORD,
             payload: {
-                skillName,
-                keywordText,
+                name,
+                keyword,
             },
         });
     };
@@ -58,16 +58,11 @@ export const removeKeyword = (
 
 export const addSkill = (
     skillObj: ISkill
-): ThunkAction<void, RootState, null, IAddSkillAction> => {
+): ThunkAction<void, RootState, null, ISkillAction> => {
     return async (dispatch) => {
         dispatch({
-            type: ADD_SKILL,
-            payload: {
-                keywords: ["hah", "loll"],
-                name: "Expertise",
-            },
+            type: SkillActionType.ADD_SKILL,
+            payload: skillObj,
         });
     };
 };
-
-
