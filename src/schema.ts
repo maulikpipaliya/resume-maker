@@ -8,7 +8,6 @@ export interface IProject {
     teamSize?: number;
 }
 
-
 export interface ISkill {
     name: string;
     level?: string;
@@ -93,6 +92,12 @@ export interface IReference {
     reference: string;
 }
 
+export interface IPosition {
+    title: string;
+    organization: string;
+    summary: string;
+}
+
 //Main interface
 
 export interface IResumeData {
@@ -105,25 +110,5 @@ export interface IResumeData {
     skills: ISkill[];
     interests?: IInterest[];
     references?: IReference[];
+    positions?: IPosition[];
 }
-
-export interface IResumeDataState {
-    data: IResumeData;
-    loading: boolean;
-    error: string;
-}
-
-export interface IResumeDataError {
-    errorCode: number;
-    message: string;
-}
-
-export const UPDATE_RESUME_DATA = "UPDATE_RESUME_DATA";
-
-// action interface
-interface IGetResumeDataAction {
-    type: typeof UPDATE_RESUME_DATA;
-    payload: IResumeData;
-}
-
-export type IResumeAction = IGetResumeDataAction;

@@ -1,8 +1,9 @@
 import {
-    IResumeDataState,
     IResumeAction,
-    UPDATE_RESUME_DATA,
-} from "./../schema";
+    ResumeDataActionTypes,
+} from "./../schema/action-types/IGetResumeDataAction";
+
+import { IResumeDataState } from "../schema/state/IResumeDataState";
 
 const initialState: IResumeDataState = {
     data: {
@@ -63,7 +64,7 @@ export const resumeReducer = (
     action: IResumeAction
 ): IResumeDataState => {
     switch (action.type) {
-        case UPDATE_RESUME_DATA: {
+        case ResumeDataActionTypes.UPDATE_RESUME_DATA: {
             return {
                 ...state,
                 data: action.payload,

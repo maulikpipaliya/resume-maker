@@ -1,6 +1,8 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../store";
-import { UPDATE_RESUME_DATA, IResumeAction, IResumeData } from "../schema";
+import { IResumeData } from "../schema";
+import { ResumeDataActionTypes } from "../schema/action-types/IGetResumeDataAction";
+import { IResumeAction } from "../schema/action-types/IGetResumeDataAction";
 
 export const updateResumeData = (
     stateObj: IResumeData
@@ -8,7 +10,7 @@ export const updateResumeData = (
     return async (dispatch) => {
         try {
             dispatch({
-                type: UPDATE_RESUME_DATA,
+                type: ResumeDataActionTypes.UPDATE_RESUME_DATA,
                 payload: stateObj,
             });
         } catch (error) {}

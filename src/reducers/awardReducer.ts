@@ -1,6 +1,6 @@
-import { IAwardAction } from "../schema/action-types/IAwardAction";
+import { IAwardAction,AwardActionType } from "../schema/action-types/IAwardAction";
 import { IAwardState } from "../schema/state/IAwardState";
-import { AwardActionType } from "../schema/action-types/IAwardAction";
+
 
 const initialAwardState: IAwardState = {
     data: [{ title: "" }],
