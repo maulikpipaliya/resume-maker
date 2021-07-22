@@ -17,13 +17,15 @@ export const addAward = (
     };
 };
 
-export const removeAward = (
-    awardObj: IAward
+export const deleteAward = (
+    title: string
 ): ThunkAction<void, RootState, null, IAwardAction> => {
     return async (dispatch) => {
         dispatch({
             type: AwardActionType.DELETE_AWARD,
-            payload: awardObj,
+            payload: {
+                title,
+            },
         });
     };
 };

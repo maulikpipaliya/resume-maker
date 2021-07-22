@@ -94,8 +94,8 @@ export interface IReference {
 
 export interface IPosition {
     title: string;
-    organization: string;
-    summary: string;
+    organization?: string;
+    summary?: string;
 }
 
 //Main interface

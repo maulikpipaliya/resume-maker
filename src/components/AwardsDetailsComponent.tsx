@@ -1,20 +1,20 @@
-import React, { FC, useState } from 'react'
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { addAward, removeAward } from '../actions/awardAction'
-import { IAward } from '../schema'
-import { RootState } from '../store'
+import React, { FC, useState } from "react";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { addAward, deleteAward } from "../actions/awardAction";
+import { IAward } from "../schema";
+import { RootState } from "../store";
 
 const AwardsDetails: FC = () => {
-    const [awardTitle, setAwardTitle] = useState('')
-    const [institute, setInstitute] = useState('')
-    const [summary, setSummary] = useState('')
-    const awards = useSelector((state: RootState) => state.awards.data)
-    const dispatch = useDispatch()
+    const [awardTitle, setAwardTitle] = useState("");
+    const [institute, setInstitute] = useState("");
+    const [summary, setSummary] = useState("");
+    const awards = useSelector((state: RootState) => state.awards.data);
+    const dispatch = useDispatch();
 
     const removeAwardFields = (item: IAward) => {
-        dispatch(removeAward(item))
-    }
+        dispatch(deleteAward(item.title));
+    };
 
     const addAwardFields = (item: any) => {
         dispatch(
@@ -23,25 +23,25 @@ const AwardsDetails: FC = () => {
                 awarder: institute,
                 summary: summary,
             })
-        )
-    }
+        );
+    };
     const handlerChange = (e: any, property: string) => {
         switch (property) {
-            case 'awardTitle':
-                setAwardTitle(e.currentTarget.value)
-                break
+            case "awardTitle":
+                setAwardTitle(e.currentTarget.value);
+                break;
 
-            case 'institute':
-                setInstitute(e.currentTarget.value)
-                break
-            case 'summary':
-                setSummary(e.currentTarget.value)
-                break
+            case "institute":
+                setInstitute(e.currentTarget.value);
+                break;
+            case "summary":
+                setSummary(e.currentTarget.value);
+                break;
 
             default:
-                break
+                break;
         }
-    }
+    };
     return (
         <Container>
             <Form className='p-4'>
@@ -60,7 +60,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='title'
                                             onChange={(e) =>
-                                                handlerChange(e, 'awardTitle')
+                                                handlerChange(e, "awardTitle")
                                             }
                                         />
                                     </Form.Group>
@@ -72,7 +72,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='awarder'
                                             onChange={(e) =>
-                                                handlerChange(e, 'institute')
+                                                handlerChange(e, "institute")
                                             }
                                         />
                                     </Form.Group>
@@ -88,7 +88,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='summary'
                                             onChange={(e) =>
-                                                handlerChange(e, 'summary')
+                                                handlerChange(e, "summary")
                                             }
                                         />
                                     </Form.Group>
@@ -127,11 +127,11 @@ const AwardsDetails: FC = () => {
                                 )}
                             </Row>
                         </React.Fragment>
-                    )
+                    );
                 })}
             </Form>
         </Container>
-    )
-}
+    );
+};
 
-export default AwardsDetails
+export default AwardsDetails;
