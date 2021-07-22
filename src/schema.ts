@@ -1,3 +1,5 @@
+import { IProject } from "./schema/project-schema";
+
 export interface ILocation {
     address: string;
     postalCode: string;
@@ -61,14 +63,6 @@ export interface IAward {
     summary?: string;
 }
 
-export interface IPublication {
-    name: string;
-    publisher: string;
-    releaseDate: Date;
-    website: string;
-    summary: string;
-}
-
 export interface ISkill {
     name: string;
     level?: string;
@@ -98,7 +92,7 @@ export interface IResumeData {
     volunteer?: IVolunteer[];
     education: IEducation[];
     awards?: IAward[];
-    publications?: IPublication[];
+    projects?: IProject[];
     skills: ISkill[];
     interests?: IInterest[];
     references?: IReference[];
@@ -114,9 +108,9 @@ export interface ISkillState {
     data: ISkill[];
     error: string;
 }
-export interface IAwardState{
-    data:IAward[];
-    error:string;
+export interface IAwardState {
+    data: IAward[];
+    error: string;
 }
 
 export interface IResumeDataError {
@@ -145,10 +139,9 @@ export type IAddSkillAction = {
     payload: ISkill;
 };
 
-interface IUpdateAwardsAction{
-    type: typeof ADD_AWARD| typeof REMOVE_AWARD;
-    payload:IAward;
-
+interface IUpdateAwardsAction {
+    type: typeof ADD_AWARD | typeof REMOVE_AWARD;
+    payload: IAward;
 }
 //Action Type
 
@@ -161,7 +154,7 @@ interface IUpdateSkillKeywordsAction {
 }
 
 export type ISkillAction = IUpdateSkillsAction | IUpdateSkillKeywordsAction;
-export type IAwardAction= IUpdateAwardsAction;
+export type IAwardAction = IUpdateAwardsAction;
 export type ISkillKeywordAction = IUpdateSkillKeywordsAction;
 // export type IAddSkillAction = IAddSkillAction;
 

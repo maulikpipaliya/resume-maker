@@ -5,6 +5,7 @@ import BasicDetailsComponent from './BasicDetailsComponent'
 import SkillDetailsComponent from './SkillDetailsComponent'
 import ResumeComponent from './ResumeComponent'
 import AwardsDetailsComponent from './AwardsDetailsComponent'
+import ProjectComponent from './ProjectComponent'
 
 const FormComponent: FC = () => {
     return (
@@ -19,6 +20,7 @@ const FormComponent: FC = () => {
                         <EducationDetailsComponent></EducationDetailsComponent>
                         <SkillDetailsComponent></SkillDetailsComponent>
                         <AwardsDetailsComponent></AwardsDetailsComponent>
+                        <ProjectComponent></ProjectComponent>
                     </Col>
                     <Col md={8} className='ctr-view' id='ctr-view'>
                         <ResumeComponent></ResumeComponent>

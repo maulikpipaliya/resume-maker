@@ -58,7 +58,7 @@ const initialState: IResumeDataState = {
     error: "",
 };
 
-const resumeReducer = (
+export const resumeReducer = (
     state = initialState,
     action: IResumeAction
 ): IResumeDataState => {
@@ -75,5 +75,3 @@ const resumeReducer = (
             return state;
     }
 };
-
-export default resumeReducer;
