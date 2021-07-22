@@ -1,6 +1,8 @@
-import { ProjectActionType } from "../schema/action-types/IProjectAction";
+import {
+    ProjectActionType,
+    IProjectAction,
+} from "../schema/action-types/IProjectAction";
 import { Dispatch } from "redux";
-import { IProjectAction } from "../schema/action-types/IProjectAction";
 
 import { IProject } from "../schema";
 

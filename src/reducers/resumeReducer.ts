@@ -31,6 +31,7 @@ const initialState: IResumeDataState = {
         },
         work: [
             {
+                id: 1,
                 company: "",
                 position: "",
                 website: "",

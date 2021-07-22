@@ -4,6 +4,7 @@ import { projectReducer } from "./projectReducer";
 import { skillReducer } from "./skillReducer";
 import { resumeReducer } from "./resumeReducer";
 import { positionReducer } from "./positionReducer";
+import { workReducer } from "./workReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     projects: projectReducer,
     interests: interestReducer,
     positions: positionReducer,
+    work: workReducer,
 });
 
 export { rootReducer };

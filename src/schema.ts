@@ -48,9 +48,10 @@ export interface IBasic {
 }
 
 export interface IWork {
+    id: number;
     company: string;
     position: string;
-    website: string;
+    website?: string;
     startDate?: Date;
     endDate?: Date;
     summary: string;
