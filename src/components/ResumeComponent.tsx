@@ -5,11 +5,25 @@ import { RootState } from "../store";
 import { IAward, IResumeData, ISkill } from "../schema";
 
 import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
+import { convertDate } from "../utils";
 
 const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
         (state: RootState) => state.resumeData.data
     );
+
+    const stateData: RootState = useSelector((state: RootState) => state);
+
+    const {
+        basics: { data: basicData },
+        education: { data: educationData },
+        skills: { data: skillData },
+        awards: { data: awardData },
+        projects: { data: projectData },
+        interests: { data: interestData },
+        positions: { data: positionData },
+        work: { data: workData },
+    } = stateData;
 
     const skills: ISkill[] = useSelector(
         (state: RootState) => state.skills.data
@@ -66,8 +80,8 @@ const ResumeComponent: FC = () => {
                                         <tr>
                                             <td colSpan={5}>
                                                 <h3>
-                                                    {stateObj.basics.name
-                                                        ? stateObj.basics.name
+                                                    {basicData.name
+                                                        ? basicData.name
                                                         : "Your good name here"}
                                                 </h3>
                                             </td>
@@ -105,7 +119,9 @@ const ResumeComponent: FC = () => {
                                             <td className='font-weight-bold'>
                                                 DOB
                                             </td>
-                                            <td>{stateObj.basics.dob}</td>
+                                            <td>
+                                                {convertDate(basicData.dob)}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td className='font-weight-bold'>

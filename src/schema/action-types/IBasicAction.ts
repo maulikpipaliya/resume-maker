@@ -2,6 +2,7 @@ import { IBasic, IProfile } from "../../schema";
 
 export enum BasicActionType {
     UPDATE_BASICS = "UPDATE_BASICS",
+    UPDATE_NAME = "UPDATE_NAME",
     ADD_EMAIL = "ADD_EMAIL",
     DELETE_EMAIL = "DELETE_EMAIL",
     UPDATE_EMAIL = "UPDATE_EMAIL",
@@ -11,6 +12,7 @@ export enum BasicActionType {
     ADD_CONTACT = "ADD_CONTACT",
     DELETE_CONTACT = "DELETE_CONTACT",
     UPDATE_CONTACT = "UPDATE_CONTACT",
+    UPDATE_CITY = "UPDATE_CITY"
 }
 
 export enum BasicActionErrors {
@@ -28,6 +30,11 @@ export enum BasicActionSuccess {
 interface IUpdateBasicAction {
     type: BasicActionType.UPDATE_BASICS;
     payload: IBasic;
+}
+
+interface IUpdateNameAction {
+    type: BasicActionType.UPDATE_NAME;
+    payload: string;
 }
 
 interface IAddEmailAction {
@@ -83,6 +90,7 @@ interface IUpdateContactAction {
 
 export type IBasicAction =
     | IUpdateBasicAction
+    | IUpdateNameAction
     | IAddEmailAction
     | IDeleteEmailAction
     | IUpdateEmailAction

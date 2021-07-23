@@ -28,6 +28,17 @@ export const basicReducer = (
                 message: BasicActionSuccess.BASICS_UPDATED,
                 error: null,
             };
+        case BasicActionType.UPDATE_NAME:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    name: action.payload,
+                },
+                message: "NAME_UPDATED",
+                error: null,
+            };
+
         case BasicActionType.ADD_EMAIL:
             return {
                 ...state,

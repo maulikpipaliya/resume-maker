@@ -1,45 +1,57 @@
 import React, { useState, useEffect, FC } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormPanelContainer from "../components/FormPanelContainer";
-
+import { convertDate } from "../utils";
 import { RootState } from "../store";
 
 import { IResumeDataState } from "../schema/state/IResumeDataState";
 import { updateResumeData } from "../actions/resumeAction";
+import { IBasic } from "../schema";
+import { updateName, updateBasics } from "../actions/basicAction";
 
 const BasicDetailsComponent: FC = () => {
+    const dispatch = useDispatch();
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
     );
 
-    const convertDate = (dateTimeStamp: number) => {
-        let monthNames = [
-            "January,",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ];
-
-        let day = new Date(dateTimeStamp).getDate();
-
-        let monthIndex = new Date(dateTimeStamp).getMonth();
-        let monthName = monthNames[monthIndex];
-
-        let year = new Date(dateTimeStamp).getFullYear();
-
-        return `${monthName} ${day}, ${year}`;
+    const formData: IBasic = {
+        name: "",
+        email: [],
+        dob: null,
     };
 
-    const dispatch = useDispatch();
+    const [formDataState, setFormDataState] = useState(formData);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.currentTarget;
+        switch (name) {
+            case "name":
+                setFormDataState({
+                    ...formDataState,
+                    name: value,
+                });
+
+                break;
+            case "dob":
+                setFormDataState({
+                    ...formDataState,
+                    dob: new Date(value),
+                });
+                break;
+            case "email":
+                
+                break;
+            default:
+                break;
+        }
+    };
+
+    useEffect(() => {
+        dispatch(updateBasics(formDataState));
+    }, [formDataState, dispatch]);
+
     // console.log(initialState);
     const [stateObj, setStateObj] = useState(initialState.data);
 
@@ -144,14 +156,14 @@ const BasicDetailsComponent: FC = () => {
     };
     // console.log(stateObj);
 
-    useEffect(() => {
-        // console.log("State updating");
-        dispatch(updateResumeData(stateObj));
-        // console.log(stateObj);
-        // console.log("State updated");
+    // useEffect(() => {
+    //     // console.log("State updating");
+    //     dispatch(updateResumeData(stateObj));
+    //     // console.log(stateObj);
+    //     // console.log("State updated");
 
-        return () => {};
-    }, [stateObj, dispatch]);
+    //     return () => {};
+    // }, [stateObj, dispatch]);
 
     return (
         <FormPanelContainer title='Personal Details'>
@@ -162,7 +174,7 @@ const BasicDetailsComponent: FC = () => {
                         <Form.Control
                             className='rm-textbox'
                             name='name'
-                            onChange={basicDetailHandler}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                 </Col>
@@ -174,7 +186,7 @@ const BasicDetailsComponent: FC = () => {
                             type='date'
                             name='dob'
                             className='rm-textbox'
-                            onBlur={basicDetailHandler}
+                            onBlur={handleChange}
                         />
                     </Form.Group>
                 </Col>

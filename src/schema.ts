@@ -38,7 +38,7 @@ export interface IProfile {
 export interface IBasic {
     name: string;
     picture?: string;
-    dob?: Date;
+    dob?: Date | null;
     email: string[];
     website?: string[];
     summary?: string;
