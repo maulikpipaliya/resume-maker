@@ -23,9 +23,20 @@ export const deletePosition = (
     return async (dispatch) => {
         dispatch({
             type: PositionActionType.DELETE_POSITION,
-            payload: {
-                title,
-            },
+            payload: title,
+        });
+    };
+};
+
+export const updatePositions = (
+    positionList: IPosition[]
+): ThunkAction<void, RootState, null, IPositionAction> => {
+    return async (dispatch) => {
+        console.log("positionlist", positionList);
+
+        dispatch({
+            type: PositionActionType.UPDATE_POSITIONS,
+            payload: positionList,
         });
     };
 };

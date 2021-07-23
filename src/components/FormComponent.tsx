@@ -1,11 +1,12 @@
-import React, { FC } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import EducationDetailsComponent from './EducationDetailsComponent'
-import BasicDetailsComponent from './BasicDetailsComponent'
-import SkillDetailsComponent from './SkillDetailsComponent'
-import ResumeComponent from './ResumeComponent'
-import AwardsDetailsComponent from './AwardsDetailsComponent'
-import ProjectComponent from './ProjectComponent'
+import React, { FC } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import EducationDetailsComponent from "./EducationDetailsComponent";
+import BasicDetailsComponent from "./BasicDetailsComponent";
+import SkillDetailsComponent from "./SkillDetailsComponent";
+import ResumeComponent from "./ResumeComponent";
+import AwardsDetailsComponent from "./AwardsDetailsComponent";
+import ProjectComponent from "./ProjectComponent";
+import PositionComponent from "./PositionComponent";
 
 const FormComponent: FC = () => {
     return (
@@ -21,6 +22,7 @@ const FormComponent: FC = () => {
                         <SkillDetailsComponent></SkillDetailsComponent>
                         <AwardsDetailsComponent></AwardsDetailsComponent>
                         <ProjectComponent></ProjectComponent>
+                        <PositionComponent></PositionComponent>
                     </Col>
                     <Col md={8} className='ctr-view' id='ctr-view'>
                         <ResumeComponent></ResumeComponent>
@@ -28,7 +30,7 @@ const FormComponent: FC = () => {
                 </Row>
             </Container>
         </div>
-    )
-}
+    );
+};
 
-export default FormComponent
+export default FormComponent;
