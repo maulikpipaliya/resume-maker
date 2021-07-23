@@ -69,14 +69,15 @@ export interface IVolunteer {
 }
 
 export interface IEducation {
-    id: number;
+    id?: number;
     institution: string;
-    area: string;
-    studyType: string;
-    startDate?: Date;
-    endDate?: Date;
-    gpa: number;
-    courses: string[];
+    area?: string;
+    studyType?: string;
+    startYear?: number | null;
+    endYear?: number | null;
+    gpa: number | null;
+    courses?: string[];
+    degree: string;
 }
 
 export interface ILanguage {

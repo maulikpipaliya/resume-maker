@@ -39,16 +39,7 @@ const initialState: IResumeDataState = {
                 highlights: [""],
             },
         ],
-        education: [
-            {
-                id: 1,
-                institution: "",
-                area: "",
-                studyType: "",
-                gpa: 0,
-                courses: [""],
-            },
-        ],
+        education: [],
         skills: [
             {
                 name: "",

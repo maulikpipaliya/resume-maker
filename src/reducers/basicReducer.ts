@@ -82,6 +82,16 @@ export const basicReducer = (
                 error: null,
                 message: "New profile has been added",
             };
+        case BasicActionType.RESET_EMAIL:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    email: [],
+                },
+                error: null,
+                message: "EMAIL_RESET",
+            };
         default:
             return state;
     }

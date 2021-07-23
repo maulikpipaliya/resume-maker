@@ -1,16 +1,16 @@
-import { IEducation } from '../../schema'
+import { IEducation } from "../../schema";
 
 export enum EducationActionType {
-    ADD_EDUCATION = 'ADD_EDUCATION',
-    UPDATE_EDUCATION = 'UPDATE_EDUCATION',
-    DELETE_EDUCATION = 'DELETE_EDUCATION',
-    GET_EDUCATIONS = 'GET_EDUCATIONS',
-    GET_EDUCATION_BY_ID = 'GET_EDUCATION_BY_ID',
-    RESET_EDUCATION = 'RESET_EDUCATION',
+    ADD_EDUCATION = "ADD_EDUCATION",
+    UPDATE_EDUCATION = "UPDATE_EDUCATION",
+    DELETE_EDUCATION = "DELETE_EDUCATION",
+    GET_EDUCATIONS = "GET_EDUCATIONS",
+    GET_EDUCATION_BY_ID = "GET_EDUCATION_BY_ID",
+    RESET_EDUCATION = "RESET_EDUCATION",
 }
 
 export enum EducationMessageType {
-    DELETE_EDUCATION = 'Education Deleted.',
+    DELETE_EDUCATION = "Education Deleted.",
 }
 
 export enum EducationActionErrors {
@@ -18,38 +18,35 @@ export enum EducationActionErrors {
 }
 
 interface IAddEducationAction {
-    type: EducationActionType.ADD_EDUCATION
-    payload: IEducation
+    type: EducationActionType.ADD_EDUCATION;
+    payload: IEducation;
 }
 
 interface IUpdateEducationAction {
-    type: EducationActionType.UPDATE_EDUCATION
-    payload: {
-        id: number
-        education: IEducation
-    }
+    type: EducationActionType.UPDATE_EDUCATION;
+    payload: IEducation[];
 }
 
 interface IDeleteEducationAction {
-    type: EducationActionType.DELETE_EDUCATION
+    type: EducationActionType.DELETE_EDUCATION;
     payload: {
-        id: number
-    }
+        id: number;
+    };
 }
 
 interface IGetEducationsAction {
-    type: EducationActionType.GET_EDUCATIONS
+    type: EducationActionType.GET_EDUCATIONS;
 }
 
 interface IGetEducationByIdAction {
-    type: EducationActionType.GET_EDUCATION_BY_ID
+    type: EducationActionType.GET_EDUCATION_BY_ID;
     payload: {
-        id: number
-    }
+        id: number;
+    };
 }
 
 interface IResetEducationAction {
-    type: EducationActionType.RESET_EDUCATION
+    type: EducationActionType.RESET_EDUCATION;
 }
 
 export type IEducationAction =
@@ -58,4 +55,4 @@ export type IEducationAction =
     | IDeleteEducationAction
     | IGetEducationsAction
     | IGetEducationByIdAction
-    | IResetEducationAction
+    | IResetEducationAction;

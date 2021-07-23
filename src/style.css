@@ -44,6 +44,13 @@ hr {
     bottom: 50px;
 }
 
+.rm-button {
+    border: 1px solid white;
+    background-color: transparent;
+    font-size: x-small;
+    height: calc(1.5em + 0.75rem + 2px);
+}
+
 .rm-add-button,
 .rm-remove-button {
     background-color: #212121;
@@ -90,8 +97,6 @@ hr {
     border-radius: 0.5rem;
     /* margin-bottom: 2rem; */
 }
-
-
 
 .rm-remove-tag-icon {
     margin: 0rem 0.5rem 0rem 0.8rem;

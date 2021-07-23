@@ -2,50 +2,49 @@ import {
     EducationActionType,
     EducationMessageType,
     IEducationAction,
-} from '../schema/action-types/IEducationAction'
-import { IEducationState } from '../schema/state/IEducationState'
+} from "../schema/action-types/IEducationAction";
+import { IEducationState } from "../schema/state/IEducationState";
 
 const initialEducationState: IEducationState = {
-    data: [
-        {
-            id: 1,
-            area: '',
-            courses: [],
-            gpa: 0,
-            institution: '',
-            studyType: '',
-        },
-    ],
+    data: [],
     loading: false,
     error: null,
-}
+};
 
 export const educationReducer = (
     state = initialEducationState,
     action: IEducationAction
 ): IEducationState => {
     switch (action.type) {
+        case EducationActionType.UPDATE_EDUCATION:
+            return {
+                ...state,
+                data: action.payload,
+                loading: false,
+                error: null,
+            };
+
         case EducationActionType.ADD_EDUCATION:
             return {
                 ...state,
                 data: [...state.data, action.payload],
-                message: '',
-                error: '',
-            }
+                message: "",
+                error: "",
+            };
 
         case EducationActionType.DELETE_EDUCATION:
-            const ids = state.data.map((education) => education.id)
-            console.log(ids)
-            console.log(ids.indexOf(action.payload.id))
-            console.log(action.payload.id)
+            const ids = state.data.map((education) => education.id);
+            console.log(ids);
+            console.log(ids.indexOf(action.payload.id));
+            console.log(action.payload.id);
 
             if (ids.indexOf(action.payload.id) === -1) {
                 return {
                     ...state,
                     error: "Education can't be Deleted.",
-                }
+                };
             } else {
-                console.log('hello')
+                console.log("hello");
 
                 return {
                     ...state,
@@ -53,18 +52,18 @@ export const educationReducer = (
                         (education) => education.id !== action.payload.id
                     ),
                     message: EducationMessageType.DELETE_EDUCATION,
-                    error: '',
-                }
+                    error: "",
+                };
             }
         case EducationActionType.RESET_EDUCATION:
             return {
                 ...state,
                 data: [],
                 message: null,
-                error: '',
-            }
+                error: "",
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};

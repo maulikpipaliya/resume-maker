@@ -27,3 +27,16 @@ export const updateBasics = (
         });
     };
 };
+
+export const resetEmails = (): ThunkAction<
+    void,
+    RootState,
+    null,
+    IBasicAction
+> => {
+    return async (dispatch) => {
+        dispatch({
+            type: BasicActionType.RESET_EMAIL,
+        });
+    };
+};

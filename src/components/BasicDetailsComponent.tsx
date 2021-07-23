@@ -6,9 +6,8 @@ import { convertDate } from "../utils";
 import { RootState } from "../store";
 
 import { IResumeDataState } from "../schema/state/IResumeDataState";
-import { updateResumeData } from "../actions/resumeAction";
 import { IBasic } from "../schema";
-import { updateName, updateBasics } from "../actions/basicAction";
+import { updateBasics, resetEmails } from "../actions/basicAction";
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch();
@@ -18,8 +17,9 @@ const BasicDetailsComponent: FC = () => {
 
     const formData: IBasic = {
         name: "",
-        email: [],
+        email: [""],
         dob: null,
+        contact: [""],
     };
 
     const [formDataState, setFormDataState] = useState(formData);
@@ -40,17 +40,11 @@ const BasicDetailsComponent: FC = () => {
                     dob: new Date(value),
                 });
                 break;
-            case "email":
-                
-                break;
+
             default:
                 break;
         }
     };
-
-    useEffect(() => {
-        dispatch(updateBasics(formDataState));
-    }, [formDataState, dispatch]);
 
     // console.log(initialState);
     const [stateObj, setStateObj] = useState(initialState.data);
@@ -119,41 +113,45 @@ const BasicDetailsComponent: FC = () => {
         }
     };
 
-    const emailHandler = (e: any, idx: number) => {
-        const { name, value } = e.currentTarget;
-        const tempEmails = [...stateObj.basics.email];
+    const addEmailField = () => {
+        const emails = [...formDataState.email];
+        emails.push("");
+        setFormDataState({
+            ...formDataState,
+            email: emails,
+        });
+    };
+
+    const removeEmailField = (idx: number) => {
+        const emails = [...formDataState.email];
+        console.log(emails);
+        emails.splice(idx, 1);
+        setFormDataState({
+            ...formDataState,
+            email: emails,
+        });
+    };
+
+    const handleEmail = (e: any, idx: number) => {
+        const { value } = e.currentTarget;
+        const tempEmails = [...formDataState.email];
         tempEmails[idx] = value;
-
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            basics: {
-                ...prevState.basics,
-                [name]: tempEmails,
-            },
-        }));
-    };
-
-    const addEmailBox = () => {
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            basics: {
-                ...prevState.basics,
-                email: [...prevState.basics.email, ""],
-            },
-        }));
-    };
-
-    const removeEmailHandler = (idx: number) => {
-        const tempEmails = [...stateObj.basics.email];
-        tempEmails.splice(idx, 1);
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            basics: {
-                ...prevState.basics,
+        if (value !== "") {
+            setFormDataState({
+                ...formDataState,
                 email: tempEmails,
-            },
-        }));
+            });
+        }
+
+        if (value === "" && idx === 0) {
+            setFormDataState({
+                ...formDataState,
+                email: [""],
+            });
+            dispatch(resetEmails());
+        }
     };
+
     // console.log(stateObj);
 
     // useEffect(() => {
@@ -165,6 +163,9 @@ const BasicDetailsComponent: FC = () => {
     //     return () => {};
     // }, [stateObj, dispatch]);
 
+    useEffect(() => {
+        dispatch(updateBasics(formDataState));
+    }, [formDataState, dispatch]);
     return (
         <FormPanelContainer title='Personal Details'>
             <Row>
@@ -193,6 +194,50 @@ const BasicDetailsComponent: FC = () => {
             </Row>
 
             <Row>
+                {formDataState.email.map((email, idx) => (
+                    <React.Fragment key={idx}>
+                        <Col xs={10} md={10}>
+                            <Form.Group
+                                controlId='email'
+                                data-toggle='tooltip'
+                                data-placement='top'
+                                title='Only two emails allowed'
+                            >
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    name='email'
+                                    value={email}
+                                    className='rm-textbox'
+                                    onChange={(e) => handleEmail(e, idx)}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col xs={1} md={1} className='px-1'>
+                            {formDataState.email.length === 1 && (
+                                <Form.Group controlId='addEmail'>
+                                    <Button
+                                        className='rm-add-button'
+                                        onClick={addEmailField}
+                                    >
+                                        +
+                                    </Button>
+                                </Form.Group>
+                            )}
+                            {formDataState.email.length === 2 && (
+                                <Form.Group controlId='removeEmail'>
+                                    <Button
+                                        className='rm-remove-button'
+                                        onClick={(e) => removeEmailField(idx)}
+                                    >
+                                        -
+                                    </Button>
+                                </Form.Group>
+                            )}
+                        </Col>
+                    </React.Fragment>
+                ))}
+                {/* 
                 {stateObj?.basics?.email.map((emailItem, idx) => (
                     <React.Fragment key={idx}>
                         <Col xs={10} md={10}>
@@ -232,7 +277,7 @@ const BasicDetailsComponent: FC = () => {
                             </Col>
                         )}
                     </React.Fragment>
-                ))}
+                ))} */}
             </Row>
 
             <Row>

@@ -6,13 +6,14 @@ export enum BasicActionType {
     ADD_EMAIL = "ADD_EMAIL",
     DELETE_EMAIL = "DELETE_EMAIL",
     UPDATE_EMAIL = "UPDATE_EMAIL",
+    RESET_EMAIL = "RESET_EMAIL",
     ADD_PROFILE = "ADD_PROFILE",
     DELETE_PROFILE = "DELETE_PROFILE",
     UPDATE_PROFILE = "UPDATE_PROFILE",
     ADD_CONTACT = "ADD_CONTACT",
     DELETE_CONTACT = "DELETE_CONTACT",
     UPDATE_CONTACT = "UPDATE_CONTACT",
-    UPDATE_CITY = "UPDATE_CITY"
+    UPDATE_CITY = "UPDATE_CITY",
 }
 
 export enum BasicActionErrors {
@@ -55,6 +56,10 @@ interface IUpdateEmailAction {
     };
 }
 
+interface IResetEmailAction {
+    type: BasicActionType.RESET_EMAIL;
+}
+
 interface IAddProfileAction {
     type: BasicActionType.ADD_PROFILE;
     payload: IProfile;
@@ -94,6 +99,7 @@ export type IBasicAction =
     | IAddEmailAction
     | IDeleteEmailAction
     | IUpdateEmailAction
+    | IResetEmailAction
     | IAddProfileAction
     | IDeleteProfileAction
     | IUpdateProfileAction

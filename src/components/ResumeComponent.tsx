@@ -17,12 +17,12 @@ const ResumeComponent: FC = () => {
     const {
         basics: { data: basicData },
         education: { data: educationData },
-        skills: { data: skillData },
-        awards: { data: awardData },
-        projects: { data: projectData },
-        interests: { data: interestData },
-        positions: { data: positionData },
-        work: { data: workData },
+        // skills: { data: skillData },
+        // awards: { data: awardData },
+        // projects: { data: projectData },
+        // interests: { data: interestData },
+        // positions: { data: positionData },
+        // work: { data: workData },
     } = stateData;
 
     const skills: ISkill[] = useSelector(
@@ -161,27 +161,23 @@ const ResumeComponent: FC = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {stateObj?.education?.map(
-                                            (item, idx) => {
-                                                return (
-                                                    <React.Fragment key={idx}>
-                                                        <tr>
-                                                            <td>{item.area}</td>
-                                                            <td>
-                                                                {
-                                                                    item.institution
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {item.startDate}{" "}
-                                                                - {item.endDate}
-                                                            </td>
-                                                            <td>{item.gpa}</td>
-                                                        </tr>
-                                                    </React.Fragment>
-                                                );
-                                            }
-                                        )}
+                                        {educationData?.map((item, idx) => {
+                                            return (
+                                                <React.Fragment key={idx}>
+                                                    <tr>
+                                                        <td>{item.degree}</td>
+                                                        <td>
+                                                            {item.institution}
+                                                        </td>
+                                                        <td>
+                                                            {item.startYear} -{" "}
+                                                            {item.endYear}
+                                                        </td>
+                                                        <td>{item.gpa}</td>
+                                                    </tr>
+                                                </React.Fragment>
+                                            );
+                                        })}
                                     </tbody>
                                 </Table>
                             </Col>
