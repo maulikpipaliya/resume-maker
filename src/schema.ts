@@ -22,9 +22,9 @@ export interface IAward {
 }
 
 export interface ILocation {
-    address: string;
-    postalCode: string;
-    city: string;
+    address?: string;
+    postalCode?: string;
+    city?: string;
     countryCode?: string;
     region?: string;
 }

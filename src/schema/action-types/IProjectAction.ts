@@ -8,6 +8,7 @@ export enum ProjectActionType {
     GET_PROJECT_BY_INDEX = "GET_PROJECT_BY_INDEX",
     GET_PROJECT_BY_NAME = "GET_PROJECT_BY_NAME",
     RESET_PROJECTS = "RESET_PROJECTS",
+    RESET_PROJECT = "RESET_PROJECT",
 }
 
 interface IAddProjectAction {
@@ -43,6 +44,11 @@ interface IResetProjectsAction {
     type: ProjectActionType.RESET_PROJECTS;
 }
 
+interface IResetProjectAction {
+    type: ProjectActionType.RESET_PROJECT;
+    payload: string;
+}
+
 export type IProjectAction =
     | IAddProjectAction
     | IUpdateProjectAction
@@ -50,4 +56,5 @@ export type IProjectAction =
     | IGetProjectsAction
     | IGetProjectByIndexAction
     | IGetProjectByNameAction
-    | IResetProjectsAction;
+    | IResetProjectsAction
+    | IResetProjectAction;

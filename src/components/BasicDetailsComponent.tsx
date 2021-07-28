@@ -6,7 +6,7 @@ import { convertDate } from "../utils";
 import { RootState } from "../store";
 
 import { IResumeDataState } from "../schema/state/IResumeDataState";
-import { IBasic } from "../schema";
+import { IBasic, ILocation } from "../schema";
 import { updateBasics, resetEmails } from "../actions/basicAction";
 
 const BasicDetailsComponent: FC = () => {
@@ -14,12 +14,16 @@ const BasicDetailsComponent: FC = () => {
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
     );
-
+    const locationData: ILocation = {
+        city: "",
+        region: "",
+    };
     const formData: IBasic = {
         name: "",
         email: [""],
         dob: null,
         contact: [""],
+        location: locationData,
     };
 
     const [formDataState, setFormDataState] = useState(formData);
@@ -40,7 +44,22 @@ const BasicDetailsComponent: FC = () => {
                     dob: new Date(value),
                 });
                 break;
-
+            case "contact":
+                setFormDataState({
+                    ...formDataState,
+                    contact: [value],
+                });
+                break;
+            case "city":
+            case "region":
+                setFormDataState({
+                    ...formDataState,
+                    location: {
+                        ...formDataState.location,
+                        [name]: value,
+                    },
+                });
+                break;
             default:
                 break;
         }
@@ -287,7 +306,7 @@ const BasicDetailsComponent: FC = () => {
                         <Form.Control
                             name='city'
                             className='rm-textbox'
-                            onChange={basicDetailHandler}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                 </Col>
@@ -297,7 +316,7 @@ const BasicDetailsComponent: FC = () => {
                         <Form.Control
                             name='region'
                             className='rm-textbox'
-                            onChange={basicDetailHandler}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                 </Col>
@@ -308,7 +327,7 @@ const BasicDetailsComponent: FC = () => {
                 <Form.Control
                     name='contact'
                     className='rm-textbox'
-                    onChange={basicDetailHandler}
+                    onChange={handleChange}
                 />
             </Form.Group>
         </FormPanelContainer>

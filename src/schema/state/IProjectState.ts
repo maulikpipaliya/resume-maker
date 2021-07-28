@@ -4,4 +4,5 @@ export interface IProjectState {
     data: IProject[];
     error: string | null;
     loading: boolean;
+    message: string | null;
 }
