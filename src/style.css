@@ -29,6 +29,15 @@
 }
 /* -------- */
 
+.rm-form-heading {
+    width: 100%;
+}
+
+.rm-form-heading:hover {
+    background-color: #212121;
+    cursor: pointer;
+}
+
 hr {
     background-color: #212121;
 }

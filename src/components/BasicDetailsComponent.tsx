@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import FormPanelContainer from "../components/FormPanelContainer";
+import AccordionContainer from "../components/AccordionContainer";
 import { convertDate } from "../utils";
 import { RootState } from "../store";
 
@@ -186,77 +186,80 @@ const BasicDetailsComponent: FC = () => {
         dispatch(updateBasics(formDataState));
     }, [formDataState, dispatch]);
     return (
-        <FormPanelContainer title='Personal Details'>
-            <Row>
-                <Col xs={10} md={7}>
-                    <Form.Group controlId='name'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            className='rm-textbox'
-                            name='name'
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                </Col>
+        <AccordionContainer title='Personal Details'>
+            <Container>
+                <Row>
+                    <Col xs={10} md={7}>
+                        <Form.Group controlId='name'>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                className='rm-textbox'
+                                name='name'
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
 
-                <Col xs={10} md={5}>
-                    <Form.Group controlId='dob'>
-                        <Form.Label>Date Of Birth</Form.Label>
-                        <Form.Control
-                            type='date'
-                            name='dob'
-                            className='rm-textbox'
-                            onBlur={handleChange}
-                        />
-                    </Form.Group>
-                </Col>
-            </Row>
+                    <Col xs={10} md={5}>
+                        <Form.Group controlId='dob'>
+                            <Form.Label>Date Of Birth</Form.Label>
+                            <Form.Control
+                                type='date'
+                                name='dob'
+                                className='rm-textbox'
+                                onBlur={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-            <Row>
-                {formDataState.email.map((email, idx) => (
-                    <React.Fragment key={idx}>
-                        <Col xs={10} md={10}>
-                            <Form.Group
-                                controlId='email'
-                                data-toggle='tooltip'
-                                data-placement='top'
-                                title='Only two emails allowed'
-                            >
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type='email'
-                                    name='email'
-                                    value={email}
-                                    className='rm-textbox'
-                                    onChange={(e) => handleEmail(e, idx)}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col xs={1} md={1} className='px-1'>
-                            {formDataState.email.length === 1 && (
-                                <Form.Group controlId='addEmail'>
-                                    <Button
-                                        className='rm-add-button'
-                                        onClick={addEmailField}
-                                    >
-                                        +
-                                    </Button>
+                <Row>
+                    {formDataState.email.map((email, idx) => (
+                        <React.Fragment key={idx}>
+                            <Col xs={10} md={10}>
+                                <Form.Group
+                                    controlId='email'
+                                    data-toggle='tooltip'
+                                    data-placement='top'
+                                    title='Only two emails allowed'
+                                >
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type='email'
+                                        name='email'
+                                        value={email}
+                                        className='rm-textbox'
+                                        onChange={(e) => handleEmail(e, idx)}
+                                    />
                                 </Form.Group>
-                            )}
-                            {formDataState.email.length === 2 && (
-                                <Form.Group controlId='removeEmail'>
-                                    <Button
-                                        className='rm-remove-button'
-                                        onClick={(e) => removeEmailField(idx)}
-                                    >
-                                        -
-                                    </Button>
-                                </Form.Group>
-                            )}
-                        </Col>
-                    </React.Fragment>
-                ))}
-                {/* 
+                            </Col>
+                            <Col xs={1} md={1} className='px-1'>
+                                {formDataState.email.length === 1 && (
+                                    <Form.Group controlId='addEmail'>
+                                        <Button
+                                            className='rm-add-button'
+                                            onClick={addEmailField}
+                                        >
+                                            +
+                                        </Button>
+                                    </Form.Group>
+                                )}
+                                {formDataState.email.length === 2 && (
+                                    <Form.Group controlId='removeEmail'>
+                                        <Button
+                                            className='rm-remove-button'
+                                            onClick={(e) =>
+                                                removeEmailField(idx)
+                                            }
+                                        >
+                                            -
+                                        </Button>
+                                    </Form.Group>
+                                )}
+                            </Col>
+                        </React.Fragment>
+                    ))}
+                    {/* 
                 {stateObj?.basics?.email.map((emailItem, idx) => (
                     <React.Fragment key={idx}>
                         <Col xs={10} md={10}>
@@ -297,40 +300,41 @@ const BasicDetailsComponent: FC = () => {
                         )}
                     </React.Fragment>
                 ))} */}
-            </Row>
+                </Row>
 
-            <Row>
-                <Col xs={10} md={6}>
-                    <Form.Group controlId='city'>
-                        <Form.Label>City</Form.Label>
-                        <Form.Control
-                            name='city'
-                            className='rm-textbox'
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                </Col>
-                <Col xs={10} md={6}>
-                    <Form.Group controlId='region'>
-                        <Form.Label>Region/State</Form.Label>
-                        <Form.Control
-                            name='region'
-                            className='rm-textbox'
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                </Col>
-            </Row>
+                <Row>
+                    <Col xs={10} md={6}>
+                        <Form.Group controlId='city'>
+                            <Form.Label>City</Form.Label>
+                            <Form.Control
+                                name='city'
+                                className='rm-textbox'
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col xs={10} md={6}>
+                        <Form.Group controlId='region'>
+                            <Form.Label>Region/State</Form.Label>
+                            <Form.Control
+                                name='region'
+                                className='rm-textbox'
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-            <Form.Group controlId='contact'>
-                <Form.Label>Contact Number</Form.Label>
-                <Form.Control
-                    name='contact'
-                    className='rm-textbox'
-                    onChange={handleChange}
-                />
-            </Form.Group>
-        </FormPanelContainer>
+                <Form.Group controlId='contact'>
+                    <Form.Label>Contact Number</Form.Label>
+                    <Form.Control
+                        name='contact'
+                        className='rm-textbox'
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+            </Container>
+        </AccordionContainer>
     );
 };
 

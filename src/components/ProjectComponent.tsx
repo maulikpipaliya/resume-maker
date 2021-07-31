@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { IProject } from '../schema'
+import AccordionContainer from './AccordionContainer'
 
 const ProjectComponent: FC = () => {
     const dispatch = useDispatch()
@@ -33,12 +34,8 @@ const ProjectComponent: FC = () => {
         }
     }
     return (
-        <Container>
-            <Form className='p-4'>
-                <h5 className='rm-form-heading py-2'>
-                    Project Details
-                    <hr />
-                </h5>
+        <AccordionContainer title='Project Details'>
+            <Container>
                 <Row>
                     <Col xs={10} md={5}>
                         <Form.Group controlId='name'>
@@ -65,7 +62,7 @@ const ProjectComponent: FC = () => {
                 <Row>
                     <Col xs={10} md={5}>
                         <Form.Group controlId='startdate'>
-                            <Form.Label>Start</Form.Label>
+                            <Form.Label>Start Date</Form.Label>
                             <Form.Control
                                 type='date'
                                 name='startdate'
@@ -102,8 +99,8 @@ const ProjectComponent: FC = () => {
                         <Button className='rm-button'>Remove</Button>
                     )}
                 </Row>
-            </Form>
-        </Container>
+            </Container>
+        </AccordionContainer>
     )
 }
 

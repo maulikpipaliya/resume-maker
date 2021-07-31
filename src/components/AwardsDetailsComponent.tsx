@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addAward, deleteAward } from "../actions/awardAction";
 import { IAward } from "../schema";
 import { RootState } from "../store";
+import AccordionContainer from "./AccordionContainer";
 
 const AwardsDetails: FC = () => {
     const [awardTitle, setAwardTitle] = useState("");
@@ -43,12 +44,8 @@ const AwardsDetails: FC = () => {
         }
     };
     return (
-        <Container>
-            <Form className='p-4'>
-                <h5 className='rm-form-heading py-2'>
-                    Awards Details
-                    <hr />
-                </h5>
+        <AccordionContainer title='Awards Details'>
+            <Container>
                 {awards?.map((item, idx) => {
                     return (
                         <React.Fragment key={idx}>
@@ -129,8 +126,8 @@ const AwardsDetails: FC = () => {
                         </React.Fragment>
                     );
                 })}
-            </Form>
-        </Container>
+            </Container>
+        </AccordionContainer>
     );
 };
 

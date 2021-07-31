@@ -16,7 +16,7 @@ const FormComponent: FC = () => {
                     <Col
                         xs={10}
                         md={4}
-                        className='rm-ctr-form col-md-4 col-10 overflow-auto position-fixed'
+                        className='rm-ctr-form col-md-4 col-10 overflow-auto position-fixed pt-4'
                         id='ctr-form'
                     >
                         {/* <TagsInput

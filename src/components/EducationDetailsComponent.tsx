@@ -1,10 +1,10 @@
 import React, { useState, useEffect, FC } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
 import { IEducation } from "../schema";
 
-import FormPanelContainer from "./FormPanelContainer";
+import AccordionContainer from "./AccordionContainer";
 import { updateEducation } from "../actions/educationAction";
 
 const EducationDetailsComponent: FC = () => {
@@ -60,110 +60,127 @@ const EducationDetailsComponent: FC = () => {
     }, [formDataState, dispatch]);
 
     return (
-        <FormPanelContainer title='Education Details'>
-            {formDataState.map((item, idx) => {
-                return (
-                    <React.Fragment key={idx}>
-                        <Row>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId='degree'>
-                                    <Form.Label>Degree</Form.Label>
-                                    <Form.Control
-                                        className='rm-textbox'
-                                        name='degree'
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e, idx)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={10} md={8}>
-                                <Form.Group controlId='institution'>
-                                    <Form.Label>Institution</Form.Label>
-                                    <Form.Control
-                                        className='rm-textbox'
-                                        name='institution'
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e, idx)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId='startYear'>
-                                    <Form.Label>From</Form.Label>
-                                    <Form.Control
-                                        className='rm-textbox'
-                                        name='startYear'
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e, idx)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId='endYear'>
-                                    <Form.Label>To</Form.Label>
-                                    <Form.Control
-                                        className='rm-textbox'
-                                        name='endYear'
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e, idx)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId='gpa'>
-                                    <Form.Label>CPI / Aggregate</Form.Label>
-                                    <Form.Control
-                                        className='rm-textbox'
-                                        name='gpa'
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e, idx)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col xs={10} md={8}></Col>
-
-                            {formDataState.length !== 1 && (
-                                <Col xs={10} md={1}>
-                                    <Form.Group controlId='removeEducation'>
-                                        <Button
-                                            className='rm-remove-button'
-                                            onClick={() =>
-                                                removeEducationFields(idx)
+        <AccordionContainer title='Education Details'>
+            <Container>
+                {formDataState.map((item, idx) => {
+                    return (
+                        <React.Fragment key={idx}>
+                            <Row>
+                                <Col xs={10} md={4}>
+                                    <Form.Group controlId='degree'>
+                                        <Form.Label>Degree</Form.Label>
+                                        <Form.Control
+                                            className='rm-textbox'
+                                            name='degree'
+                                            onChange={(e) =>
+                                                educationDetailsHandlerNew(
+                                                    e,
+                                                    idx
+                                                )
                                             }
-                                        >
-                                            -
-                                        </Button>
+                                        />
                                     </Form.Group>
                                 </Col>
-                            )}
+                                <Col xs={10} md={8}>
+                                    <Form.Group controlId='institution'>
+                                        <Form.Label>Institution</Form.Label>
+                                        <Form.Control
+                                            className='rm-textbox'
+                                            name='institution'
+                                            onChange={(e) =>
+                                                educationDetailsHandlerNew(
+                                                    e,
+                                                    idx
+                                                )
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={10} md={4}>
+                                    <Form.Group controlId='startYear'>
+                                        <Form.Label>From</Form.Label>
+                                        <Form.Control
+                                            className='rm-textbox'
+                                            name='startYear'
+                                            onChange={(e) =>
+                                                educationDetailsHandlerNew(
+                                                    e,
+                                                    idx
+                                                )
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={10} md={4}>
+                                    <Form.Group controlId='endYear'>
+                                        <Form.Label>To</Form.Label>
+                                        <Form.Control
+                                            className='rm-textbox'
+                                            name='endYear'
+                                            onChange={(e) =>
+                                                educationDetailsHandlerNew(
+                                                    e,
+                                                    idx
+                                                )
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={10} md={4}>
+                                    <Form.Group controlId='gpa'>
+                                        <Form.Label>CPI / Aggregate</Form.Label>
+                                        <Form.Control
+                                            className='rm-textbox'
+                                            name='gpa'
+                                            onChange={(e) =>
+                                                educationDetailsHandlerNew(
+                                                    e,
+                                                    idx
+                                                )
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                            {formDataState.length - 1 === idx && (
-                                <Col xs={10} md={1}>
-                                    <Form.Group controlId='addEducation'>
-                                        <Button
-                                            className='rm-add-button'
-                                            onClick={addEducationFields}
-                                        >
-                                            +
-                                        </Button>
-                                    </Form.Group>
-                                </Col>
-                            )}
-                        </Row>
-                    </React.Fragment>
-                );
-            })}
-        </FormPanelContainer>
+                            <Row>
+                                <Col xs={10} md={8}></Col>
+
+                                {formDataState.length !== 1 && (
+                                    <Col xs={10} md={1}>
+                                        <Form.Group controlId='removeEducation'>
+                                            <Button
+                                                className='rm-remove-button'
+                                                onClick={() =>
+                                                    removeEducationFields(idx)
+                                                }
+                                            >
+                                                -
+                                            </Button>
+                                        </Form.Group>
+                                    </Col>
+                                )}
+
+                                {formDataState.length - 1 === idx && (
+                                    <Col xs={10} md={1}>
+                                        <Form.Group controlId='addEducation'>
+                                            <Button
+                                                className='rm-add-button'
+                                                onClick={addEducationFields}
+                                            >
+                                                +
+                                            </Button>
+                                        </Form.Group>
+                                    </Col>
+                                )}
+                            </Row>
+                        </React.Fragment>
+                    );
+                })}
+            </Container>
+        </AccordionContainer>
     );
 };
 
