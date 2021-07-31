@@ -29,7 +29,11 @@ const FormComponent: FC = () => {
                         <ProjectComponent></ProjectComponent>
                         <PositionComponent></PositionComponent>
                     </Col>
-                    <Col md={8} className='ctr-view' id='ctr-view offset-md-4'>
+                    <Col
+                        md={{ span: 8, offset: 4 }}
+                        className='ctr-view'
+                        id='ctr-view'
+                    >
                         <ResumeComponent></ResumeComponent>
                     </Col>
                 </Row>
