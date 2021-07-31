@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Container, Form } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
 
 interface IProps {
     children: React.ReactNode;

@@ -1,17 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import AccordionContainer from "./AccordionContainer";
 
 const ProjectComponent = () => {
     const projectDetailHandler = () => {
         console.log("project detail handler");
     };
     return (
-        <Container>
-            <Form className='p-4'>
-                <h5 className='rm-form-heading py-2'>
-                    Project Details
-                    <hr />
-                </h5>
+        <AccordionContainer title='Project Details'>
+            <Container>
                 <Row>
                     <Col xs={10} md={7}>
                         <Form.Group controlId='name'>
@@ -36,8 +33,8 @@ const ProjectComponent = () => {
                         </Form.Group>
                     </Col>
                 </Row>
-            </Form>
-        </Container>
+            </Container>
+        </AccordionContainer>
     );
 };
 
