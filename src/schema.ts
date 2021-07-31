@@ -1,8 +1,8 @@
 export interface IProject {
     name: string
     guide?: string
-    startDate?: Date
-    endDate?: Date
+    startDate?: string
+    endDate?: string
     website?: string
     summary: string
     teamSize?: number
