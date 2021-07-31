@@ -1,57 +1,57 @@
-import React, { FC, useEffect, useState } from "react";
-import FormPanelContainer from "./FormPanelContainer";
-import { Row, Col, Form, Button } from "react-bootstrap";
-import { IPosition } from "../schema";
-import { useDispatch } from "react-redux";
-import { updatePositions } from "../actions/positionAction";
+import React, { FC, useEffect, useState } from 'react'
+import FormPanelContainer from './FormPanelContainer'
+import { Row, Col, Form, Button } from 'react-bootstrap'
+import { IPosition } from '../schema'
+import { useDispatch } from 'react-redux'
+import { updatePositions } from '../actions/positionAction'
 
 const PositionComponent: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const formData: IPosition[] = [
         {
-            title: "",
-            organization: "",
-            summary: "",
+            title: '',
+            organization: '',
+            summary: '',
         },
-    ];
+    ]
 
-    const [formDataState, setFormDataState] = useState(formData);
+    const [formDataState, setFormDataState] = useState(formData)
 
     const handleChange = (e: any, idx: number) => {
-        const { name, value } = e.currentTarget;
+        const { name, value } = e.currentTarget
         switch (name) {
-            case "title":
-            case "organization":
-            case "summary":
-                const formDataCopy: IPosition[] = [...formDataState];
-                const idxPosition: any = { ...formDataCopy[idx] };
-                idxPosition[name] = value;
-                formDataCopy[idx] = idxPosition;
+            case 'title':
+            case 'organization':
+            case 'summary':
+                const formDataCopy: IPosition[] = [...formDataState]
+                const idxPosition: any = { ...formDataCopy[idx] }
+                idxPosition[name] = value
+                formDataCopy[idx] = idxPosition
 
-                setFormDataState(formDataCopy);
-                break;
+                setFormDataState(formDataCopy)
+                break
             default:
-                break;
+                break
         }
-    };
+    }
 
     const addPositionFields = () => {
-        const formDataCopy: IPosition[] = [...formDataState];
-        formDataCopy.push(formData[0]);
-        setFormDataState(formDataCopy);
-    };
+        const formDataCopy: IPosition[] = [...formDataState]
+        formDataCopy.push(formData[0])
+        setFormDataState(formDataCopy)
+    }
 
     const deletePositionFields = (idx: number) => {
-        const formDataCopy: IPosition[] = [...formDataState];
-        formDataCopy.splice(idx, 1);
-        setFormDataState(formDataCopy);
-    };
+        const formDataCopy: IPosition[] = [...formDataState]
+        formDataCopy.splice(idx, 1)
+        setFormDataState(formDataCopy)
+    }
 
     useEffect(() => {
-        console.log("formDataState", formDataState);
-        console.log("effect");
-        dispatch(updatePositions(formDataState));
-    }, [formDataState, dispatch]);
+        console.log('formDataState', formDataState)
+        console.log('effect')
+        dispatch(updatePositions(formDataState))
+    }, [formDataState, dispatch])
 
     return (
         <FormPanelContainer title='Positions of Responsibility'>
@@ -106,7 +106,7 @@ const PositionComponent: FC = () => {
                                 </Button>
                             )}
                         </React.Fragment>
-                    );
+                    )
                 })}
             </Row>
             <Row>
@@ -118,7 +118,7 @@ const PositionComponent: FC = () => {
                 </Col>
             </Row>
         </FormPanelContainer>
-    );
-};
+    )
+}
 
-export default PositionComponent;
+export default PositionComponent
