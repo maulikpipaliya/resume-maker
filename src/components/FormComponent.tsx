@@ -13,7 +13,7 @@ const FormComponent: FC = () => {
         <div>
             <Container fluid={true} className='p-0'>
                 <Row>
-                    <Col xs={10} md={4} className='ctr-form' id='ctr-form'>
+                    <Col xs={10} md={4} className='rm-ctr-form col-md-4 col-10 overflow-auto position-fixed' id='ctr-form'>
                         {/* <TagsInput
                             // tagInputData={tagInputPropDataX}
                         // ></TagsInput> */}
