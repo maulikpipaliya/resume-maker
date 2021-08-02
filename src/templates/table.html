@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=
+    , initial-scale=1.0"
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <table id="table"></table>
+        <button onclick="generatePDf()">generate PDF</button>
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.11/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        function generatePDf() {
+            var doc = new jsPDF();
+
+            doc.autoTable({ html: "#table" });
+
+            doc.autoTable({
+                head: [["Name", "Email", "Country"]],
+                body: [
+                    ["David", "david@example.com", "Sweden"],
+                    ["Castille", "castille@example.com", "Spain"],
+                ],
+            });
+
+            doc.save("table.pdf");
+            console.log("Downloading");
+        }
+    </script>
+</html>
