@@ -63,6 +63,21 @@ export const educationReducer = (
                 error: "",
             };
 
+        case EducationActionType.UPDATE_EDUCATION_AT_INDEX:
+            return {
+                ...state,
+                data: [
+                    ...state.data.slice(0, action.payload.index),
+                    {
+                        ...state.data[action.payload.index],
+                        ...action.payload.education,
+                    },
+                    ...state.data.slice(action.payload.index + 1),
+                ],
+                message: "",
+                error: "",
+            };
+
         default:
             return state;
     }

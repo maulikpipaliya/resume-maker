@@ -3,6 +3,7 @@ import { IEducation } from "../../schema";
 export enum EducationActionType {
     ADD_EDUCATION = "ADD_EDUCATION",
     UPDATE_EDUCATION = "UPDATE_EDUCATION",
+    UPDATE_EDUCATION_AT_INDEX = "UPDATE_EDUCATION_AT_INDEX",
     DELETE_EDUCATION = "DELETE_EDUCATION",
     GET_EDUCATIONS = "GET_EDUCATIONS",
     GET_EDUCATION_BY_ID = "GET_EDUCATION_BY_ID",
@@ -25,6 +26,14 @@ interface IAddEducationAction {
 interface IUpdateEducationAction {
     type: EducationActionType.UPDATE_EDUCATION;
     payload: IEducation[];
+}
+
+interface IUpdateEducationAtIndexAction {
+    type: EducationActionType.UPDATE_EDUCATION_AT_INDEX;
+    payload: {
+        index: number;
+        education: IEducation;
+    };
 }
 
 interface IDeleteEducationAction {
@@ -52,6 +61,7 @@ interface IResetEducationAction {
 export type IEducationAction =
     | IAddEducationAction
     | IUpdateEducationAction
+    | IUpdateEducationAtIndexAction
     | IDeleteEducationAction
     | IGetEducationsAction
     | IGetEducationByIdAction

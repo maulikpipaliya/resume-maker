@@ -78,8 +78,14 @@ hr {
 .rm-button {
     border: 1px solid white;
     background-color: transparent;
-    font-size: x-small;
-    height: calc(1.5em + 0.75rem + 2px);
+    font-size: smaller;
+    /* height: calc(1.5em + 0.75rem + 2px); */
+}
+
+.rm-button:hover {
+    background-color: white;
+    cursor: pointer;
+    color:black
 }
 
 .rm-add-button,

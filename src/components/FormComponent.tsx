@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import EducationDetailsComponent from "./EducationDetailsComponent";
+import EducationDetailsComponentCopy from "./EducationDetailsComponentCopy";
 import BasicDetailsComponent from "./BasicDetailsComponent";
 import SkillDetailsComponent from "./SkillDetailsComponent";
 import ResumeComponent from "./ResumeComponent";
@@ -23,7 +24,8 @@ const FormComponent: FC = () => {
                             // tagInputData={tagInputPropDataX}
                         // ></TagsInput> */}
                         <BasicDetailsComponent></BasicDetailsComponent>
-                        <EducationDetailsComponent></EducationDetailsComponent>
+                        {/* <EducationDetailsComponent></EducationDetailsComponent> */}
+                        <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
                         <SkillDetailsComponent></SkillDetailsComponent>
                         <AwardsDetailsComponent></AwardsDetailsComponent>
                         <ProjectComponent></ProjectComponent>
