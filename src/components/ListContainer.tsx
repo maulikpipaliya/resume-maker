@@ -24,7 +24,7 @@ interface IProps {
         ReactNode;
     addRecordHandler: () => void;
     editRecordHandler: (index: number) => void;
-    deleteRecordHandler?: () => void;
+    deleteRecordHandler: (index: number) => void;
 }
 
 const ListContainer: FC<IProps> = ({
@@ -61,17 +61,27 @@ const ListContainer: FC<IProps> = ({
                                     <Badge>{item.institution}</Badge>
                                 </Col>
 
-                                <Col md={{ span: 1, offset: 3 }}>
-                                    <i
-                                        className='fas fa-edit'
-                                        onClick={(e) =>
-                                            editRecordHandler(index)
-                                        }
-                                    ></i>
-                                </Col>
-                                <Col md={{ span: 1 }}>
-                                    <i className='fas fa-trash text-danger'></i>
-                                </Col>
+                                {(item.degree.length !== 0 ||
+                                    item.institution.length !== 0) && (
+                                    <>
+                                        <Col md={{ span: 1, offset: 3 }}>
+                                            <i
+                                                className='fas fa-edit'
+                                                onClick={(e) =>
+                                                    editRecordHandler(index)
+                                                }
+                                            ></i>
+                                        </Col>
+                                        <Col md={{ span: 1 }}>
+                                            <i
+                                                className='fas fa-trash text-danger'
+                                                onClick={(e) =>
+                                                    deleteRecordHandler(index)
+                                                }
+                                            ></i>
+                                        </Col>
+                                    </>
+                                )}
                             </Row>
                         ))}
 

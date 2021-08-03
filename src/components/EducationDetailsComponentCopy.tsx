@@ -56,6 +56,7 @@ const EducationDetailsComponentCopy: FC = () => {
         // work: { data: workData },
     } = stateData;
 
+    const [idx, setIdx] = useState(educationData.length - 1);
     // const nextIndex = stateC;
 
     const dispatch = useDispatch();
@@ -69,19 +70,6 @@ const EducationDetailsComponentCopy: FC = () => {
             case "startYear":
             case "endYear":
             case "gpa":
-                // console.log("nextIndex" + idx);
-                // const tempFormData: IEducation[] = [...educationDataState];
-                // //set to any because of errors
-                // tempFormData[idx] = {
-                //     [keyName]: value,
-                // };
-                // console.log("tempFormData");
-                // console.log(tempFormData);
-                // setEducationDataState(tempFormData);
-
-                // const stateCopy: IEducation[] = [...educationDataState];
-                // const dataAtIndex = [...stateCopy[nextIndex - 1]];
-
                 setFormDataState({
                     ...formDataState,
                     [keyName]: value,
@@ -102,26 +90,34 @@ const EducationDetailsComponentCopy: FC = () => {
         dispatch(deleteEducation(educationData.length - 1));
     };
 
+    const deleteEducationField = (index: number) => {
+        console.log("Item at index " + index + " to be deleted");
+        dispatch(deleteEducation(index));
+    };
+
     // let idx = 0;
     const addEducationFields = () => {
         setFormDataState(formData);
         setFormOpen(true);
         dispatch(addEducation(formData));
+        setIdx(idx + 1);
     };
 
+    // var idx = educationData.length - 1;
     const editEducationField = (index: number) => {
         console.log("Edit called" + index);
         setFormOpen(true);
-        // setFormDataState(educationData[index]);
+        // idx = index;
+        setIdx(index);
+        setFormDataState(educationData[index]);
     };
 
-    const idx = educationData.length - 1;
     useEffect(() => {
-        // console.log(idx);
+        console.log(idx + " from useEffect");
 
         dispatch(updateEducationAtIndex(idx, formDataState));
         return () => {};
-    }, [dispatch, formDataState]);
+    }, [dispatch, formDataState, idx]);
 
     return (
         <AccordionContainer title='Education Details Copy'>
@@ -129,6 +125,7 @@ const EducationDetailsComponentCopy: FC = () => {
                 <ListContainer
                     addRecordHandler={addEducationFields}
                     editRecordHandler={editEducationField}
+                    deleteRecordHandler={deleteEducationField}
                 ></ListContainer>
                 {formOpen && (
                     <div className='px-2'>
@@ -167,7 +164,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='startYear'
-                                        value={formDataState.startYear?.toString()}
+                                        value={
+                                            formDataState.startYear
+                                                ? formDataState.startYear
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -180,7 +181,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='endYear'
-                                        value={formDataState.endYear?.toString()}
+                                        value={
+                                            formDataState.endYear
+                                                ? formDataState.endYear
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -193,7 +198,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='gpa'
-                                        value={formDataState.gpa?.toString()}
+                                        value={
+                                            formDataState.gpa
+                                                ? formDataState.gpa
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -203,12 +212,22 @@ const EducationDetailsComponentCopy: FC = () => {
                         </Row>
 
                         <Row>
-                            <Button
-                                className='w-100 rm-button mx-3'
-                                onClick={saveDataToList}
-                            >
-                                Save data
-                            </Button>
+                            <Col xs={6}>
+                                <Button
+                                    className='w-100 rm-button mx-3'
+                                    onClick={saveDataToList}
+                                >
+                                    Save and close
+                                </Button>
+                            </Col>
+                            <Col xs={6}>
+                                <Button
+                                    className='w-100 rm-button mx-3'
+                                    onClick={addEducationFields}
+                                >
+                                    Add another
+                                </Button>
+                            </Col>
                             <Button
                                 className='w-100 rm-button my-2 mx-3'
                                 onClick={resetForm}
