@@ -29,3 +29,12 @@ export const updateEducation =
             payload: educationList,
         });
     };
+
+export const updateEducationAtIndex =
+    (index: number, education: IEducation) =>
+    (dispatch: Dispatch<IEducationAction>) => {
+        dispatch({
+            type: EducationActionType.UPDATE_EDUCATION_AT_INDEX,
+            payload: { index, education },
+        });
+    };
