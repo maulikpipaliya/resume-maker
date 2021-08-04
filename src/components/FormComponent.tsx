@@ -1,12 +1,13 @@
 import React, { FC } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import EducationDetailsComponentCopy from "./EducationDetailsComponentCopy"
+import EducationDetailsComponentCopy from "./EducationDetailsComponent"
 import BasicDetailsComponent from "./BasicDetailsComponent"
 import SkillDetailsComponent from "./SkillDetailsComponent"
 import ResumeComponent from "./ResumeComponent"
 import AwardsDetailsComponent from "./AwardsDetailsComponent"
 import ProjectComponent from "./ProjectComponent"
 import PositionComponent from "./PositionComponent"
+import WorkExperienceComponent from "./WorkExperienceComponent"
 
 const FormComponent: FC = () => {
     return (
@@ -26,9 +27,10 @@ const FormComponent: FC = () => {
                         {/* <EducationDetailsComponent></EducationDetailsComponent> */}
                         <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
                         <SkillDetailsComponent></SkillDetailsComponent>
-                        <AwardsDetailsComponent></AwardsDetailsComponent>
+                        <WorkExperienceComponent></WorkExperienceComponent>
                         <ProjectComponent></ProjectComponent>
                         <PositionComponent></PositionComponent>
+                        <AwardsDetailsComponent></AwardsDetailsComponent>
                     </Col>
                     <Col
                         md={{ span: 8, offset: 4 }}

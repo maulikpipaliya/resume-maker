@@ -48,12 +48,11 @@ export interface IBasic {
 }
 
 export interface IWork {
-    id: number
     company: string
     position: string
     website?: string
-    startDate?: Date
-    endDate?: Date
+    startDate?: Date | null
+    endDate?: Date | null
     summary: string
     highlights: string[]
 }

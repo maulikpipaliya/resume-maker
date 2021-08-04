@@ -27,7 +27,7 @@ interface IUpdateWorkByIndexAction {
     type: WorkActionType.UPDATE_WORK_BY_INDEX
     payload: {
         idx: number
-        updaterecord: IWork
+        workToUpdate: IWork
     }
 }
 

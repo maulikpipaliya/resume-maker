@@ -2,60 +2,56 @@ import React, { useState, useEffect, FC } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 
-import { IEducation } from "../schema"
+import { IWork } from "../schema"
 
 import AccordionContainer from "./AccordionContainer"
-import {
-    addEducation,
-    deleteEducation,
-    updateEducationAtIndex,
-} from "../actions/educationAction"
-import ListContainer from "./ListContainer"
+import { addWork, deleteWork, updateWorkByIndex } from "../actions/workAction"
+import WorkListContainer from "./WorkListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
 
-const EducationDetailsComponentCopy: FC = () => {
-    const formData: IEducation = {
-        degree: "",
-        institution: "",
-        startYear: null,
-        endYear: null,
-        gpa: null,
+const WorkExperienceComponent: FC = () => {
+    const formData: IWork = {
+        position: " ",
+        company: "",
+        summary: "",
+        highlights: [],
+        startDate: null,
+        endDate: null,
+        website: "",
     }
 
-    const [formDataState, setFormDataState] = useState<IEducation>(formData)
+    const [formDataState, setFormDataState] = useState<IWork>(formData)
 
     const stateData: RootState = useSelector((state: RootState) => state)
 
     const [formOpen, setFormOpen] = useState(false)
 
     const {
-        education: { data: educationData },
-        // skills: { data: skillData },
-        // awards: { data: awardData },
-        // projects: { data: projectData },
-        // interests: { data: interestData },
-        // positions: { data: positionData },
-        // work: { data: workData },
+        work: { data: workData },
     } = stateData
 
-    const [idx, setIdx] = useState(educationData.length - 1)
+    const [idx, setIdx] = useState(workData.length - 1)
     // const nextIndex = stateC;
 
     const dispatch = useDispatch()
 
-    const educationDetailsHandlerNew = (e: any) => {
+    const workDetailsHandler = (e: any) => {
         const { name: keyName, value } = e.currentTarget
-
         switch (keyName) {
-            case "institution":
-            case "degree":
-            case "startYear":
-            case "endYear":
-            case "gpa":
+            case "company":
+            case "summary":
+            case "position":
                 setFormDataState({
                     ...formDataState,
                     [keyName]: value,
+                })
+                break
+            case "startDate":
+            case "endDate":
+                setFormDataState({
+                    ...formDataState,
+                    [keyName]: new Date(value),
                 })
                 break
             default:
@@ -69,127 +65,110 @@ const EducationDetailsComponentCopy: FC = () => {
 
     const resetForm = () => {
         setFormOpen(false)
-        dispatch(deleteEducation(educationData.length - 1))
+        setFormDataState(formData)
     }
 
-    const deleteEducationField = (index: number) => {
-        dispatch(deleteEducation(index))
+    const deleteWorkField = (index: number) => {
+        dispatch(deleteWork(index))
     }
 
     // let idx = 0;
-    const addEducationFields = () => {
+    const addWorkFields = () => {
         setFormDataState(formData)
         setFormOpen(true)
-        dispatch(addEducation(formData))
+        dispatch(addWork(formData))
         setIdx(idx + 1)
     }
 
-    // var idx = educationData.length - 1;
-    const editEducationField = (index: number) => {
+    const editWorkField = (index: number) => {
         setFormOpen(true)
         setIdx(index)
-        setFormDataState(educationData[index])
+        setFormDataState(workData[index])
     }
 
     useEffect(() => {
-        dispatch(updateEducationAtIndex(idx, formDataState))
+        dispatch(updateWorkByIndex(idx, formDataState))
         return () => {}
     }, [dispatch, formDataState, idx])
 
     return (
-        <AccordionContainer title="Education Details Copy">
+        <AccordionContainer title="Work Experience">
             <Container>
-                <ListContainer
-                    addRecordHandler={addEducationFields}
-                    editRecordHandler={editEducationField}
-                    deleteRecordHandler={deleteEducationField}
-                ></ListContainer>
+                <WorkListContainer
+                    addRecordHandler={addWorkFields}
+                    editRecordHandler={editWorkField}
+                    deleteRecordHandler={deleteWorkField}
+                ></WorkListContainer>
                 {formOpen && (
                     <div className="px-2">
                         <Row>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId="degree">
-                                    <Form.Label>Degree</Form.Label>
+                            <Col xs={10} md={12}>
+                                <Form.Group controlId="company">
+                                    <Form.Label>Company</Form.Label>
                                     <Form.Control
                                         className="rm-textbox"
-                                        name="degree"
-                                        value={formDataState.degree}
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e)
-                                        }
+                                        name="company"
+                                        value={formDataState.company}
+                                        onChange={(e) => workDetailsHandler(e)}
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={10} md={8}>
-                                <Form.Group controlId="institution">
-                                    <Form.Label>Institution</Form.Label>
+                            <Col xs={10} md={6}>
+                                <Form.Group controlId="position">
+                                    <Form.Label>Position</Form.Label>
                                     <Form.Control
                                         className="rm-textbox"
-                                        name="institution"
-                                        value={formDataState.institution}
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e)
-                                        }
+                                        name="position"
+                                        value={formDataState.position}
+                                        onChange={(e) => workDetailsHandler(e)}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={3}>
+                                <Form.Group controlId="startDate">
+                                    <Form.Label>From</Form.Label>
+                                    <Form.Control
+                                        className="rm-textbox"
+                                        name="startDate"
+                                        type="date"
+                                        onBlur={workDetailsHandler}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={3}>
+                                <Form.Group controlId="endDate">
+                                    <Form.Label>To</Form.Label>
+                                    <Form.Control
+                                        className="rm-textbox"
+                                        name="endDate"
+                                        type="date"
+                                        onBlur={workDetailsHandler}
                                     />
                                 </Form.Group>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId="startYear">
-                                    <Form.Label>From</Form.Label>
+                            <Col xs={10} md={12}>
+                                <Form.Group controlId="summary">
+                                    <Form.Label>Summary</Form.Label>
                                     <Form.Control
+                                        as="textarea"
+                                        rows={3}
                                         className="rm-textbox"
-                                        name="startYear"
+                                        name="summary"
                                         value={
-                                            formDataState.startYear
-                                                ? formDataState.startYear
+                                            formDataState.summary
+                                                ? formDataState.summary
                                                 : ""
                                         }
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId="endYear">
-                                    <Form.Label>To</Form.Label>
-                                    <Form.Control
-                                        className="rm-textbox"
-                                        name="endYear"
-                                        value={
-                                            formDataState.endYear
-                                                ? formDataState.endYear
-                                                : ""
-                                        }
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e)
-                                        }
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col xs={10} md={4}>
-                                <Form.Group controlId="gpa">
-                                    <Form.Label>CPI / Aggregate</Form.Label>
-                                    <Form.Control
-                                        className="rm-textbox"
-                                        name="gpa"
-                                        value={
-                                            formDataState.gpa
-                                                ? formDataState.gpa
-                                                : ""
-                                        }
-                                        onChange={(e) =>
-                                            educationDetailsHandlerNew(e)
-                                        }
+                                        onChange={(e) => workDetailsHandler(e)}
                                     />
                                 </Form.Group>
                             </Col>
                         </Row>
 
                         <Row>
-                            <Col xs={6}>
+                            <Col md={5} className="px-0">
                                 <Button
                                     className="w-100 rm-button mx-3"
                                     onClick={saveDataToList}
@@ -197,10 +176,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     Save and close
                                 </Button>
                             </Col>
-                            <Col xs={6}>
+                            <Col md={1}></Col>
+                            <Col md={5} className="px-0">
                                 <Button
                                     className="w-100 rm-button mx-3"
-                                    onClick={addEducationFields}
+                                    onClick={addWorkFields}
                                 >
                                     Add another
                                 </Button>
@@ -225,7 +205,7 @@ const EducationDetailsComponentCopy: FC = () => {
                             </Col>
 
                             <Col xs={10} md={1}>
-                                <Form.Group controlId="addEducation">
+                                <Form.Group controlId="addWork">
                                     <Button
                                         className="rm-add-button"
                                         onClick={() => {}}
@@ -242,4 +222,4 @@ const EducationDetailsComponentCopy: FC = () => {
     )
 }
 
-export default EducationDetailsComponentCopy
+export default WorkExperienceComponent
