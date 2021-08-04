@@ -8,6 +8,7 @@ import AwardsDetailsComponent from "./AwardsDetailsComponent"
 import ProjectComponent from "./ProjectComponent"
 import PositionComponent from "./PositionComponent"
 import WorkExperienceComponent from "./WorkExperienceComponent"
+import InterestComponent from "./InterestComponent"
 
 const FormComponent: FC = () => {
     return (
@@ -31,6 +32,7 @@ const FormComponent: FC = () => {
                         <ProjectComponent></ProjectComponent>
                         <PositionComponent></PositionComponent>
                         <AwardsDetailsComponent></AwardsDetailsComponent>
+                        <InterestComponent></InterestComponent>
                     </Col>
                     <Col
                         md={{ span: 8, offset: 4 }}

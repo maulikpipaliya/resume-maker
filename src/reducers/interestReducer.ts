@@ -25,7 +25,7 @@ export const interestReducer = (
             return {
                 ...state,
                 data: state.data.filter(
-                    (interest) => interest.name !== action.payload.name
+                    (interest) => interest !== action.payload
                 ),
                 error: null,
             }

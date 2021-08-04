@@ -83,10 +83,10 @@ export interface ILanguage {
     fluency: string
 }
 
-export interface IInterest {
-    name: string
-    keywords: string[]
-}
+// export interface IInterest {
+//     name: string
+//     keywords: string[]
+// }
 
 export interface IReference {
     name: string
@@ -109,7 +109,7 @@ export interface IResumeData {
     awards?: IAward[]
     projects?: IProject[]
     skills: ISkill[]
-    interests?: IInterest[]
+    interests?: string[]
     references?: IReference[]
     positions?: IPosition[]
 }
