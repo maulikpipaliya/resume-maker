@@ -35,8 +35,6 @@ export const positionReducer = (
             }
 
         case PositionActionType.UPDATE_POSITIONS:
-            console.log("Hahah")
-            console.log(action.payload)
             const newState = {
                 data: action.payload,
                 error: "",
@@ -51,7 +49,7 @@ export const positionReducer = (
             const indexOfTitle: number = state.data.findIndex(
                 (item) => item.title === action.payload
             )
-            console.log(indexOfTitle)
+
             if (indexOfTitle !== -1) {
                 const positionToRemove = state.data.splice(indexOfTitle, 1)
                 return {

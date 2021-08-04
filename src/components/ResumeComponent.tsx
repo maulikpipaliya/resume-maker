@@ -6,7 +6,6 @@ import { IAward, IResumeData, ISkill } from "../schema"
 
 import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap"
 import { convertDate } from "../utils"
-import { BasicActionSuccess } from "../schema/action-types/IBasicAction"
 
 const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
@@ -14,7 +13,6 @@ const ResumeComponent: FC = () => {
     )
 
     const stateData: RootState = useSelector((state: RootState) => state)
-    console.log(stateData)
 
     const {
         basics: { data: basicData },
@@ -42,9 +40,7 @@ const ResumeComponent: FC = () => {
         console.log("Generating PDF")
         const doc = new jsPDF("p", "pt", "a4")
         const htmlCode: any = document.querySelector("#ctr-view")
-        // console.log(htmlCode);
 
-        // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
             callback: function (pdf: any) {
                 pdf.save("resume-maulik.pdf")

@@ -7,9 +7,9 @@ import { RootState } from "../store"
 import AccordionContainer from "./AccordionContainer"
 
 const AwardsDetails: FC = () => {
-    const [awardTitle, setAwardTitle] = useState("")
-    const [institute, setInstitute] = useState("")
-    const [summary, setSummary] = useState("")
+    const awardTitle = ""
+    const institute = ""
+    const summary = ""
     const awards = useSelector((state: RootState) => state.awards.data)
 
     const initialData: IAward[] = [{ title: "", awarder: "", summary: "" }]

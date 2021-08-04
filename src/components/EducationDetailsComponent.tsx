@@ -41,7 +41,6 @@ const EducationDetailsComponent: FC = () => {
                 break
         }
     }
-    // console.log(stateObj);
 
     const addEducationFields = () => {
         setFormDataState([...formDataState, formData[0]])

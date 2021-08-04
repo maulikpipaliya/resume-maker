@@ -8,8 +8,6 @@ interface Props {
 }
 
 const TagsInput: FC<Props> = ({ tagInputData }) => {
-    console.log(tagInputData)
-
     const [tags, setTags] = useState<string[]>([])
     const [input, setInput] = useState("")
     const [suggestions, setSuggestions] = useState<typeof tagInputData>([])
@@ -20,7 +18,6 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
 
     const handleKeyDown = (e: any) => {
         if (e.keyCode === 13) {
-            console.log("hello")
             e.preventDefault()
         }
 
@@ -42,8 +39,6 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
     }
 
     useEffect(() => {
-        console.log("Input is" + input)
-
         const suggestions = tagInputData.filter((item) =>
             item.text.toLowerCase().includes(input.toLowerCase())
         )

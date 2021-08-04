@@ -3,10 +3,9 @@ import React, {
     JSXElementConstructor,
     ReactElement,
     ReactNode,
-    useState,
 } from "react"
-import { Container, Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
-import Accordion from "react-bootstrap/Accordion"
+import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
+
 import { useSelector } from "react-redux"
 import { RootState } from "../store"
 
@@ -26,7 +25,6 @@ const ListContainer: FC<IProps> = ({
     deleteRecordHandler,
 }) => {
     const stateData: RootState = useSelector((state: RootState) => state)
-    console.log(stateData)
 
     const {
         education: { data: educationData },

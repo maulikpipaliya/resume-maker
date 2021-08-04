@@ -1,6 +1,3 @@
-import { error } from "console"
-import { stat } from "fs"
-import { IAward } from "../schema"
 import {
     IAwardAction,
     AwardActionType,
@@ -38,8 +35,6 @@ export const awardReducer = (
             }
 
         case AwardActionType.UPDATE_AWARDS:
-            console.log("awards")
-            console.log(action.payload)
             const newState = {
                 data: action.payload,
                 error: "",
@@ -55,7 +50,6 @@ export const awardReducer = (
             const indexOfTitle: number = state.data.findIndex(
                 (item) => item.title === action.payload.title
             )
-            console.log(indexOfTitle)
             if (indexOfTitle !== -1) {
                 const awardToRemove = state.data.splice(indexOfTitle, 1)
                 return {

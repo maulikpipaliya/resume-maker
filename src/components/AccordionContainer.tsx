@@ -5,7 +5,7 @@ import React, {
     ReactNode,
     useState,
 } from "react"
-import { Container, Form, Button, Badge, Row } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import Accordion from "react-bootstrap/Accordion"
 
 interface IProps {
@@ -20,12 +20,12 @@ const AccordionContainer: FC<IProps> = ({ children, title }) => {
 
     return (
         <Container>
-            <Form className="px-2 py-1">
+            <div className="px-2 py-1">
                 <Accordion key={1}>
                     <Accordion.Toggle
                         as={Container}
                         eventKey="1"
-                        defaultActiveKey="1"
+                        // defaultActiveKey="1"
                         onClick={(e) => setPanelOpen(!panelOpen)}
                     >
                         <h6 className="rm-form-heading py-2 text-sm">
@@ -46,7 +46,7 @@ const AccordionContainer: FC<IProps> = ({ children, title }) => {
                         {children}
                     </Accordion.Collapse>
                 </Accordion>
-            </Form>
+            </div>
         </Container>
     )
 }

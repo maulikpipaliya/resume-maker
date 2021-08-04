@@ -32,8 +32,6 @@ export const updatePositions = (
     positionList: IPosition[]
 ): ThunkAction<void, RootState, null, IPositionAction> => {
     return async (dispatch) => {
-        console.log("positionlist", positionList)
-
         dispatch({
             type: PositionActionType.UPDATE_POSITIONS,
             payload: positionList,

@@ -36,8 +36,6 @@ export const projectReducer = (
             }
 
         case ProjectActionType.UPDATE_PROJECTS:
-            console.log("google")
-            console.log(action.payload)
             const newState = {
                 data: action.payload,
                 error: "",

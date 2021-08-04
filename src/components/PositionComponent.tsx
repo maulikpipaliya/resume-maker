@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react"
-import FormPanelContainer from "./FormPanelContainer"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { IPosition } from "../schema"
 import { useDispatch } from "react-redux"
@@ -49,8 +48,6 @@ const PositionComponent: FC = () => {
     }
 
     useEffect(() => {
-        console.log("formDataState", formDataState)
-        console.log("effect")
         dispatch(updatePositions(formDataState))
     }, [formDataState, dispatch])
 

@@ -12,10 +12,6 @@ const ProjectComponent: FC = () => {
 
     const [formDataState, setFormDataState] = useState(initialData)
 
-    const projectDetailHandler = () => {
-        console.log("project detail handler")
-    }
-
     const handleChange = (e: any, idx: number) => {
         const { name, value } = e.currentTarget
         switch (name) {
@@ -60,7 +56,7 @@ const ProjectComponent: FC = () => {
                             <React.Fragment key={idx}>
                                 <Row>
                                     <Col xs={10} md={5}>
-                                        <Form.Group controlId="name">
+                                        <Form.Group controlId="project-name">
                                             <Form.Label>Name</Form.Label>
                                             <Form.Control
                                                 className="rm-textbox"

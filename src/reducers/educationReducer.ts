@@ -1,6 +1,5 @@
 import {
     EducationActionType,
-    EducationMessageType,
     IEducationAction,
 } from "../schema/action-types/IEducationAction"
 import { IEducationState } from "../schema/state/IEducationState"
@@ -34,9 +33,6 @@ export const educationReducer = (
 
         case EducationActionType.DELETE_EDUCATION:
             const educationData = [...state.data]
-            // console.log(ids);
-            // console.log(educationData.indexOf(action.payload));
-            // console.log(action.payload.id);
 
             const idx = action.payload
 

@@ -8,9 +8,7 @@ const ResumeView: FC = () => {
         console.log("Generating PDF")
         const doc = new jsPDF("p", "pt", "a4")
         const htmlCode: any = document.querySelector("#ctr-view")
-        console.log(htmlCode)
 
-        // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
             callback: function (pdf: any) {
                 pdf.save("resume-maulik.pdf")

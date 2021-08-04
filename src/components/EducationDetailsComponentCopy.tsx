@@ -8,23 +8,11 @@ import AccordionContainer from "./AccordionContainer"
 import {
     addEducation,
     deleteEducation,
-    updateEducation,
     updateEducationAtIndex,
 } from "../actions/educationAction"
 import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
-
-interface IProps {
-    formHandler: (e: any, idx: number) => void
-    idx: number
-}
-
-// const EducationDetailsForm: FC<IProps> = ({ formHandler, idx }) => {
-//     return (
-
-//     );
-// };
 
 const EducationDetailsComponentCopy: FC = () => {
     const formData: IEducation = {
@@ -38,13 +26,8 @@ const EducationDetailsComponentCopy: FC = () => {
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
 
     const stateData: RootState = useSelector((state: RootState) => state)
-    console.log(stateData)
 
-    const stateCopy = JSON.parse(JSON.stringify(stateData))
     const [formOpen, setFormOpen] = useState(false)
-    const [educationDataState, setEducationDataState] = useState(
-        stateCopy.education.data
-    )
 
     const {
         education: { data: educationData },
@@ -79,7 +62,6 @@ const EducationDetailsComponentCopy: FC = () => {
                 break
         }
     }
-    // console.log(stateObj);
 
     const saveDataToList = () => {
         setFormOpen(false)
@@ -91,7 +73,6 @@ const EducationDetailsComponentCopy: FC = () => {
     }
 
     const deleteEducationField = (index: number) => {
-        console.log("Item at index " + index + " to be deleted")
         dispatch(deleteEducation(index))
     }
 
@@ -105,16 +86,12 @@ const EducationDetailsComponentCopy: FC = () => {
 
     // var idx = educationData.length - 1;
     const editEducationField = (index: number) => {
-        console.log("Edit called" + index)
         setFormOpen(true)
-        // idx = index;
         setIdx(index)
         setFormDataState(educationData[index])
     }
 
     useEffect(() => {
-        console.log(idx + " from useEffect")
-
         dispatch(updateEducationAtIndex(idx, formDataState))
         return () => {}
     }, [dispatch, formDataState, idx])

@@ -1,4 +1,3 @@
-import data from "../components/tagInputPropData"
 import {
     IBasicAction,
     BasicActionType,

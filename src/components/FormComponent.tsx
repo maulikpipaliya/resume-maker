@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import EducationDetailsComponent from "./EducationDetailsComponent"
 import EducationDetailsComponentCopy from "./EducationDetailsComponentCopy"
 import BasicDetailsComponent from "./BasicDetailsComponent"
 import SkillDetailsComponent from "./SkillDetailsComponent"

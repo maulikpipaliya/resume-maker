@@ -1,19 +1,14 @@
 import React, { useState, useEffect, FC } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import AccordionContainer from "../components/AccordionContainer"
-import { convertDate } from "../utils"
-import { RootState } from "../store"
 
-import { IResumeDataState } from "../schema/state/IResumeDataState"
 import { IBasic, ILocation } from "../schema"
 import { updateBasics, resetEmails } from "../actions/basicAction"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
-    const initialState: IResumeDataState = useSelector(
-        (state: RootState) => state.resumeData
-    )
+
     const locationData: ILocation = {
         city: "",
         region: "",
@@ -65,73 +60,6 @@ const BasicDetailsComponent: FC = () => {
         }
     }
 
-    // console.log(initialState);
-    const [stateObj, setStateObj] = useState(initialState.data)
-
-    // console.log(stateObj);
-
-    const basicDetailHandler = (e: any) => {
-        const { name, value } = e.currentTarget
-        // console.log(e.currentTarget.name + " : ");
-        // console.log(e.currentTarget.value);
-
-        switch (name) {
-            case "name":
-            case "phone":
-            case "contact":
-            case "summary":
-                setStateObj((prevState: any) => ({
-                    ...prevState,
-                    basics: {
-                        ...prevState.basics,
-                        [name]: value,
-                    },
-                }))
-                break
-            case "dob":
-                setStateObj((prevState: any) => ({
-                    ...prevState,
-                    basics: {
-                        ...prevState.basics,
-                        [name]: convertDate(e.target.valueAsNumber),
-                    },
-                }))
-                break
-            case "city":
-            case "address":
-            case "postalCode":
-            case "countryCode":
-            case "region":
-                setStateObj((prevState: any) => ({
-                    ...prevState,
-                    basics: {
-                        ...prevState.basics,
-                        location: {
-                            ...prevState.basics.location,
-                            [name]: value,
-                        },
-                    },
-                }))
-                break
-
-            case "username":
-                setStateObj((prevState: any) => ({
-                    ...prevState,
-                    basics: {
-                        ...prevState.basics,
-                        profile: [
-                            {
-                                [name]: value,
-                            },
-                        ],
-                    },
-                }))
-                break
-            default:
-            // code block
-        }
-    }
-
     const addEmailField = () => {
         const emails = [...formDataState.email]
         emails.push("")
@@ -143,7 +71,6 @@ const BasicDetailsComponent: FC = () => {
 
     const removeEmailField = (idx: number) => {
         const emails = [...formDataState.email]
-        console.log(emails)
         emails.splice(idx, 1)
         setFormDataState({
             ...formDataState,
@@ -170,17 +97,6 @@ const BasicDetailsComponent: FC = () => {
             dispatch(resetEmails())
         }
     }
-
-    // console.log(stateObj);
-
-    // useEffect(() => {
-    //     // console.log("State updating");
-    //     dispatch(updateResumeData(stateObj));
-    //     // console.log(stateObj);
-    //     // console.log("State updated");
-
-    //     return () => {};
-    // }, [stateObj, dispatch]);
 
     useEffect(() => {
         dispatch(updateBasics(formDataState))

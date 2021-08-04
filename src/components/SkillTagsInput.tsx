@@ -49,9 +49,6 @@ const SkillTagsInput: FC<Props> = ({
             (element) => !tags.includes(element.text)
         )
 
-        // console.log('hahah')
-        // console.log(suggestionExceptTagsTaken)
-
         setSuggestions(suggestionExceptTagsTaken)
     }
 
@@ -161,7 +158,7 @@ const SkillTagsInput: FC<Props> = ({
                             className="rm-tags-textbox"
                             list="expertise-list"
                             name="expertise"
-                            id="expertise"
+                            // id="expertise"
                             value={input}
                             placeholder={placeholder}
                             onChange={handleChange}
@@ -174,8 +171,6 @@ const SkillTagsInput: FC<Props> = ({
                 <Row>
                     <Col md={12}>
                         <div className="rm-tags-suggestions">
-                            {/* {console.log('suggestions')}
-                            {console.log(suggestions)} */}
                             {suggestions?.map((suggestion, idx) => (
                                 <div
                                     className="rm-tags-suggestion"
