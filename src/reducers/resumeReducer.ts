@@ -1,9 +1,9 @@
 import {
     IResumeAction,
     ResumeDataActionTypes,
-} from "./../schema/action-types/IGetResumeDataAction";
+} from "./../schema/action-types/IGetResumeDataAction"
 
-import { IResumeDataState } from "../schema/state/IResumeDataState";
+import { IResumeDataState } from "../schema/state/IResumeDataState"
 
 const initialState: IResumeDataState = {
     data: {
@@ -50,7 +50,7 @@ const initialState: IResumeDataState = {
     },
     loading: false,
     error: "",
-};
+}
 
 export const resumeReducer = (
     state = initialState,
@@ -63,9 +63,9 @@ export const resumeReducer = (
                 data: action.payload,
                 error: "",
                 loading: false,
-            };
+            }
         }
         default:
-            return state;
+            return state
     }
-};
+}

@@ -1,8 +1,8 @@
-import { IPosition } from "../../schema";
+import { IPosition } from "../../schema"
 
 export interface IPositionState {
-    data: IPosition[];
-    error: string | null;
-    loading: boolean;
-    message: string | null;
+    data: IPosition[]
+    error: string | null
+    loading: boolean
+    message: string | null
 }

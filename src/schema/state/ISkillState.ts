@@ -1,6 +1,6 @@
-import { ISkill } from "../../schema";
+import { ISkill } from "../../schema"
 
 export interface ISkillState {
-    data: ISkill[];
-    error: string;
+    data: ISkill[]
+    error: string
 }

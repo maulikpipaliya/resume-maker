@@ -1,7 +1,7 @@
-import { IInterest } from "../../schema";
+import { IInterest } from "../../schema"
 
 export interface IInterestState {
-    data: IInterest[];
-    error: string | null;
-    loading: boolean;
+    data: IInterest[]
+    error: string | null
+    loading: boolean
 }

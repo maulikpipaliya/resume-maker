@@ -1,23 +1,23 @@
-import React, { useState, useEffect, FC } from "react";
-import { Row, Col, Form, Button, Container } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, FC } from "react"
+import { Row, Col, Form, Button, Container } from "react-bootstrap"
+import { useDispatch } from "react-redux"
 
-import { IEducation } from "../schema";
+import { IEducation } from "../schema"
 
-import AccordionContainer from "./AccordionContainer";
+import AccordionContainer from "./AccordionContainer"
 import {
     addEducation,
     deleteEducation,
     updateEducation,
     updateEducationAtIndex,
-} from "../actions/educationAction";
-import ListContainer from "./ListContainer";
-import { RootState } from "../store";
-import { useSelector } from "react-redux";
+} from "../actions/educationAction"
+import ListContainer from "./ListContainer"
+import { RootState } from "../store"
+import { useSelector } from "react-redux"
 
 interface IProps {
-    formHandler: (e: any, idx: number) => void;
-    idx: number;
+    formHandler: (e: any, idx: number) => void
+    idx: number
 }
 
 // const EducationDetailsForm: FC<IProps> = ({ formHandler, idx }) => {
@@ -33,18 +33,18 @@ const EducationDetailsComponentCopy: FC = () => {
         startYear: null,
         endYear: null,
         gpa: null,
-    };
+    }
 
-    const [formDataState, setFormDataState] = useState<IEducation>(formData);
+    const [formDataState, setFormDataState] = useState<IEducation>(formData)
 
-    const stateData: RootState = useSelector((state: RootState) => state);
-    console.log(stateData);
+    const stateData: RootState = useSelector((state: RootState) => state)
+    console.log(stateData)
 
-    const stateCopy = JSON.parse(JSON.stringify(stateData));
-    const [formOpen, setFormOpen] = useState(false);
+    const stateCopy = JSON.parse(JSON.stringify(stateData))
+    const [formOpen, setFormOpen] = useState(false)
     const [educationDataState, setEducationDataState] = useState(
         stateCopy.education.data
-    );
+    )
 
     const {
         education: { data: educationData },
@@ -54,15 +54,15 @@ const EducationDetailsComponentCopy: FC = () => {
         // interests: { data: interestData },
         // positions: { data: positionData },
         // work: { data: workData },
-    } = stateData;
+    } = stateData
 
-    const [idx, setIdx] = useState(educationData.length - 1);
+    const [idx, setIdx] = useState(educationData.length - 1)
     // const nextIndex = stateC;
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const educationDetailsHandlerNew = (e: any) => {
-        const { name: keyName, value } = e.currentTarget;
+        const { name: keyName, value } = e.currentTarget
 
         switch (keyName) {
             case "institution":
@@ -73,54 +73,54 @@ const EducationDetailsComponentCopy: FC = () => {
                 setFormDataState({
                     ...formDataState,
                     [keyName]: value,
-                });
-                break;
+                })
+                break
             default:
-                break;
+                break
         }
-    };
+    }
     // console.log(stateObj);
 
     const saveDataToList = () => {
-        setFormOpen(false);
-    };
+        setFormOpen(false)
+    }
 
     const resetForm = () => {
-        setFormOpen(false);
-        dispatch(deleteEducation(educationData.length - 1));
-    };
+        setFormOpen(false)
+        dispatch(deleteEducation(educationData.length - 1))
+    }
 
     const deleteEducationField = (index: number) => {
-        console.log("Item at index " + index + " to be deleted");
-        dispatch(deleteEducation(index));
-    };
+        console.log("Item at index " + index + " to be deleted")
+        dispatch(deleteEducation(index))
+    }
 
     // let idx = 0;
     const addEducationFields = () => {
-        setFormDataState(formData);
-        setFormOpen(true);
-        dispatch(addEducation(formData));
-        setIdx(idx + 1);
-    };
+        setFormDataState(formData)
+        setFormOpen(true)
+        dispatch(addEducation(formData))
+        setIdx(idx + 1)
+    }
 
     // var idx = educationData.length - 1;
     const editEducationField = (index: number) => {
-        console.log("Edit called" + index);
-        setFormOpen(true);
+        console.log("Edit called" + index)
+        setFormOpen(true)
         // idx = index;
-        setIdx(index);
-        setFormDataState(educationData[index]);
-    };
+        setIdx(index)
+        setFormDataState(educationData[index])
+    }
 
     useEffect(() => {
-        console.log(idx + " from useEffect");
+        console.log(idx + " from useEffect")
 
-        dispatch(updateEducationAtIndex(idx, formDataState));
-        return () => {};
-    }, [dispatch, formDataState, idx]);
+        dispatch(updateEducationAtIndex(idx, formDataState))
+        return () => {}
+    }, [dispatch, formDataState, idx])
 
     return (
-        <AccordionContainer title='Education Details Copy'>
+        <AccordionContainer title="Education Details Copy">
             <Container>
                 <ListContainer
                     addRecordHandler={addEducationFields}
@@ -128,14 +128,14 @@ const EducationDetailsComponentCopy: FC = () => {
                     deleteRecordHandler={deleteEducationField}
                 ></ListContainer>
                 {formOpen && (
-                    <div className='px-2'>
+                    <div className="px-2">
                         <Row>
                             <Col xs={10} md={4}>
-                                <Form.Group controlId='degree'>
+                                <Form.Group controlId="degree">
                                     <Form.Label>Degree</Form.Label>
                                     <Form.Control
-                                        className='rm-textbox'
-                                        name='degree'
+                                        className="rm-textbox"
+                                        name="degree"
                                         value={formDataState.degree}
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
@@ -144,11 +144,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                 </Form.Group>
                             </Col>
                             <Col xs={10} md={8}>
-                                <Form.Group controlId='institution'>
+                                <Form.Group controlId="institution">
                                     <Form.Label>Institution</Form.Label>
                                     <Form.Control
-                                        className='rm-textbox'
-                                        name='institution'
+                                        className="rm-textbox"
+                                        name="institution"
                                         value={formDataState.institution}
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
@@ -159,11 +159,11 @@ const EducationDetailsComponentCopy: FC = () => {
                         </Row>
                         <Row>
                             <Col xs={10} md={4}>
-                                <Form.Group controlId='startYear'>
+                                <Form.Group controlId="startYear">
                                     <Form.Label>From</Form.Label>
                                     <Form.Control
-                                        className='rm-textbox'
-                                        name='startYear'
+                                        className="rm-textbox"
+                                        name="startYear"
                                         value={
                                             formDataState.startYear
                                                 ? formDataState.startYear
@@ -176,11 +176,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                 </Form.Group>
                             </Col>
                             <Col xs={10} md={4}>
-                                <Form.Group controlId='endYear'>
+                                <Form.Group controlId="endYear">
                                     <Form.Label>To</Form.Label>
                                     <Form.Control
-                                        className='rm-textbox'
-                                        name='endYear'
+                                        className="rm-textbox"
+                                        name="endYear"
                                         value={
                                             formDataState.endYear
                                                 ? formDataState.endYear
@@ -193,11 +193,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                 </Form.Group>
                             </Col>
                             <Col xs={10} md={4}>
-                                <Form.Group controlId='gpa'>
+                                <Form.Group controlId="gpa">
                                     <Form.Label>CPI / Aggregate</Form.Label>
                                     <Form.Control
-                                        className='rm-textbox'
-                                        name='gpa'
+                                        className="rm-textbox"
+                                        name="gpa"
                                         value={
                                             formDataState.gpa
                                                 ? formDataState.gpa
@@ -214,7 +214,7 @@ const EducationDetailsComponentCopy: FC = () => {
                         <Row>
                             <Col xs={6}>
                                 <Button
-                                    className='w-100 rm-button mx-3'
+                                    className="w-100 rm-button mx-3"
                                     onClick={saveDataToList}
                                 >
                                     Save and close
@@ -222,14 +222,14 @@ const EducationDetailsComponentCopy: FC = () => {
                             </Col>
                             <Col xs={6}>
                                 <Button
-                                    className='w-100 rm-button mx-3'
+                                    className="w-100 rm-button mx-3"
                                     onClick={addEducationFields}
                                 >
                                     Add another
                                 </Button>
                             </Col>
                             <Button
-                                className='w-100 rm-button my-2 mx-3'
+                                className="w-100 rm-button my-2 mx-3"
                                 onClick={resetForm}
                             >
                                 Reset and delete this
@@ -237,9 +237,9 @@ const EducationDetailsComponentCopy: FC = () => {
                             <Col xs={10} md={8}></Col>
 
                             <Col xs={10} md={1}>
-                                <Form.Group controlId='removeEducation'>
+                                <Form.Group controlId="removeEducation">
                                     <Button
-                                        className='rm-remove-button'
+                                        className="rm-remove-button"
                                         onClick={saveDataToList}
                                     >
                                         -
@@ -248,9 +248,9 @@ const EducationDetailsComponentCopy: FC = () => {
                             </Col>
 
                             <Col xs={10} md={1}>
-                                <Form.Group controlId='addEducation'>
+                                <Form.Group controlId="addEducation">
                                     <Button
-                                        className='rm-add-button'
+                                        className="rm-add-button"
                                         onClick={() => {}}
                                     >
                                         +
@@ -262,7 +262,7 @@ const EducationDetailsComponentCopy: FC = () => {
                 )}
             </Container>
         </AccordionContainer>
-    );
-};
+    )
+}
 
-export default EducationDetailsComponentCopy;
+export default EducationDetailsComponentCopy

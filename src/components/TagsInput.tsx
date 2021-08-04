@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from "react"
 
 interface Props {
     tagInputData: {
@@ -11,7 +11,7 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
     console.log(tagInputData)
 
     const [tags, setTags] = useState<string[]>([])
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState("")
     const [suggestions, setSuggestions] = useState<typeof tagInputData>([])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
 
     const handleKeyDown = (e: any) => {
         if (e.keyCode === 13) {
-            console.log('hello')
+            console.log("hello")
             e.preventDefault()
         }
 
@@ -38,11 +38,11 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
         if (!tags.includes(text)) {
             setTags([...tags, text])
         }
-        setInput('')
+        setInput("")
     }
 
     useEffect(() => {
-        console.log('Input is' + input)
+        console.log("Input is" + input)
 
         const suggestions = tagInputData.filter((item) =>
             item.text.toLowerCase().includes(input.toLowerCase())
@@ -76,7 +76,7 @@ const TagsInput: FC<Props> = ({ tagInputData }) => {
                 {suggestions?.map((suggestion, idx) => (
                     <React.Fragment key={idx}>
                         <div onClick={(e) => addTag(suggestion.text)}>
-                            {suggestion.text}{' '}
+                            {suggestion.text}{" "}
                         </div>
                     </React.Fragment>
                 ))}

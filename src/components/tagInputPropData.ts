@@ -11,6 +11,6 @@ const data = [
         id: 3,
         text: "Cat",
     },
-];
+]
 
-export default data;
+export default data

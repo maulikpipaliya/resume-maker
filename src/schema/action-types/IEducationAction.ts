@@ -1,4 +1,4 @@
-import { IEducation } from "../../schema";
+import { IEducation } from "../../schema"
 
 export enum EducationActionType {
     ADD_EDUCATION = "ADD_EDUCATION",
@@ -20,45 +20,45 @@ export enum EducationActionErrors {
 }
 
 interface IAddEducationAction {
-    type: EducationActionType.ADD_EDUCATION;
-    payload: IEducation;
+    type: EducationActionType.ADD_EDUCATION
+    payload: IEducation
 }
 
 interface IUpdateEducationAction {
-    type: EducationActionType.UPDATE_EDUCATION;
-    payload: IEducation[];
+    type: EducationActionType.UPDATE_EDUCATION
+    payload: IEducation[]
 }
 
 interface IUpdateEducationAtIndexAction {
-    type: EducationActionType.UPDATE_EDUCATION_AT_INDEX;
+    type: EducationActionType.UPDATE_EDUCATION_AT_INDEX
     payload: {
-        index: number;
-        education: IEducation;
-    };
+        index: number
+        education: IEducation
+    }
 }
 
 interface IDeleteEducationAction {
-    type: EducationActionType.DELETE_EDUCATION;
-    payload: number;
+    type: EducationActionType.DELETE_EDUCATION
+    payload: number
 }
 
 interface IGetEducationsAction {
-    type: EducationActionType.GET_EDUCATIONS;
+    type: EducationActionType.GET_EDUCATIONS
 }
 
 interface IGetEducationByIdAction {
-    type: EducationActionType.GET_EDUCATION_BY_ID;
+    type: EducationActionType.GET_EDUCATION_BY_ID
     payload: {
-        id: number;
-    };
+        id: number
+    }
 }
 
 interface IResetEducationAction {
-    type: EducationActionType.RESET_EDUCATION;
+    type: EducationActionType.RESET_EDUCATION
 }
 
 interface IGetSizeAction {
-    type: EducationActionType.GET_SIZE;
+    type: EducationActionType.GET_SIZE
 }
 
 export type IEducationAction =
@@ -69,4 +69,4 @@ export type IEducationAction =
     | IGetEducationsAction
     | IGetEducationByIdAction
     | IResetEducationAction
-    | IGetSizeAction;
+    | IGetSizeAction

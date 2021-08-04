@@ -1,15 +1,15 @@
-import { IWorkState } from '../schema/state/IWorkState'
+import { IWorkState } from "../schema/state/IWorkState"
 import {
     IWorkAction,
     WorkActionType,
     WorkActionErrors,
-} from '../schema/action-types/IWorkAction'
+} from "../schema/action-types/IWorkAction"
 
 const initialWorkState: IWorkState = {
     data: [],
     error: null,
     loading: false,
-    message: '',
+    message: "",
 }
 
 export const workReducer = (
@@ -21,14 +21,14 @@ export const workReducer = (
             return {
                 ...state,
                 data: [],
-                error: '',
+                error: "",
             }
         case WorkActionType.UPDATE_WORKS:
             const newState = {
                 data: action.payload,
-                error: '',
+                error: "",
                 loading: false,
-                message: 'All Work are Updated.',
+                message: "All Work are Updated.",
             }
             return newState
         case WorkActionType.UPDATE_WORK_BY_INDEX:
@@ -37,7 +37,7 @@ export const workReducer = (
                 alldata.length <= action.payload.idx ||
                 action.payload.idx < 0
             ) {
-                return { ...state, error: 'Invalid Index' }
+                return { ...state, error: "Invalid Index" }
             } else {
                 alldata[action.payload.idx] = action.payload.updaterecord
                 return { ...state, data: alldata }
@@ -48,7 +48,7 @@ export const workReducer = (
                 ...state,
                 data: [...state.data, action.payload],
                 error: null,
-                message: 'Data succesfully added',
+                message: "Data succesfully added",
             }
         case WorkActionType.DELETE_WORK:
             const ids = state.data.map((work) => work.id)

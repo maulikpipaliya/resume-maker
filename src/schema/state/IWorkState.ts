@@ -1,8 +1,8 @@
-import { IWork } from "../../schema";
+import { IWork } from "../../schema"
 
 export interface IWorkState {
-    data: IWork[];
-    error?: string | null;
-    loading: boolean;
-    message?: string | null;
+    data: IWork[]
+    error?: string | null
+    loading: boolean
+    message?: string | null
 }

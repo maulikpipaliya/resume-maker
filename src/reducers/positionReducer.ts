@@ -1,14 +1,14 @@
 import {
     IPositionAction,
     PositionActionType,
-} from '../schema/action-types/IPositionAction'
-import { IPositionState } from '../schema/state/IPositionState'
+} from "../schema/action-types/IPositionAction"
+import { IPositionState } from "../schema/state/IPositionState"
 
 const initialPositionState: IPositionState = {
     data: [],
-    error: '',
+    error: "",
     loading: false,
-    message: '',
+    message: "",
 }
 
 export const positionReducer = (
@@ -20,7 +20,7 @@ export const positionReducer = (
             return {
                 ...state,
                 data: [],
-                error: '',
+                error: "",
             }
         case PositionActionType.UPDATE_POSITION_BY_INDEX:
             const alldata = [...state.data]
@@ -28,18 +28,18 @@ export const positionReducer = (
                 alldata.length <= action.payload.idx ||
                 action.payload.idx < 0
             ) {
-                return { ...state, error: 'Invalid Index' }
+                return { ...state, error: "Invalid Index" }
             } else {
                 alldata[action.payload.idx] = action.payload.updaterecord
                 return { ...state, data: alldata }
             }
 
         case PositionActionType.UPDATE_POSITIONS:
-            console.log('Hahah')
+            console.log("Hahah")
             console.log(action.payload)
             const newState = {
                 data: action.payload,
-                error: '',
+                error: "",
                 loading: false,
             }
             return newState

@@ -2,14 +2,14 @@ import {
     EducationActionType,
     EducationMessageType,
     IEducationAction,
-} from "../schema/action-types/IEducationAction";
-import { IEducationState } from "../schema/state/IEducationState";
+} from "../schema/action-types/IEducationAction"
+import { IEducationState } from "../schema/state/IEducationState"
 
 const initialEducationState: IEducationState = {
     data: [],
     loading: false,
     error: null,
-};
+}
 
 export const educationReducer = (
     state = initialEducationState,
@@ -22,7 +22,7 @@ export const educationReducer = (
                 data: action.payload,
                 loading: false,
                 error: null,
-            };
+            }
 
         case EducationActionType.ADD_EDUCATION:
             return {
@@ -30,30 +30,30 @@ export const educationReducer = (
                 data: [...state.data, action.payload],
                 message: "",
                 error: "",
-            };
+            }
 
         case EducationActionType.DELETE_EDUCATION:
-            const educationData = [...state.data];
+            const educationData = [...state.data]
             // console.log(ids);
             // console.log(educationData.indexOf(action.payload));
             // console.log(action.payload.id);
 
-            const idx = action.payload;
+            const idx = action.payload
 
             if (idx >= 0 && idx < educationData.length) {
-                educationData.splice(idx, 1);
-                
+                educationData.splice(idx, 1)
+
                 return {
                     ...state,
                     data: educationData,
                     message: `Education deleted at ${idx}`,
                     error: "",
-                };
+                }
             } else {
                 return {
                     ...state,
                     error: "Education can't be Deleted. Wrong Index",
-                };
+                }
             }
 
         case EducationActionType.RESET_EDUCATION:
@@ -62,10 +62,10 @@ export const educationReducer = (
                 data: [],
                 message: null,
                 error: "",
-            };
+            }
 
         case EducationActionType.UPDATE_EDUCATION_AT_INDEX:
-            const copy = [...state.data];
+            const copy = [...state.data]
             if (
                 action.payload.index >= 0 &&
                 action.payload.index < copy.length
@@ -82,14 +82,14 @@ export const educationReducer = (
                     ],
                     message: "Updated",
                     error: "",
-                };
+                }
             }
             return {
                 ...state,
                 error: "Index out of range",
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}

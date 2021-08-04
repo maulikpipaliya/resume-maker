@@ -85,7 +85,7 @@ hr {
 .rm-button:hover {
     background-color: white;
     cursor: pointer;
-    color:black
+    color: black;
 }
 
 .rm-add-button,

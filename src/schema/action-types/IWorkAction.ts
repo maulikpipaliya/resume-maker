@@ -1,13 +1,13 @@
-import { IWork } from '../../schema'
+import { IWork } from "../../schema"
 
 export enum WorkActionType {
-    ADD_WORK = 'ADD_WORK',
-    UPDATE_WORK_BY_INDEX = 'UPDATE_WORK_BY_INDEX',
-    DELETE_WORK = 'DELETE_WORK',
-    GET_WORKS = 'GET_WORKS',
-    GET_WORK_BY_ID = 'GET_WORK_BY_ID',
-    RESET_WORKS = 'RESET_WORKS',
-    UPDATE_WORKS = 'UPDATE_WORKS',
+    ADD_WORK = "ADD_WORK",
+    UPDATE_WORK_BY_INDEX = "UPDATE_WORK_BY_INDEX",
+    DELETE_WORK = "DELETE_WORK",
+    GET_WORKS = "GET_WORKS",
+    GET_WORK_BY_ID = "GET_WORK_BY_ID",
+    RESET_WORKS = "RESET_WORKS",
+    UPDATE_WORKS = "UPDATE_WORKS",
 }
 
 export enum WorkActionErrors {

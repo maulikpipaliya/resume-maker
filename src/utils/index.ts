@@ -1,2 +1,2 @@
-import { convertDate } from "./utils";
-export { convertDate };
+import { convertDate } from "./utils"
+export { convertDate }

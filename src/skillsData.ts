@@ -11,7 +11,7 @@ export const expertiseData = [
     { id: 10, text: "Enterprise Service Bus" },
     { id: 11, text: "Databases/Data storages" },
     { id: 12, text: "Continuous Integration" },
-];
+]
 
 export const toolsAndTechnologiesData = [
     {
@@ -534,7 +534,7 @@ export const toolsAndTechnologiesData = [
         id: 130,
         text: "SalesForce",
     },
-];
+]
 
 export const languagesData = [
     {
@@ -637,4 +637,4 @@ export const languagesData = [
         id: 25,
         text: "Ruby",
     },
-];
+]

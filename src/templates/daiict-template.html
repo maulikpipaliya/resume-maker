@@ -67,9 +67,9 @@
 
         <div id="container1">
             <h1>Education Details</h1>
-            <table id="table"></table>  
+            <table id="table"></table>
         </div>
-       
+
         <button onclick="createPdf()">generate PDF</button>
     </body>
 
@@ -79,23 +79,21 @@
 
     <script>
         function createPdf() {
-            var pdf = document.getElementById("container");
-            var doc = new jsPDF();
-            doc.fromHTML(container, 5, 0);
-            doc.fromHTML(container1, 5, 20);
+            var pdf = document.getElementById("container")
+            var doc = new jsPDF()
+            doc.fromHTML(container, 5, 0)
+            doc.fromHTML(container1, 5, 20)
 
-            doc.autoTable({ html: "#table" });
+            doc.autoTable({ html: "#table" })
             doc.autoTable({
                 head: [["Name", "Email", "Country"]],
                 body: [
                     ["David", "david@example.com", "Sweden"],
                     ["Castille", "castille@example.com", "Spain"],
                 ],
-            });
-            doc.save("table.pdf");
-            console.log("Downloading");
+            })
+            doc.save("table.pdf")
+            console.log("Downloading")
         }
-
-       
     </script>
 </html>

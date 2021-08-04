@@ -1,15 +1,15 @@
-import { error } from 'console'
-import { stat } from 'fs'
-import { IAward } from '../schema'
+import { error } from "console"
+import { stat } from "fs"
+import { IAward } from "../schema"
 import {
     IAwardAction,
     AwardActionType,
-} from '../schema/action-types/IAwardAction'
-import { IAwardState } from '../schema/state/IAwardState'
+} from "../schema/action-types/IAwardAction"
+import { IAwardState } from "../schema/state/IAwardState"
 
 const initialAwardState: IAwardState = {
-    data: [{ title: '' }],
-    error: '',
+    data: [{ title: "" }],
+    error: "",
 }
 
 export const awardReducer = (
@@ -21,7 +21,7 @@ export const awardReducer = (
             return {
                 ...state,
                 data: [],
-                error: '',
+                error: "",
             }
 
         case AwardActionType.UPDATE_AWARD_AT_INDEX:
@@ -31,20 +31,20 @@ export const awardReducer = (
                 alldata.length <= action.payload.idx ||
                 action.payload.idx < 0
             ) {
-                return { ...state, error: 'Invalid Index' }
+                return { ...state, error: "Invalid Index" }
             } else {
                 alldata[action.payload.idx] = action.payload.updatedrecord
                 return { ...state, data: alldata }
             }
 
         case AwardActionType.UPDATE_AWARDS:
-            console.log('awards')
+            console.log("awards")
             console.log(action.payload)
             const newState = {
                 data: action.payload,
-                error: '',
+                error: "",
                 loading: false,
-                message: 'All Awards are Updated.',
+                message: "All Awards are Updated.",
             }
             return newState
 

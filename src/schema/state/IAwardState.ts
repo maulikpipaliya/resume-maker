@@ -1,6 +1,6 @@
-import { IAward } from "../../schema";
+import { IAward } from "../../schema"
 
 export interface IAwardState {
-    data: IAward[];
-    error: string;
+    data: IAward[]
+    error: string
 }

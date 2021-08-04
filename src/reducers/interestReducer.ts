@@ -1,14 +1,14 @@
 import {
     IInterestAction,
     InterestActionType,
-} from "../schema/action-types/IInterestAction";
-import { IInterestState } from "../schema/state/IInterestState";
+} from "../schema/action-types/IInterestAction"
+import { IInterestState } from "../schema/state/IInterestState"
 
 const initialInterestState: IInterestState = {
     data: [],
     error: null,
     loading: false,
-};
+}
 
 export const interestReducer = (
     state: IInterestState = initialInterestState,
@@ -20,7 +20,7 @@ export const interestReducer = (
                 ...state,
                 data: [...state.data, action.payload],
                 error: null,
-            };
+            }
         case InterestActionType.DELETE_INTEREST:
             return {
                 ...state,
@@ -28,9 +28,9 @@ export const interestReducer = (
                     (interest) => interest.name !== action.payload.name
                 ),
                 error: null,
-            };
+            }
 
         default:
-            return state;
+            return state
     }
-};
+}

@@ -1,22 +1,22 @@
-import React, { FC } from "react";
-import jsPDF from "jspdf";
-import { oldStyle } from "../resumeStyle";
-import { Button } from "react-bootstrap";
+import React, { FC } from "react"
+import jsPDF from "jspdf"
+import { oldStyle } from "../resumeStyle"
+import { Button } from "react-bootstrap"
 
 const ResumeView: FC = () => {
     const generatePDF = () => {
-        console.log("Generating PDF");
-        const doc = new jsPDF("p", "pt", "a4");
-        const htmlCode: any = document.querySelector("#ctr-view");
-        console.log(htmlCode);
+        console.log("Generating PDF")
+        const doc = new jsPDF("p", "pt", "a4")
+        const htmlCode: any = document.querySelector("#ctr-view")
+        console.log(htmlCode)
 
         // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
             callback: function (pdf: any) {
-                pdf.save("resume-maulik.pdf");
+                pdf.save("resume-maulik.pdf")
             },
-        });
-    };
+        })
+    }
 
     return (
         <>
@@ -251,7 +251,7 @@ const ResumeView: FC = () => {
                 Generate PDF
             </Button>
         </>
-    );
-};
+    )
+}
 
-export default ResumeView;
+export default ResumeView

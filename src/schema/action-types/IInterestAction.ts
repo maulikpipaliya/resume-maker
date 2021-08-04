@@ -1,4 +1,4 @@
-import { IInterest } from "../../schema";
+import { IInterest } from "../../schema"
 
 export enum InterestActionType {
     ADD_INTEREST = "ADD_INTEREST",
@@ -7,25 +7,25 @@ export enum InterestActionType {
 }
 
 interface IAddInterestAction {
-    type: InterestActionType.ADD_INTEREST;
-    payload: IInterest;
+    type: InterestActionType.ADD_INTEREST
+    payload: IInterest
 }
 
 interface IDeleteInterestAction {
-    type: InterestActionType.DELETE_INTEREST;
+    type: InterestActionType.DELETE_INTEREST
     payload: {
-        name: string;
-    };
+        name: string
+    }
 }
 
 interface IUpdateInterestAction {
-    type: InterestActionType.UPDATE_INTEREST;
+    type: InterestActionType.UPDATE_INTEREST
     payload: {
-        interest: IInterest;
-    };
+        interest: IInterest
+    }
 }
 
 export type IInterestAction =
     | IAddInterestAction
     | IDeleteInterestAction
-    | IUpdateInterestAction;
+    | IUpdateInterestAction

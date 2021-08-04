@@ -1,10 +1,10 @@
 import {
     ProjectActionType,
     IProjectAction,
-} from '../schema/action-types/IProjectAction'
-import { Dispatch } from 'redux'
+} from "../schema/action-types/IProjectAction"
+import { Dispatch } from "redux"
 
-import { IProject } from '../schema'
+import { IProject } from "../schema"
 
 export const updateProjects =
     (projectList: IProject[]) => (dispatch: Dispatch<IProjectAction>) => {

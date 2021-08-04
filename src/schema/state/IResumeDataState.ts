@@ -1,7 +1,7 @@
-import { IResumeData } from "../../schema";
+import { IResumeData } from "../../schema"
 
 export interface IResumeDataState {
-    data: IResumeData;
-    loading: boolean;
-    error: string;
+    data: IResumeData
+    loading: boolean
+    error: string
 }

@@ -1,13 +1,13 @@
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../store";
-import { IResumeData, ISkill } from "../schema";
+import { ThunkAction } from "redux-thunk"
+import { RootState } from "../store"
+import { IResumeData, ISkill } from "../schema"
 
 import {
     ISkillAction,
     SkillActionType,
-} from "../schema/action-types/ISkillAction";
-import { ResumeDataActionTypes } from "./../schema/action-types/IGetResumeDataAction";
-import { IResumeAction } from "../schema/action-types/IGetResumeDataAction";
+} from "../schema/action-types/ISkillAction"
+import { ResumeDataActionTypes } from "./../schema/action-types/IGetResumeDataAction"
+import { IResumeAction } from "../schema/action-types/IGetResumeDataAction"
 
 export const updateResumeData = (
     stateObj: IResumeData
@@ -17,10 +17,10 @@ export const updateResumeData = (
             dispatch({
                 type: ResumeDataActionTypes.UPDATE_RESUME_DATA,
                 payload: stateObj,
-            });
+            })
         } catch (error) {}
-    };
-};
+    }
+}
 
 //Action Creator
 export const addKeyword = (
@@ -34,9 +34,9 @@ export const addKeyword = (
                 name,
                 keyword,
             },
-        });
-    };
-};
+        })
+    }
+}
 
 export const removeKeyword = (
     name: string,
@@ -49,9 +49,9 @@ export const removeKeyword = (
                 name,
                 keyword,
             },
-        });
-    };
-};
+        })
+    }
+}
 
 export const addSkill = (
     skillObj: ISkill
@@ -60,6 +60,6 @@ export const addSkill = (
         dispatch({
             type: SkillActionType.ADD_SKILL,
             payload: skillObj,
-        });
-    };
-};
+        })
+    }
+}

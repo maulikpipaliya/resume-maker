@@ -4,27 +4,19 @@ import React, {
     ReactElement,
     ReactNode,
     useState,
-} from "react";
-import {
-    Container,
-    Form,
-    Button,
-    Badge,
-    Row,
-    Col,
-    Card,
-} from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+} from "react"
+import { Container, Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
+import Accordion from "react-bootstrap/Accordion"
+import { useSelector } from "react-redux"
+import { RootState } from "../store"
 
 interface IProps {
     children?: (ReactElement<any, string | JSXElementConstructor<any>> &
         ReactNode) &
-        ReactNode;
-    addRecordHandler: () => void;
-    editRecordHandler: (index: number) => void;
-    deleteRecordHandler: (index: number) => void;
+        ReactNode
+    addRecordHandler: () => void
+    editRecordHandler: (index: number) => void
+    deleteRecordHandler: (index: number) => void
 }
 
 const ListContainer: FC<IProps> = ({
@@ -33,8 +25,8 @@ const ListContainer: FC<IProps> = ({
     editRecordHandler,
     deleteRecordHandler,
 }) => {
-    const stateData: RootState = useSelector((state: RootState) => state);
-    console.log(stateData);
+    const stateData: RootState = useSelector((state: RootState) => state)
+    console.log(stateData)
 
     const {
         education: { data: educationData },
@@ -44,12 +36,12 @@ const ListContainer: FC<IProps> = ({
         // interests: { data: interestData },
         // positions: { data: positionData },
         // work: { data: workData },
-    } = stateData;
+    } = stateData
 
     return (
         // <Container>
-        <Form className='px-2 py-1'>
-            <Card className='bg-grey'>
+        <Form className="px-2 py-1">
+            <Card className="bg-grey">
                 <Card.Body>
                     {educationData.length > 0 &&
                         educationData.map((item, index) => (
@@ -66,7 +58,7 @@ const ListContainer: FC<IProps> = ({
                                     <>
                                         <Col md={{ span: 1, offset: 3 }}>
                                             <i
-                                                className='fas fa-edit'
+                                                className="fas fa-edit"
                                                 onClick={(e) =>
                                                     editRecordHandler(index)
                                                 }
@@ -74,7 +66,7 @@ const ListContainer: FC<IProps> = ({
                                         </Col>
                                         <Col md={{ span: 1 }}>
                                             <i
-                                                className='fas fa-trash text-danger'
+                                                className="fas fa-trash text-danger"
                                                 onClick={(e) =>
                                                     deleteRecordHandler(index)
                                                 }
@@ -93,7 +85,7 @@ const ListContainer: FC<IProps> = ({
             <Row>
                 <Col md={{ span: 3, offset: 9 }}>
                     <Button
-                        className='w-100 my-2 p-2 rm-button'
+                        className="w-100 my-2 p-2 rm-button"
                         onClick={addRecordHandler}
                     >
                         Add
@@ -102,7 +94,7 @@ const ListContainer: FC<IProps> = ({
             </Row>
         </Form>
         // </Container>
-    );
-};
+    )
+}
 
-export default ListContainer;
+export default ListContainer

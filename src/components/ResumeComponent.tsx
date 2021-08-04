@@ -1,20 +1,20 @@
-import React, { useEffect, FC } from "react";
-import jsPDF from "jspdf";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { IAward, IResumeData, ISkill } from "../schema";
+import React, { useEffect, FC } from "react"
+import jsPDF from "jspdf"
+import { useSelector } from "react-redux"
+import { RootState } from "../store"
+import { IAward, IResumeData, ISkill } from "../schema"
 
-import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap";
-import { convertDate } from "../utils";
-import { BasicActionSuccess } from "../schema/action-types/IBasicAction";
+import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap"
+import { convertDate } from "../utils"
+import { BasicActionSuccess } from "../schema/action-types/IBasicAction"
 
 const ResumeComponent: FC = () => {
     const stateObj: IResumeData = useSelector(
         (state: RootState) => state.resumeData.data
-    );
+    )
 
-    const stateData: RootState = useSelector((state: RootState) => state);
-    console.log(stateData);
+    const stateData: RootState = useSelector((state: RootState) => state)
+    console.log(stateData)
 
     const {
         basics: { data: basicData },
@@ -25,54 +25,54 @@ const ResumeComponent: FC = () => {
         // interests: { data: interestData },
         // positions: { data: positionData },
         // work: { data: workData },
-    } = stateData;
+    } = stateData
 
     const skills: ISkill[] = useSelector(
         (state: RootState) => state.skills.data
-    );
+    )
     const awards: IAward[] = useSelector(
         (state: RootState) => state.awards.data
-    );
+    )
 
     useEffect(() => {
-        return () => {};
-    }, [stateObj]);
+        return () => {}
+    }, [stateObj])
 
     const generatePDF = () => {
-        console.log("Generating PDF");
-        const doc = new jsPDF("p", "pt", "a4");
-        const htmlCode: any = document.querySelector("#ctr-view");
+        console.log("Generating PDF")
+        const doc = new jsPDF("p", "pt", "a4")
+        const htmlCode: any = document.querySelector("#ctr-view")
         // console.log(htmlCode);
 
         // new DOMParser.parseFromString(htmlCode, "text/xml");
         doc.html(htmlCode, {
             callback: function (pdf: any) {
-                pdf.save("resume-maulik.pdf");
+                pdf.save("resume-maulik.pdf")
             },
-        });
-    };
+        })
+    }
 
     var divStyle = {
         color: "blak",
         width: "600px",
-    };
+    }
 
     const tableStyle = {
         font: "small",
-    };
+    }
     return (
         <>
-            <Container fluid={true} className='p-0'>
+            <Container fluid={true} className="p-0">
                 <Row>
-                    <Col md={8} className='ctr-view' id='ctr-view'>
-                        <Row className='mx-4 my-4' style={divStyle}>
-                            <Col md={3} className='text-center'>
+                    <Col md={8} className="ctr-view" id="ctr-view">
+                        <Row className="mx-4 my-4" style={divStyle}>
+                            <Col md={3} className="text-center">
                                 <Figure>
                                     <Figure.Image
                                         width={171}
                                         height={180}
-                                        alt='DAIICT Logo'
-                                        src='daiict-logo.png'
+                                        alt="DAIICT Logo"
+                                        src="daiict-logo.png"
                                     />
                                 </Figure>
                             </Col>
@@ -96,7 +96,7 @@ const ResumeComponent: FC = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className='font-weight-bold'>
+                                            <td className="font-weight-bold">
                                                 Email
                                             </td>
                                             <td colSpan={2}>
@@ -113,11 +113,11 @@ const ResumeComponent: FC = () => {
                                                                     : ""}
                                                                 <br></br>
                                                             </div>
-                                                        );
+                                                        )
                                                     }
                                                 )}
                                             </td>
-                                            <td className='font-weight-bold'>
+                                            <td className="font-weight-bold">
                                                 DOB
                                             </td>
                                             <td>
@@ -125,13 +125,13 @@ const ResumeComponent: FC = () => {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className='font-weight-bold'>
+                                            <td className="font-weight-bold">
                                                 Contact
                                             </td>
                                             <td colSpan={2}>
                                                 {stateObj.basics.contact}
                                             </td>
-                                            <td className='font-weight-bold'>
+                                            <td className="font-weight-bold">
                                                 City
                                             </td>
                                             <td>
@@ -147,7 +147,7 @@ const ResumeComponent: FC = () => {
                             </Col>
                         </Row>
 
-                        <Row className='mx-4 my-4'>
+                        <Row className="mx-4 my-4">
                             <Col>
                                 <h4>EDUCATION DETAILS</h4>
                                 <hr />
@@ -182,14 +182,14 @@ const ResumeComponent: FC = () => {
                                                             <td>{item.gpa}</td>
                                                         </tr>
                                                     </React.Fragment>
-                                                );
+                                                )
                                             })}
                                     </tbody>
                                 </Table>
                             </Col>
                         </Row>
 
-                        <Row className='mx-4 my-4'>
+                        <Row className="mx-4 my-4">
                             <Col>
                                 <h4>SKILLS</h4>
                                 <hr />
@@ -236,7 +236,7 @@ const ResumeComponent: FC = () => {
                             </Col>
                         </Row>
 
-                        <Row className='mx-4 my-4'>
+                        <Row className="mx-4 my-4">
                             <Col>
                                 <h4>Awards</h4>
                                 <hr />
@@ -252,14 +252,14 @@ const ResumeComponent: FC = () => {
                             </Col>
                         </Row>
 
-                        <Button id='btnGeneratePDF' onClick={generatePDF}>
+                        <Button id="btnGeneratePDF" onClick={generatePDF}>
                             Generate PDF One
                         </Button>
                     </Col>
                 </Row>
             </Container>
         </>
-    );
-};
+    )
+}
 
-export default ResumeComponent;
+export default ResumeComponent

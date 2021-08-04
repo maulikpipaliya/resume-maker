@@ -1,9 +1,9 @@
 import {
     SkillActionType,
     ISkillAction,
-} from "./../schema/action-types/ISkillAction";
+} from "./../schema/action-types/ISkillAction"
 
-import { ISkillState } from "./../schema/state/ISkillState";
+import { ISkillState } from "./../schema/state/ISkillState"
 
 // For DAIICT Resume Format
 const initialSkillState: ISkillState = {
@@ -22,7 +22,7 @@ const initialSkillState: ISkillState = {
         },
     ],
     error: "",
-};
+}
 
 export const skillReducer = (
     state = initialSkillState,
@@ -33,14 +33,14 @@ export const skillReducer = (
             return {
                 ...state,
                 data: [...state.data, action.payload],
-            };
+            }
         }
 
         case SkillActionType.ADD_KEYWORD: {
             const skillFound = state.data.find(
                 (skill) => skill.name === action.payload.name
-            );
-            skillFound?.keywords.push(action.payload.keyword);
+            )
+            skillFound?.keywords.push(action.payload.keyword)
 
             if (skillFound) {
                 return {
@@ -48,22 +48,22 @@ export const skillReducer = (
                     data: state.data.map((x) =>
                         x === skillFound ? skillFound : x
                     ),
-                };
+                }
             } else {
-                return state;
+                return state
             }
         }
 
         case SkillActionType.DELETE_KEYWORD: {
             const skillFound = state.data.find(
                 (skill) => skill.name === action.payload.name
-            );
+            )
             if (skillFound) {
                 const keywordIndex = skillFound.keywords.indexOf(
                     action.payload.keyword
-                );
+                )
                 if (keywordIndex !== -1) {
-                    skillFound.keywords.splice(keywordIndex, 1);
+                    skillFound.keywords.splice(keywordIndex, 1)
                 }
 
                 return {
@@ -71,12 +71,12 @@ export const skillReducer = (
                     data: state.data.map((x) =>
                         x === skillFound ? skillFound : x
                     ),
-                };
+                }
             } else {
-                return state;
+                return state
             }
         }
         default:
-            return state;
+            return state
     }
-};
+}

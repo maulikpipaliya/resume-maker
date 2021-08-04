@@ -1,6 +1,6 @@
 export const convertDate = (date: Date | null | undefined) => {
     if (date === null || date === undefined) {
-        return "";
+        return ""
     }
 
     let monthNames = [
@@ -16,14 +16,14 @@ export const convertDate = (date: Date | null | undefined) => {
         "October",
         "November",
         "December",
-    ];
+    ]
 
-    let day = date.getDate();
+    let day = date.getDate()
 
-    let monthIndex = date.getMonth();
-    let monthName = monthNames[monthIndex];
+    let monthIndex = date.getMonth()
+    let monthName = monthNames[monthIndex]
 
-    let year = date.getFullYear();
+    let year = date.getFullYear()
 
-    return `${monthName} ${day}, ${year}`;
-};
+    return `${monthName} ${day}, ${year}`
+}

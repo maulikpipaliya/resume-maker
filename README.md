@@ -7,4 +7,5 @@ Application which lets you create live preview resumes and download.
 In the project directory, you can run this command to install all dependencies:
 
 ### `npm install`
+
 ### `npm run start`

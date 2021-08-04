@@ -1,55 +1,55 @@
-import React, { useState, useEffect, FC } from "react";
-import { Row, Col, Form, Button, Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import AccordionContainer from "../components/AccordionContainer";
-import { convertDate } from "../utils";
-import { RootState } from "../store";
+import React, { useState, useEffect, FC } from "react"
+import { Row, Col, Form, Button, Container } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import AccordionContainer from "../components/AccordionContainer"
+import { convertDate } from "../utils"
+import { RootState } from "../store"
 
-import { IResumeDataState } from "../schema/state/IResumeDataState";
-import { IBasic, ILocation } from "../schema";
-import { updateBasics, resetEmails } from "../actions/basicAction";
+import { IResumeDataState } from "../schema/state/IResumeDataState"
+import { IBasic, ILocation } from "../schema"
+import { updateBasics, resetEmails } from "../actions/basicAction"
 
 const BasicDetailsComponent: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const initialState: IResumeDataState = useSelector(
         (state: RootState) => state.resumeData
-    );
+    )
     const locationData: ILocation = {
         city: "",
         region: "",
-    };
+    }
     const formData: IBasic = {
         name: "",
         email: [""],
         dob: null,
         contact: [""],
         location: locationData,
-    };
+    }
 
-    const [formDataState, setFormDataState] = useState(formData);
+    const [formDataState, setFormDataState] = useState(formData)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.currentTarget;
+        const { name, value } = event.currentTarget
         switch (name) {
             case "name":
                 setFormDataState({
                     ...formDataState,
                     name: value,
-                });
+                })
 
-                break;
+                break
             case "dob":
                 setFormDataState({
                     ...formDataState,
                     dob: new Date(value),
-                });
-                break;
+                })
+                break
             case "contact":
                 setFormDataState({
                     ...formDataState,
                     contact: [value],
-                });
-                break;
+                })
+                break
             case "city":
             case "region":
                 setFormDataState({
@@ -58,20 +58,20 @@ const BasicDetailsComponent: FC = () => {
                         ...formDataState.location,
                         [name]: value,
                     },
-                });
-                break;
+                })
+                break
             default:
-                break;
+                break
         }
-    };
+    }
 
     // console.log(initialState);
-    const [stateObj, setStateObj] = useState(initialState.data);
+    const [stateObj, setStateObj] = useState(initialState.data)
 
     // console.log(stateObj);
 
     const basicDetailHandler = (e: any) => {
-        const { name, value } = e.currentTarget;
+        const { name, value } = e.currentTarget
         // console.log(e.currentTarget.name + " : ");
         // console.log(e.currentTarget.value);
 
@@ -86,8 +86,8 @@ const BasicDetailsComponent: FC = () => {
                         ...prevState.basics,
                         [name]: value,
                     },
-                }));
-                break;
+                }))
+                break
             case "dob":
                 setStateObj((prevState: any) => ({
                     ...prevState,
@@ -95,8 +95,8 @@ const BasicDetailsComponent: FC = () => {
                         ...prevState.basics,
                         [name]: convertDate(e.target.valueAsNumber),
                     },
-                }));
-                break;
+                }))
+                break
             case "city":
             case "address":
             case "postalCode":
@@ -111,8 +111,8 @@ const BasicDetailsComponent: FC = () => {
                             [name]: value,
                         },
                     },
-                }));
-                break;
+                }))
+                break
 
             case "username":
                 setStateObj((prevState: any) => ({
@@ -125,51 +125,51 @@ const BasicDetailsComponent: FC = () => {
                             },
                         ],
                     },
-                }));
-                break;
+                }))
+                break
             default:
             // code block
         }
-    };
+    }
 
     const addEmailField = () => {
-        const emails = [...formDataState.email];
-        emails.push("");
+        const emails = [...formDataState.email]
+        emails.push("")
         setFormDataState({
             ...formDataState,
             email: emails,
-        });
-    };
+        })
+    }
 
     const removeEmailField = (idx: number) => {
-        const emails = [...formDataState.email];
-        console.log(emails);
-        emails.splice(idx, 1);
+        const emails = [...formDataState.email]
+        console.log(emails)
+        emails.splice(idx, 1)
         setFormDataState({
             ...formDataState,
             email: emails,
-        });
-    };
+        })
+    }
 
     const handleEmail = (e: any, idx: number) => {
-        const { value } = e.currentTarget;
-        const tempEmails = [...formDataState.email];
-        tempEmails[idx] = value;
+        const { value } = e.currentTarget
+        const tempEmails = [...formDataState.email]
+        tempEmails[idx] = value
         if (value !== "") {
             setFormDataState({
                 ...formDataState,
                 email: tempEmails,
-            });
+            })
         }
 
         if (value === "" && idx === 0) {
             setFormDataState({
                 ...formDataState,
                 email: [""],
-            });
-            dispatch(resetEmails());
+            })
+            dispatch(resetEmails())
         }
-    };
+    }
 
     // console.log(stateObj);
 
@@ -183,30 +183,30 @@ const BasicDetailsComponent: FC = () => {
     // }, [stateObj, dispatch]);
 
     useEffect(() => {
-        dispatch(updateBasics(formDataState));
-    }, [formDataState, dispatch]);
+        dispatch(updateBasics(formDataState))
+    }, [formDataState, dispatch])
     return (
-        <AccordionContainer title='Personal Details'>
+        <AccordionContainer title="Personal Details">
             <Container>
                 <Row>
                     <Col xs={10} md={7}>
-                        <Form.Group controlId='name'>
+                        <Form.Group controlId="name">
                             <Form.Label>Name</Form.Label>
                             <Form.Control
-                                className='rm-textbox'
-                                name='name'
+                                className="rm-textbox"
+                                name="name"
                                 onChange={handleChange}
                             />
                         </Form.Group>
                     </Col>
 
                     <Col xs={10} md={5}>
-                        <Form.Group controlId='dob'>
+                        <Form.Group controlId="dob">
                             <Form.Label>Date Of Birth</Form.Label>
                             <Form.Control
-                                type='date'
-                                name='dob'
-                                className='rm-textbox'
+                                type="date"
+                                name="dob"
+                                className="rm-textbox"
                                 onBlur={handleChange}
                             />
                         </Form.Group>
@@ -218,26 +218,26 @@ const BasicDetailsComponent: FC = () => {
                         <React.Fragment key={idx}>
                             <Col xs={10} md={10}>
                                 <Form.Group
-                                    controlId='email'
-                                    data-toggle='tooltip'
-                                    data-placement='top'
-                                    title='Only two emails allowed'
+                                    controlId="email"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Only two emails allowed"
                                 >
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
-                                        type='email'
-                                        name='email'
+                                        type="email"
+                                        name="email"
                                         value={email}
-                                        className='rm-textbox'
+                                        className="rm-textbox"
                                         onChange={(e) => handleEmail(e, idx)}
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={1} md={1} className='px-1'>
+                            <Col xs={1} md={1} className="px-1">
                                 {formDataState.email.length === 1 && (
-                                    <Form.Group controlId='addEmail'>
+                                    <Form.Group controlId="addEmail">
                                         <Button
-                                            className='rm-add-button'
+                                            className="rm-add-button"
                                             onClick={addEmailField}
                                         >
                                             +
@@ -245,9 +245,9 @@ const BasicDetailsComponent: FC = () => {
                                     </Form.Group>
                                 )}
                                 {formDataState.email.length === 2 && (
-                                    <Form.Group controlId='removeEmail'>
+                                    <Form.Group controlId="removeEmail">
                                         <Button
-                                            className='rm-remove-button'
+                                            className="rm-remove-button"
                                             onClick={(e) =>
                                                 removeEmailField(idx)
                                             }
@@ -304,38 +304,38 @@ const BasicDetailsComponent: FC = () => {
 
                 <Row>
                     <Col xs={10} md={6}>
-                        <Form.Group controlId='city'>
+                        <Form.Group controlId="city">
                             <Form.Label>City</Form.Label>
                             <Form.Control
-                                name='city'
-                                className='rm-textbox'
+                                name="city"
+                                className="rm-textbox"
                                 onChange={handleChange}
                             />
                         </Form.Group>
                     </Col>
                     <Col xs={10} md={6}>
-                        <Form.Group controlId='region'>
+                        <Form.Group controlId="region">
                             <Form.Label>Region/State</Form.Label>
                             <Form.Control
-                                name='region'
-                                className='rm-textbox'
+                                name="region"
+                                className="rm-textbox"
                                 onChange={handleChange}
                             />
                         </Form.Group>
                     </Col>
                 </Row>
 
-                <Form.Group controlId='contact'>
+                <Form.Group controlId="contact">
                     <Form.Label>Contact Number</Form.Label>
                     <Form.Control
-                        name='contact'
-                        className='rm-textbox'
+                        name="contact"
+                        className="rm-textbox"
                         onChange={handleChange}
                     />
                 </Form.Group>
             </Container>
         </AccordionContainer>
-    );
-};
+    )
+}
 
-export default BasicDetailsComponent;
+export default BasicDetailsComponent

@@ -1,11 +1,11 @@
-import { IAward } from '../../schema'
+import { IAward } from "../../schema"
 
 export enum AwardActionType {
-    ADD_AWARD = 'ADD_AWARD',
-    UPDATE_AWARD_AT_INDEX = 'UPDATE_AWARD_AT_INDEX',
-    UPDATE_AWARDS = 'UPDATE_AWARDS',
-    DELETE_AWARD = 'DELETE_AWARD',
-    RESET_AWARDS = 'RESET_AWARDS',
+    ADD_AWARD = "ADD_AWARD",
+    UPDATE_AWARD_AT_INDEX = "UPDATE_AWARD_AT_INDEX",
+    UPDATE_AWARDS = "UPDATE_AWARDS",
+    DELETE_AWARD = "DELETE_AWARD",
+    RESET_AWARDS = "RESET_AWARDS",
 }
 
 interface IResetAwards {

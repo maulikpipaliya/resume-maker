@@ -1,8 +1,8 @@
-import { IBasic } from "../../schema";
+import { IBasic } from "../../schema"
 
 export interface IBasicState {
-    data: IBasic;
-    error?: string | null;
-    loading: boolean;
-    message?: string | null;
+    data: IBasic
+    error?: string | null
+    loading: boolean
+    message?: string | null
 }

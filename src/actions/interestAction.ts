@@ -1,11 +1,11 @@
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../store";
+import { ThunkAction } from "redux-thunk"
+import { RootState } from "../store"
 
-import { IInterest } from "./../schema";
+import { IInterest } from "./../schema"
 import {
     InterestActionType,
     IInterestAction,
-} from "./../schema/action-types/IInterestAction";
+} from "./../schema/action-types/IInterestAction"
 
 export const addInterest = (
     interest: IInterest
@@ -14,6 +14,6 @@ export const addInterest = (
         dispatch({
             type: InterestActionType.ADD_INTEREST,
             payload: interest,
-        });
-    };
-};
+        })
+    }
+}

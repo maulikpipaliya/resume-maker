@@ -1,21 +1,21 @@
-import { IProjectState } from '../schema/state/IProjectState'
+import { IProjectState } from "../schema/state/IProjectState"
 import {
     IProjectAction,
     ProjectActionType,
-} from '../schema/action-types/IProjectAction'
+} from "../schema/action-types/IProjectAction"
 
 const initialProjectState: IProjectState = {
     data: [
         {
-            name: '',
-            summary: '',
-            guide: '',
-            website: '',
+            name: "",
+            summary: "",
+            guide: "",
+            website: "",
         },
     ],
     loading: false,
     error: null,
-    message: '',
+    message: "",
 }
 
 export const projectReducer = (
@@ -29,20 +29,20 @@ export const projectReducer = (
                 alldata.length <= action.payload.idx ||
                 action.payload.idx < 0
             ) {
-                return { ...state, error: 'Invalid Index' }
+                return { ...state, error: "Invalid Index" }
             } else {
                 alldata[action.payload.idx] = action.payload.updaterecord
                 return { ...state, data: alldata }
             }
 
         case ProjectActionType.UPDATE_PROJECTS:
-            console.log('google')
+            console.log("google")
             console.log(action.payload)
             const newState = {
                 data: action.payload,
-                error: '',
+                error: "",
                 loading: false,
-                message: 'All Projects are Updated.',
+                message: "All Projects are Updated.",
             }
             return newState
 
@@ -62,7 +62,7 @@ export const projectReducer = (
             return {
                 ...state,
                 data: [],
-                message: 'All projects are deleted',
+                message: "All projects are deleted",
             }
 
         case ProjectActionType.RESET_PROJECT:

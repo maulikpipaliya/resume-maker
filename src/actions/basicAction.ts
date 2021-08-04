@@ -1,10 +1,10 @@
-import { ThunkAction } from "redux-thunk";
-import { IBasic } from "../schema";
+import { ThunkAction } from "redux-thunk"
+import { IBasic } from "../schema"
 import {
     BasicActionType,
     IBasicAction,
-} from "../schema/action-types/IBasicAction";
-import { RootState } from "../store";
+} from "../schema/action-types/IBasicAction"
+import { RootState } from "../store"
 
 export const updateName = (
     newName: string
@@ -13,9 +13,9 @@ export const updateName = (
         dispatch({
             type: BasicActionType.UPDATE_NAME,
             payload: newName,
-        });
-    };
-};
+        })
+    }
+}
 
 export const updateBasics = (
     basicObj: IBasic
@@ -24,9 +24,9 @@ export const updateBasics = (
         dispatch({
             type: BasicActionType.UPDATE_BASICS,
             payload: basicObj,
-        });
-    };
-};
+        })
+    }
+}
 
 export const resetEmails = (): ThunkAction<
     void,
@@ -37,6 +37,6 @@ export const resetEmails = (): ThunkAction<
     return async (dispatch) => {
         dispatch({
             type: BasicActionType.RESET_EMAIL,
-        });
-    };
-};
+        })
+    }
+}

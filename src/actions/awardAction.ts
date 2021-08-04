@@ -1,11 +1,11 @@
-import { ThunkAction } from 'redux-thunk'
-import { RootState } from '../store'
-import { IAward } from '../schema'
-import { Dispatch } from 'redux'
+import { ThunkAction } from "redux-thunk"
+import { RootState } from "../store"
+import { IAward } from "../schema"
+import { Dispatch } from "redux"
 import {
     AwardActionType,
     IAwardAction,
-} from '../schema/action-types/IAwardAction'
+} from "../schema/action-types/IAwardAction"
 
 export const updateAwards =
     (awardList: IAward[]) => (dispatch: Dispatch<IAwardAction>) => {

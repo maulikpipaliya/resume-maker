@@ -1,10 +1,10 @@
-import { ThunkAction } from 'redux-thunk'
-import { RootState } from '../store'
-import { IPosition } from '../schema'
+import { ThunkAction } from "redux-thunk"
+import { RootState } from "../store"
+import { IPosition } from "../schema"
 import {
     PositionActionType,
     IPositionAction,
-} from '../schema/action-types/IPositionAction'
+} from "../schema/action-types/IPositionAction"
 
 export const addPosition = (
     positionObj: IPosition
@@ -32,7 +32,7 @@ export const updatePositions = (
     positionList: IPosition[]
 ): ThunkAction<void, RootState, null, IPositionAction> => {
     return async (dispatch) => {
-        console.log('positionlist', positionList)
+        console.log("positionlist", positionList)
 
         dispatch({
             type: PositionActionType.UPDATE_POSITIONS,

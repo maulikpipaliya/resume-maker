@@ -1,4 +1,4 @@
-import { ISkill } from "../../schema";
+import { ISkill } from "../../schema"
 
 export enum SkillActionType {
     ADD_SKILL = "ADD_SKILL",
@@ -11,45 +11,45 @@ export enum SkillActionType {
 }
 
 interface IAddSkillAction {
-    type: SkillActionType.ADD_SKILL;
-    payload: ISkill;
+    type: SkillActionType.ADD_SKILL
+    payload: ISkill
 }
 
 interface IUpdateSkillAction {
-    type: SkillActionType.UPDATE_SKILL;
-    payload: ISkill;
+    type: SkillActionType.UPDATE_SKILL
+    payload: ISkill
 }
 
 interface IDeleteSkillAction {
-    type: SkillActionType.DELETE_SKILL;
-    payload: string;
+    type: SkillActionType.DELETE_SKILL
+    payload: string
 }
 
 interface IResetSkillsAction {
-    type: SkillActionType.RESET_SKILLS;
+    type: SkillActionType.RESET_SKILLS
 }
 
 interface IAddKeywordAction {
-    type: SkillActionType.ADD_KEYWORD;
+    type: SkillActionType.ADD_KEYWORD
     payload: {
-        name: string;
-        keyword: string;
-    };
+        name: string
+        keyword: string
+    }
 }
 
 interface IRemoveKeywordAction {
-    type: SkillActionType.DELETE_KEYWORD;
+    type: SkillActionType.DELETE_KEYWORD
     payload: {
-        name: string;
-        keyword: string;
-    };
+        name: string
+        keyword: string
+    }
 }
 
 interface IResetKeywordsAction {
-    type: SkillActionType.RESET_KEYWORDS;
+    type: SkillActionType.RESET_KEYWORDS
     payload: {
-        name: string;
-    };
+        name: string
+    }
 }
 
 export type ISkillAction =
@@ -59,4 +59,4 @@ export type ISkillAction =
     | IResetSkillsAction
     | IAddKeywordAction
     | IRemoveKeywordAction
-    | IResetKeywordsAction;
+    | IResetKeywordsAction
