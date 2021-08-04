@@ -1,44 +1,59 @@
 import {
     IPositionAction,
     PositionActionType,
-} from "../schema/action-types/IPositionAction";
-import { IPositionState } from "../schema/state/IPositionState";
+} from '../schema/action-types/IPositionAction'
+import { IPositionState } from '../schema/state/IPositionState'
 
 const initialPositionState: IPositionState = {
     data: [],
-    error: "",
+    error: '',
     loading: false,
-    message: "",
-};
+    message: '',
+}
 
 export const positionReducer = (
     state = initialPositionState,
     action: IPositionAction
 ) => {
     switch (action.type) {
+        case PositionActionType.RESET_POSITIONS:
+            return {
+                ...state,
+                data: [],
+                error: '',
+            }
         case PositionActionType.UPDATE_POSITION_BY_INDEX:
-            console.log(action.payload.index);
-            return state;
+            const alldata = [...state.data]
+            if (
+                alldata.length <= action.payload.idx ||
+                action.payload.idx < 0
+            ) {
+                return { ...state, error: 'Invalid Index' }
+            } else {
+                alldata[action.payload.idx] = action.payload.updaterecord
+                return { ...state, data: alldata }
+            }
+
         case PositionActionType.UPDATE_POSITIONS:
-            console.log("Hahah");
-            console.log(action.payload);
+            console.log('Hahah')
+            console.log(action.payload)
             const newState = {
                 data: action.payload,
-                error: "",
+                error: '',
                 loading: false,
-            };
-            return newState;
+            }
+            return newState
 
         case PositionActionType.ADD_POSITION:
-            return { ...state, data: [...state.data, action.payload] };
+            return { ...state, data: [...state.data, action.payload] }
 
         case PositionActionType.DELETE_POSITION:
             const indexOfTitle: number = state.data.findIndex(
                 (item) => item.title === action.payload
-            );
-            console.log(indexOfTitle);
+            )
+            console.log(indexOfTitle)
             if (indexOfTitle !== -1) {
-                const positionToRemove = state.data.splice(indexOfTitle, 1);
+                const positionToRemove = state.data.splice(indexOfTitle, 1)
                 return {
                     ...state,
                     data: [
@@ -46,12 +61,12 @@ export const positionReducer = (
                             (award) => award !== positionToRemove[0]
                         ),
                     ],
-                };
+                }
             } else {
-                return state;
+                return state
             }
 
         default:
-            return state;
+            return state
     }
-};
+}
