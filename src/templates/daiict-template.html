@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>DAIICT Template</title>
-        <!-- <style>
+        <style>
             #container {
                 display: flex;
                 margin-top: 70px;
@@ -41,20 +41,16 @@
             .contact {
                 width: 240px;
             }
-
-            h1 {
-                border-bottom: 1px solid grey;
-            }
-        </style> -->
+        </style>
     </head>
     <body>
-
-            <!-- <div id="img">
-                <img
+        <div id="container">
+            <div id="img">
+                <!-- <img
                     src="http://intranet.daiict.ac.in/~daiict_nt01/Announcement/LOGO/DA-IICT-Emblem-Final%20Colour.png"
                     alt="DAIICT_logo"
                     style="height: 50px; width: 50px;" 
-                />
+                /> -->
             </div>
             <div class="details">
                 <div class="name">
@@ -65,41 +61,41 @@
                         Dhirubhai Ambani Institute of Information and
                         Communication Technology
                     </p>
-                </div> -->
-            <!-- </div> -->
-            <div class="educational">
-                <h1>Educational Details</h1>
-                <table id="my-table"></table>
+                </div>
             </div>
-       
+        </div>
 
-        <button onclick="createPdf()">Generate PDF</button>
+        <div id="container1">
+            <h1>Education Details</h1>
+            <table id="table"></table>  
+        </div>
+       
+        <button onclick="createPdf()">generate PDF</button>
     </body>
 
     <!-- JS PDF SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.15/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.11/jspdf.plugin.autotable.min.js"></script>
 
     <script>
         function createPdf() {
-            // var pdf = document.getElementById("container");
+            var pdf = document.getElementById("container");
             var doc = new jsPDF();
+            doc.fromHTML(container, 5, 0);
+            doc.fromHTML(container1, 5, 20);
 
-            // doc.fromHTML(container, 5, 0);
-            doc.autoTable({ html: "#my-table" });
-
-            // Or use javascript directly:
+            doc.autoTable({ html: "#table" });
             doc.autoTable({
                 head: [["Name", "Email", "Country"]],
                 body: [
                     ["David", "david@example.com", "Sweden"],
                     ["Castille", "castille@example.com", "Spain"],
-                    // ...
                 ],
             });
-
             doc.save("table.pdf");
             console.log("Downloading");
         }
+
+       
     </script>
 </html>
