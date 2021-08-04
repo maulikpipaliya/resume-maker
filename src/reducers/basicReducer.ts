@@ -1,15 +1,15 @@
-import data from '../components/tagInputPropData'
+import data from "../components/tagInputPropData"
 import {
     IBasicAction,
     BasicActionType,
     BasicActionSuccess,
     BasicActionErrors,
-} from '../schema/action-types/IBasicAction'
-import { IBasicState } from '../schema/state/IBasicState'
+} from "../schema/action-types/IBasicAction"
+import { IBasicState } from "../schema/state/IBasicState"
 
 const initialBasicState: IBasicState = {
     data: {
-        name: '',
+        name: "",
         email: [],
     },
     loading: false,
@@ -36,7 +36,7 @@ export const basicReducer = (
                     ...state.data,
                     name: action.payload,
                 },
-                message: 'NAME_UPDATED',
+                message: "NAME_UPDATED",
                 error: null,
             }
 
@@ -81,7 +81,7 @@ export const basicReducer = (
                     profile: newProfiles,
                 },
                 error: null,
-                message: 'New profile has been added',
+                message: "New profile has been added",
             }
         case BasicActionType.RESET_EMAIL:
             return {
@@ -91,12 +91,12 @@ export const basicReducer = (
                     email: [],
                 },
                 error: null,
-                message: 'EMAIL_RESET',
+                message: "EMAIL_RESET",
             }
         case BasicActionType.RESET_EMAIL_BY_INDEX:
             const newEmails = [...state.data.email]
             if (action.payload < newEmails.length)
-                newEmails[action.payload] = ''
+                newEmails[action.payload] = ""
 
             return {
                 ...state,
@@ -105,7 +105,7 @@ export const basicReducer = (
                     email: newEmails,
                 },
                 error: null,
-                message: 'Selected Email has been Reset.',
+                message: "Selected Email has been Reset.",
             }
         default:
             return state
