@@ -1,21 +1,24 @@
-import React, { FC, useState } from "react";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { addAward, deleteAward } from "../actions/awardAction";
-import { IAward } from "../schema";
-import { RootState } from "../store";
-import AccordionContainer from "./AccordionContainer";
+import React, { FC, useEffect, useState } from 'react'
+import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { addAward, deleteAward, updateAwards } from '../actions/awardAction'
+import { IAward } from '../schema'
+import { RootState } from '../store'
+import AccordionContainer from './AccordionContainer'
 
 const AwardsDetails: FC = () => {
-    const [awardTitle, setAwardTitle] = useState("");
-    const [institute, setInstitute] = useState("");
-    const [summary, setSummary] = useState("");
-    const awards = useSelector((state: RootState) => state.awards.data);
-    const dispatch = useDispatch();
+    const [awardTitle, setAwardTitle] = useState('')
+    const [institute, setInstitute] = useState('')
+    const [summary, setSummary] = useState('')
+    const awards = useSelector((state: RootState) => state.awards.data)
+
+    const initialData: IAward[] = [{ title: '', awarder: '', summary: '' }]
+    const [formDataState, setFormDataState] = useState(initialData)
+    const dispatch = useDispatch()
 
     const removeAwardFields = (item: IAward) => {
-        dispatch(deleteAward(item.title));
-    };
+        dispatch(deleteAward(item.title))
+    }
 
     const addAwardFields = (item: any) => {
         dispatch(
@@ -24,25 +27,41 @@ const AwardsDetails: FC = () => {
                 awarder: institute,
                 summary: summary,
             })
-        );
-    };
-    const handlerChange = (e: any, property: string) => {
-        switch (property) {
-            case "awardTitle":
-                setAwardTitle(e.currentTarget.value);
-                break;
+        )
+    }
 
-            case "institute":
-                setInstitute(e.currentTarget.value);
-                break;
-            case "summary":
-                setSummary(e.currentTarget.value);
-                break;
+    const handlerChange = (e: any, idx: number) => {
+        const { name, value } = e.currentTarget
+        switch (name) {
+            case 'title':
+            case 'awarder':
+            case 'summary':
+                const formDataCopy: IAward[] = [...formDataState]
+                const idxPosition: any = { ...formDataCopy[idx] }
+                idxPosition[name] = value
+                formDataCopy[idx] = idxPosition
+
+                setFormDataState(formDataCopy)
+                break
+
+            // case 'awardTitle':
+            //     setAwardTitle(e.currentTarget.value)
+            //     break
+
+            // case 'institute':
+            //     setInstitute(e.currentTarget.value)
+            //     break
+            // case 'summary':
+            //     setSummary(e.currentTarget.value)
+            //     break
 
             default:
-                break;
+                break
         }
-    };
+    }
+    useEffect(() => {
+        dispatch(updateAwards(formDataState))
+    }, [formDataState, dispatch])
     return (
         <AccordionContainer title='Awards Details'>
             <Container>
@@ -57,7 +76,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='title'
                                             onChange={(e) =>
-                                                handlerChange(e, "awardTitle")
+                                                handlerChange(e, idx)
                                             }
                                         />
                                     </Form.Group>
@@ -69,7 +88,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='awarder'
                                             onChange={(e) =>
-                                                handlerChange(e, "institute")
+                                                handlerChange(e, idx)
                                             }
                                         />
                                     </Form.Group>
@@ -85,7 +104,7 @@ const AwardsDetails: FC = () => {
                                             className='rm-textbox'
                                             name='summary'
                                             onChange={(e) =>
-                                                handlerChange(e, "summary")
+                                                handlerChange(e, idx)
                                             }
                                         />
                                     </Form.Group>
@@ -124,11 +143,11 @@ const AwardsDetails: FC = () => {
                                 )}
                             </Row>
                         </React.Fragment>
-                    );
+                    )
                 })}
             </Container>
         </AccordionContainer>
-    );
-};
+    )
+}
 
-export default AwardsDetails;
+export default AwardsDetails

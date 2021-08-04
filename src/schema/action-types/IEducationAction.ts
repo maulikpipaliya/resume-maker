@@ -8,6 +8,7 @@ export enum EducationActionType {
     GET_EDUCATIONS = "GET_EDUCATIONS",
     GET_EDUCATION_BY_ID = "GET_EDUCATION_BY_ID",
     RESET_EDUCATION = "RESET_EDUCATION",
+    GET_SIZE = "GET_SIZE",
 }
 
 export enum EducationMessageType {
@@ -38,9 +39,7 @@ interface IUpdateEducationAtIndexAction {
 
 interface IDeleteEducationAction {
     type: EducationActionType.DELETE_EDUCATION;
-    payload: {
-        id: number;
-    };
+    payload: number;
 }
 
 interface IGetEducationsAction {
@@ -58,6 +57,10 @@ interface IResetEducationAction {
     type: EducationActionType.RESET_EDUCATION;
 }
 
+interface IGetSizeAction {
+    type: EducationActionType.GET_SIZE;
+}
+
 export type IEducationAction =
     | IAddEducationAction
     | IUpdateEducationAction
@@ -65,4 +68,5 @@ export type IEducationAction =
     | IDeleteEducationAction
     | IGetEducationsAction
     | IGetEducationByIdAction
-    | IResetEducationAction;
+    | IResetEducationAction
+    | IGetSizeAction;

@@ -7,6 +7,7 @@ import { IEducation } from "../schema";
 import AccordionContainer from "./AccordionContainer";
 import {
     addEducation,
+    deleteEducation,
     updateEducation,
     updateEducationAtIndex,
 } from "../actions/educationAction";
@@ -34,7 +35,7 @@ const EducationDetailsComponentCopy: FC = () => {
         gpa: null,
     };
 
-    const [formDataState, setFormDataState] = useState(formData);
+    const [formDataState, setFormDataState] = useState<IEducation>(formData);
 
     const stateData: RootState = useSelector((state: RootState) => state);
     console.log(stateData);
@@ -55,8 +56,8 @@ const EducationDetailsComponentCopy: FC = () => {
         // work: { data: workData },
     } = stateData;
 
+    const [idx, setIdx] = useState(educationData.length - 1);
     // const nextIndex = stateC;
-    const idx = educationData.length;
 
     const dispatch = useDispatch();
 
@@ -69,19 +70,6 @@ const EducationDetailsComponentCopy: FC = () => {
             case "startYear":
             case "endYear":
             case "gpa":
-                // console.log("nextIndex" + idx);
-                // const tempFormData: IEducation[] = [...educationDataState];
-                // //set to any because of errors
-                // tempFormData[idx] = {
-                //     [keyName]: value,
-                // };
-                // console.log("tempFormData");
-                // console.log(tempFormData);
-                // setEducationDataState(tempFormData);
-
-                // const stateCopy: IEducation[] = [...educationDataState];
-                // const dataAtIndex = [...stateCopy[nextIndex - 1]];
-
                 setFormDataState({
                     ...formDataState,
                     [keyName]: value,
@@ -93,28 +81,54 @@ const EducationDetailsComponentCopy: FC = () => {
     };
     // console.log(stateObj);
 
-    const saveDataToList = () => {};
+    const saveDataToList = () => {
+        setFormOpen(false);
+    };
 
+    const resetForm = () => {
+        setFormOpen(false);
+        dispatch(deleteEducation(educationData.length - 1));
+    };
+
+    const deleteEducationField = (index: number) => {
+        console.log("Item at index " + index + " to be deleted");
+        dispatch(deleteEducation(index));
+    };
+
+    // let idx = 0;
     const addEducationFields = () => {
+        setFormDataState(formData);
         setFormOpen(true);
-        // setFormDataState(formData);
+        dispatch(addEducation(formData));
+        setIdx(idx + 1);
+    };
+
+    // var idx = educationData.length - 1;
+    const editEducationField = (index: number) => {
+        console.log("Edit called" + index);
+        setFormOpen(true);
+        // idx = index;
+        setIdx(index);
+        setFormDataState(educationData[index]);
     };
 
     useEffect(() => {
-        console.log(idx);
+        console.log(idx + " from useEffect");
+
         dispatch(updateEducationAtIndex(idx, formDataState));
         return () => {};
-    }, [dispatch, formDataState]);
+    }, [dispatch, formDataState, idx]);
 
     return (
         <AccordionContainer title='Education Details Copy'>
             <Container>
                 <ListContainer
-                    oldRecords={educationDataState}
                     addRecordHandler={addEducationFields}
+                    editRecordHandler={editEducationField}
+                    deleteRecordHandler={deleteEducationField}
                 ></ListContainer>
                 {formOpen && (
-                    <React.Fragment>
+                    <div className='px-2'>
                         <Row>
                             <Col xs={10} md={4}>
                                 <Form.Group controlId='degree'>
@@ -122,6 +136,7 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='degree'
+                                        value={formDataState.degree}
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -134,6 +149,7 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='institution'
+                                        value={formDataState.institution}
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -148,6 +164,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='startYear'
+                                        value={
+                                            formDataState.startYear
+                                                ? formDataState.startYear
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -160,6 +181,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='endYear'
+                                        value={
+                                            formDataState.endYear
+                                                ? formDataState.endYear
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -172,6 +198,11 @@ const EducationDetailsComponentCopy: FC = () => {
                                     <Form.Control
                                         className='rm-textbox'
                                         name='gpa'
+                                        value={
+                                            formDataState.gpa
+                                                ? formDataState.gpa
+                                                : ""
+                                        }
                                         onChange={(e) =>
                                             educationDetailsHandlerNew(e)
                                         }
@@ -181,13 +212,35 @@ const EducationDetailsComponentCopy: FC = () => {
                         </Row>
 
                         <Row>
+                            <Col xs={6}>
+                                <Button
+                                    className='w-100 rm-button mx-3'
+                                    onClick={saveDataToList}
+                                >
+                                    Save and close
+                                </Button>
+                            </Col>
+                            <Col xs={6}>
+                                <Button
+                                    className='w-100 rm-button mx-3'
+                                    onClick={addEducationFields}
+                                >
+                                    Add another
+                                </Button>
+                            </Col>
+                            <Button
+                                className='w-100 rm-button my-2 mx-3'
+                                onClick={resetForm}
+                            >
+                                Reset and delete this
+                            </Button>
                             <Col xs={10} md={8}></Col>
 
                             <Col xs={10} md={1}>
                                 <Form.Group controlId='removeEducation'>
                                     <Button
                                         className='rm-remove-button'
-                                        onClick={() => {}}
+                                        onClick={saveDataToList}
                                     >
                                         -
                                     </Button>
@@ -205,7 +258,7 @@ const EducationDetailsComponentCopy: FC = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                    </React.Fragment>
+                    </div>
                 )}
             </Container>
         </AccordionContainer>

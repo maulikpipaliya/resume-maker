@@ -22,14 +22,16 @@ interface IProps {
     children?: (ReactElement<any, string | JSXElementConstructor<any>> &
         ReactNode) &
         ReactNode;
-    addRecordHandler?: () => void;
-    oldRecords?: any;
+    addRecordHandler: () => void;
+    editRecordHandler: (index: number) => void;
+    deleteRecordHandler: (index: number) => void;
 }
 
 const ListContainer: FC<IProps> = ({
     children,
     addRecordHandler,
-    oldRecords,
+    editRecordHandler,
+    deleteRecordHandler,
 }) => {
     const stateData: RootState = useSelector((state: RootState) => state);
     console.log(stateData);
@@ -52,12 +54,34 @@ const ListContainer: FC<IProps> = ({
                     {educationData.length > 0 &&
                         educationData.map((item, index) => (
                             <Row key={index}>
-                                <Col xs={12} sm={6} md={6}>
+                                <Col xs={6} md={3}>
                                     <Badge>{item.degree}</Badge>
                                 </Col>
-                                <Col xs={12} sm={6} md={6}>
+                                <Col xs={6} md={3}>
                                     <Badge>{item.institution}</Badge>
                                 </Col>
+
+                                {(item.degree.length !== 0 ||
+                                    item.institution.length !== 0) && (
+                                    <>
+                                        <Col md={{ span: 1, offset: 3 }}>
+                                            <i
+                                                className='fas fa-edit'
+                                                onClick={(e) =>
+                                                    editRecordHandler(index)
+                                                }
+                                            ></i>
+                                        </Col>
+                                        <Col md={{ span: 1 }}>
+                                            <i
+                                                className='fas fa-trash text-danger'
+                                                onClick={(e) =>
+                                                    deleteRecordHandler(index)
+                                                }
+                                            ></i>
+                                        </Col>
+                                    </>
+                                )}
                             </Row>
                         ))}
 

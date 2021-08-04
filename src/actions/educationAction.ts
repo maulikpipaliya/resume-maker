@@ -15,10 +15,10 @@ export const addEducation =
     };
 
 export const deleteEducation =
-    (id: number) => (dispatch: Dispatch<IEducationAction>) => {
+    (idx: number) => (dispatch: Dispatch<IEducationAction>) => {
         dispatch({
             type: EducationActionType.DELETE_EDUCATION,
-            payload: { id },
+            payload: idx,
         });
     };
 

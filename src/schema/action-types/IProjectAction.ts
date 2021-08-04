@@ -2,7 +2,7 @@ import { IProject } from '../../schema'
 
 export enum ProjectActionType {
     ADD_PROJECT = 'ADD_PROJECT',
-    UPDATE_PROJECT = 'UPDATE_PROJECT',
+    UPDATE_PROJECT_BY_INDEX = 'UPDATE_PROJECT_BY_INDEX',
     DELETE_PROJECT = 'DELETE_PROJECT',
     GET_PROJECTS = 'GET_PROJECTS',
     GET_PROJECT_BY_INDEX = 'GET_PROJECT_BY_INDEX',
@@ -22,9 +22,12 @@ interface IAddProjectAction {
     payload: IProject
 }
 
-interface IUpdateProjectAction {
-    type: ProjectActionType.UPDATE_PROJECT
-    payload: IProject
+interface IUpdateProjectByIndexAction {
+    type: ProjectActionType.UPDATE_PROJECT_BY_INDEX
+    payload: {
+        updaterecord: IProject
+        idx: number
+    }
 }
 
 interface IDeleteProjectAction {
@@ -57,7 +60,7 @@ interface IResetProjectAction {
 
 export type IProjectAction =
     | IAddProjectAction
-    | IUpdateProjectAction
+    | IUpdateProjectByIndexAction
     | IDeleteProjectAction
     | IGetProjectsAction
     | IGetProjectByIndexAction
