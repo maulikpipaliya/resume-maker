@@ -23,6 +23,18 @@ export const projectReducer = (
     action: IProjectAction
 ): IProjectState => {
     switch (action.type) {
+        case ProjectActionType.UPDATE_PROJECT_BY_INDEX:
+            const alldata = [...state.data]
+            if (
+                alldata.length <= action.payload.idx ||
+                action.payload.idx < 0
+            ) {
+                return { ...state, error: 'Invalid Index' }
+            } else {
+                alldata[action.payload.idx] = action.payload.updaterecord
+                return { ...state, data: alldata }
+            }
+
         case ProjectActionType.UPDATE_PROJECTS:
             console.log('google')
             console.log(action.payload)
