@@ -1,162 +1,204 @@
 import React, { FC, useState, useEffect } from "react"
 import { Container, Row, Col, Form, Button } from "react-bootstrap"
 import { useDispatch } from "react-redux"
-import { updateProjects } from "../actions/projectAction"
+import {
+    addProject,
+    deleteProject,
+    updateProjectAtIndex,
+} from "../actions/projectAction"
 import { IProject } from "../schema"
+import { RootState } from "../store"
 import AccordionContainer from "./AccordionContainer"
+import ProjectListContainer from "./ProjectListContainer"
+import { useSelector } from "react-redux"
 
 const ProjectComponent: FC = () => {
     const dispatch = useDispatch()
 
-    const initialData: IProject[] = [{ name: "", summary: "" }]
+    const formData: IProject = {
+        name: "",
+        summary: "",
+        startDate: "",
+        endDate: "",
+        guide: "",
+        website: "",
+    }
 
-    const [formDataState, setFormDataState] = useState(initialData)
+    const [formDataState, setFormDataState] = useState<IProject>(formData)
+    const projectData: IProject[] = useSelector(
+        (state: RootState) => state.projects.data
+    )
+    const [formOpen, setFormOpen] = useState(false)
+    const [idx, setIdx] = useState(projectData.length - 1)
 
-    const handleChange = (e: any, idx: number) => {
-        const { name, value } = e.currentTarget
-        switch (name) {
+    const projectDetailHandler = (e: any) => {
+        const { name: keyName, value } = e.currentTarget
+        switch (keyName) {
             case "name":
             case "summary":
-            case "teamsize":
-            case "startdate":
-            case "enddate":
-                const formDataCopy: IProject[] = [...formDataState]
-                const idxPosition: any = { ...formDataCopy[idx] }
-                idxPosition[name] = value
-                formDataCopy[idx] = idxPosition
-
-                setFormDataState(formDataCopy)
+            case "guide":
+            case "website":
+                setFormDataState({
+                    ...formDataState,
+                    [keyName]: value,
+                })
+                break
+            case "startDate":
+            case "endDate":
+                setFormDataState({
+                    ...formDataState,
+                    [keyName]: new Date(value),
+                })
                 break
             default:
                 break
         }
     }
 
-    const addProjectFields = () => {
-        const formDataCopy: IProject[] = [...formDataState]
-        formDataCopy.push(initialData[0])
-        setFormDataState(formDataCopy)
+    const addProjectField = () => {
+        setFormDataState(formData)
+        setFormOpen(true)
+        dispatch(addProject(formData))
+        setIdx(idx + 1)
     }
 
-    const deleteProjectFields = (idx: number) => {
-        const formDataCopy: IProject[] = [...formDataState]
-        formDataCopy.splice(idx, 1)
-        setFormDataState(formDataCopy)
+    const saveDataToList = () => {
+        setFormOpen(false)
+    }
+
+    const editProjectField = (index: number) => {
+        setFormOpen(true)
+        setIdx(index)
+        setFormDataState(projectData[index])
+    }
+
+    const deleteProjectField = (idx: number) => {
+        dispatch(deleteProject(idx))
+    }
+
+    const resetForm = () => {
+        setFormOpen(false)
+        setFormDataState(formData)
     }
 
     useEffect(() => {
-        dispatch(updateProjects(formDataState))
-    }, [formDataState, dispatch])
+        dispatch(updateProjectAtIndex(idx, formDataState))
+    }, [formDataState, dispatch, idx])
     return (
         <AccordionContainer title="Project Details">
             <Container>
-                <Row>
-                    {formDataState.map((item, idx) => {
-                        return (
-                            <React.Fragment key={idx}>
-                                <Row>
-                                    <Col xs={10} md={5}>
-                                        <Form.Group controlId="project-name">
-                                            <Form.Label>Name</Form.Label>
-                                            <Form.Control
-                                                className="rm-textbox"
-                                                value={item.name}
-                                                name="name"
-                                                onChange={(e) =>
-                                                    handleChange(e, idx)
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                <ProjectListContainer
+                    addRecordHandler={addProjectField}
+                    editRecordHandler={editProjectField}
+                    deleteRecordHandler={deleteProjectField}
+                ></ProjectListContainer>
+                {formOpen && (
+                    <div className="px-2">
+                        <Row>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="project-name">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control
+                                        className="rm-textbox"
+                                        value={formDataState.name}
+                                        name="name"
+                                        onChange={(e) =>
+                                            projectDetailHandler(e)
+                                        }
+                                    />
+                                </Form.Group>
+                            </Col>
 
-                                    <Col xs={10} md={5}>
-                                        <Form.Group controlId="teamsize">
-                                            <Form.Label>Team-size</Form.Label>
-                                            <Form.Control
-                                                className="rm-textbox"
-                                                name="teamsize"
-                                                value={item.teamSize}
-                                                onChange={(e) =>
-                                                    handleChange(e, idx)
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={10} md={5}>
-                                        <Form.Group controlId="startdate">
-                                            <Form.Label>Start Date</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                name="startdate"
-                                                className="rm-textbox"
-                                                value={item.startDate}
-                                                onChange={(e) =>
-                                                    handleChange(e, idx)
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col xs={10} md={5}>
-                                        <Form.Group controlId="enddate">
-                                            <Form.Label>End Date</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                name="enddate"
-                                                className="rm-textbox"
-                                                value={item.endDate}
-                                                onChange={(e) =>
-                                                    handleChange(e, idx)
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <Form.Group controlId="summary">
-                                            <Form.Label>
-                                                Summary/Link
-                                            </Form.Label>
-                                            <Form.Control
-                                                as="textarea"
-                                                rows={3}
-                                                className="rm-textbox"
-                                                name="summary"
-                                                value={item.summary}
-                                                onChange={(e) =>
-                                                    handleChange(e, idx)
-                                                }
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    {formDataState.length !== 1 && (
-                                        <Button
-                                            className="rm-button"
-                                            onClick={(e) =>
-                                                deleteProjectFields(idx)
-                                            }
-                                        >
-                                            Remove
-                                        </Button>
-                                    )}
-                                </Row>
-                            </React.Fragment>
-                        )
-                    })}
-                </Row>
-                <Row>
-                    <Col xs={12} md={8}></Col>
-                    <Col xs={12} md={4}>
-                        <Button
-                            className="rm-button"
-                            onClick={addProjectFields}
-                        >
-                            Add
-                        </Button>
-                    </Col>
-                </Row>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="teamsize">
+                                    <Form.Label>Team-size</Form.Label>
+                                    <Form.Control
+                                        className="rm-textbox"
+                                        name="teamsize"
+                                        value={formDataState.teamSize}
+                                        onChange={(e) =>
+                                            projectDetailHandler(e)
+                                        }
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="startdate">
+                                    <Form.Label>Start Date</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="startdate"
+                                        className="rm-textbox"
+                                        value={formDataState.startDate}
+                                        onChange={(e) =>
+                                            projectDetailHandler(e)
+                                        }
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="enddate">
+                                    <Form.Label>End Date</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="enddate"
+                                        className="rm-textbox"
+                                        value={formDataState.endDate}
+                                        onChange={(e) =>
+                                            projectDetailHandler(e)
+                                        }
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Form.Group controlId="summary">
+                                    <Form.Label>Summary/Link</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        className="rm-textbox"
+                                        name="summary"
+                                        value={formDataState.summary}
+                                        onChange={(e) =>
+                                            projectDetailHandler(e)
+                                        }
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col md={5} className="px-0">
+                                <Button
+                                    className="w-100 rm-button mx-3"
+                                    onClick={saveDataToList}
+                                >
+                                    Save and close
+                                </Button>
+                            </Col>
+                            <Col md={1}></Col>
+                            <Col md={5} className="px-0">
+                                <Button
+                                    className="w-100 rm-button mx-3"
+                                    onClick={addProjectField}
+                                >
+                                    Add another
+                                </Button>
+                            </Col>
+                            <Button
+                                className="w-100 rm-button my-2 mx-3"
+                                onClick={resetForm}
+                            >
+                                Reset and delete this
+                            </Button>
+                            <Col xs={10} md={8}></Col>
+                        </Row>
+                    </div>
+                )}
             </Container>
         </AccordionContainer>
     )

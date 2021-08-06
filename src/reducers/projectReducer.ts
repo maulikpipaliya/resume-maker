@@ -31,7 +31,7 @@ export const projectReducer = (
             ) {
                 return { ...state, error: "Invalid Index" }
             } else {
-                alldata[action.payload.idx] = action.payload.updaterecord
+                alldata[action.payload.idx] = action.payload.recordToUpdate
                 return { ...state, data: alldata }
             }
 
@@ -50,12 +50,19 @@ export const projectReducer = (
                 data: [...state.data, action.payload],
             }
         case ProjectActionType.DELETE_PROJECT:
+            const idxToDeleteAt = action.payload
+
+            if (idxToDeleteAt < 0 || idxToDeleteAt >= state.data.length)
+                return { ...state, error: "Invalid Index" }
+
+            const newData = [...state.data]
+            newData.splice(idxToDeleteAt, 1)
+
             return {
                 ...state,
-                data: state.data.filter(
-                    (project) => project.name !== action.payload
-                ),
+                data: newData,
             }
+
         case ProjectActionType.RESET_PROJECTS:
             return {
                 ...state,

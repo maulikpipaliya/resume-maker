@@ -25,14 +25,14 @@ interface IAddProjectAction {
 interface IUpdateProjectByIndexAction {
     type: ProjectActionType.UPDATE_PROJECT_BY_INDEX
     payload: {
-        updaterecord: IProject
         idx: number
+        recordToUpdate: IProject
     }
 }
 
 interface IDeleteProjectAction {
     type: ProjectActionType.DELETE_PROJECT
-    payload: string
+    payload: number
 }
 
 interface IGetProjectsAction {

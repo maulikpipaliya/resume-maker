@@ -14,6 +14,15 @@ export const updateProjects =
         })
     }
 
+export const updateProjectAtIndex =
+    (idx: number, project: IProject) =>
+    (dispatch: Dispatch<IProjectAction>) => {
+        dispatch({
+            type: ProjectActionType.UPDATE_PROJECT_BY_INDEX,
+            payload: { idx, recordToUpdate: project },
+        })
+    }
+
 export const addProject =
     (project: IProject) => (dispatch: Dispatch<IProjectAction>) => {
         dispatch({
@@ -23,10 +32,10 @@ export const addProject =
     }
 
 export const deleteProject =
-    (projectName: string) => (dispatch: Dispatch<IProjectAction>) => {
+    (idx: number) => (dispatch: Dispatch<IProjectAction>) => {
         dispatch({
             type: ProjectActionType.DELETE_PROJECT,
-            payload: projectName,
+            payload: idx,
         })
     }
 
