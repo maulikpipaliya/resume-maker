@@ -1,6 +1,7 @@
 import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
 import { IPosition } from "../schema"
+import { Dispatch } from "redux"
 import {
     PositionActionType,
     IPositionAction,
@@ -17,16 +18,32 @@ export const addPosition = (
     }
 }
 
-export const deletePosition = (
-    title: string
-): ThunkAction<void, RootState, null, IPositionAction> => {
-    return async (dispatch) => {
+// export const deletePosition = (
+//     title: string
+// ): ThunkAction<void, RootState, null, IPositionAction> => {
+//     return async (dispatch) => {
+//         dispatch({
+//             type: PositionActionType.DELETE_POSITION,
+//             payload: title,
+//         })
+//     }
+// }
+
+export const deletePosition =
+    (idx: number) => (dispatch: Dispatch<IPositionAction>) => {
         dispatch({
             type: PositionActionType.DELETE_POSITION,
-            payload: title,
+            payload: idx,
         })
     }
-}
+export const updatePositionAtIndex =
+    (idx: number, position: IPosition) =>
+    (dispatch: Dispatch<IPositionAction>) => {
+        dispatch({
+            type: PositionActionType.UPDATE_POSITION_BY_INDEX,
+            payload: { idx, recordToUpdate: position },
+        })
+    }
 
 export const updatePositions = (
     positionList: IPosition[]

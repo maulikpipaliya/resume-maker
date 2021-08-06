@@ -14,7 +14,7 @@ const initialPositionState: IPositionState = {
 export const positionReducer = (
     state = initialPositionState,
     action: IPositionAction
-) => {
+): IPositionState => {
     switch (action.type) {
         case PositionActionType.RESET_POSITIONS:
             return {
@@ -30,7 +30,7 @@ export const positionReducer = (
             ) {
                 return { ...state, error: "Invalid Index" }
             } else {
-                alldata[action.payload.idx] = action.payload.updaterecord
+                alldata[action.payload.idx] = action.payload.recordToUpdate
                 return { ...state, data: alldata }
             }
 
@@ -39,6 +39,7 @@ export const positionReducer = (
                 data: action.payload,
                 error: "",
                 loading: false,
+                message: "",
             }
             return newState
 
@@ -46,22 +47,17 @@ export const positionReducer = (
             return { ...state, data: [...state.data, action.payload] }
 
         case PositionActionType.DELETE_POSITION:
-            const indexOfTitle: number = state.data.findIndex(
-                (item) => item.title === action.payload
-            )
+            const idxToDeleteAt = action.payload
 
-            if (indexOfTitle !== -1) {
-                const positionToRemove = state.data.splice(indexOfTitle, 1)
-                return {
-                    ...state,
-                    data: [
-                        ...state.data.filter(
-                            (award) => award !== positionToRemove[0]
-                        ),
-                    ],
-                }
-            } else {
-                return state
+            if (idxToDeleteAt < 0 || idxToDeleteAt >= state.data.length)
+                return { ...state, error: "Invalid Index" }
+
+            const newData = [...state.data]
+            newData.splice(idxToDeleteAt, 1)
+
+            return {
+                ...state,
+                data: newData,
             }
 
         default:

@@ -2,134 +2,160 @@ import React, { FC, useEffect, useState } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { IPosition } from "../schema"
 import { useDispatch } from "react-redux"
-import { updatePositions } from "../actions/positionAction"
+import { RootState } from "../store"
+import {
+    //updatePositions,
+    addPosition,
+    deletePosition,
+    // updatePositionAtIndex,
+} from "../actions/positionAction"
 import AccordionContainer from "./AccordionContainer"
+import { useSelector } from "react-redux"
 
 const PositionComponent: FC = () => {
     const dispatch = useDispatch()
-    const formData: IPosition[] = [
-        {
-            title: "",
-            organization: "",
-            summary: "",
-        },
-    ]
+
+    const formData: IPosition = {
+        title: "",
+        organization: "",
+        summary: "",
+    }
 
     const [formDataState, setFormDataState] = useState(formData)
+    const positionData: IPosition[] = useSelector(
+        (state: RootState) => state.positions.data
+    )
+
+    const [formOpen, setFormOpen] = useState(false)
+    const [idx, setIdx] = useState(positionData.length - 1)
 
     const handleChange = (e: any, idx: number) => {
-        const { name, value } = e.currentTarget
-        switch (name) {
+        const { name: keyName, value } = e.currentTarget
+        switch (keyName) {
             case "title":
             case "organization":
             case "summary":
-                const formDataCopy: IPosition[] = [...formDataState]
-                const idxPosition: any = { ...formDataCopy[idx] }
-                idxPosition[name] = value
-                formDataCopy[idx] = idxPosition
-
-                setFormDataState(formDataCopy)
+                setFormDataState({
+                    ...formDataState,
+                    [keyName]: value,
+                })
                 break
             default:
                 break
         }
     }
 
+    const saveDataToList = () => {
+        setFormOpen(false)
+    }
+
     const addPositionFields = () => {
-        const formDataCopy: IPosition[] = [...formDataState]
-        formDataCopy.push(formData[0])
-        setFormDataState(formDataCopy)
+        setFormDataState(formData)
+        setFormOpen(true)
+        dispatch(addPosition(formData))
+        setIdx(idx + 1)
+    }
+
+    const editPositioniField = (index: number) => {
+        setFormOpen(true)
+        setIdx(index)
+        setFormDataState(positionData[index])
     }
 
     const deletePositionFields = (idx: number) => {
-        const formDataCopy: IPosition[] = [...formDataState]
-        formDataCopy.splice(idx, 1)
-        setFormDataState(formDataCopy)
+        dispatch(deletePosition(idx))
     }
 
-    useEffect(() => {
-        dispatch(updatePositions(formDataState))
-    }, [formDataState, dispatch])
+    const resetForm = () => {
+        setFormOpen(false)
+        setFormDataState(formData)
+    }
+
+    // useEffect(() => {
+    //     // dispatch(updatePositionAtIndex(idx, formDataState))
+    //     console.log("helllo maulik")
+    // }, [formDataState, dispatch, idx])
 
     return (
         <AccordionContainer title="Positions of Responsibility">
             <Container>
-                <Row>
-                    {formDataState.map((item, idx) => {
-                        return (
-                            <React.Fragment key={idx}>
-                                <Col xs={4} md={4}>
-                                    <Form.Group controlId="title">
-                                        <Form.Label>Title</Form.Label>
+                <PositionComponent>
+                    addRecordHandler={addPositionFields}
+                    editRecordHandler={editPositioniField}
+                    deleteRecordHandler={deletePositionFields}
+                </PositionComponent>
+                {formOpen && (
+                    <div className="px-2">
+                        <Row>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="title">
+                                    <Form.Label>Title</Form.Label>
 
-                                        <Form.Control
-                                            type="title"
-                                            name="title"
-                                            value={item.title}
-                                            className="rm-textbox"
-                                            onChange={(e) =>
-                                                handleChange(e, idx)
-                                            }
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4} md={8}>
-                                    <Form.Group controlId="organization">
-                                        <Form.Label>Organization</Form.Label>
-                                        <Form.Control
-                                            type="organization"
-                                            name="organization"
-                                            value={item.organization}
-                                            className="rm-textbox"
-                                            onChange={(e) =>
-                                                handleChange(e, idx)
-                                            }
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={4} md={12}>
-                                    <Form.Group controlId="summary">
-                                        <Form.Label>Summary</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={3}
-                                            value={item.summary}
-                                            name="summary"
-                                            className="rm-textbox"
-                                            onChange={(e) =>
-                                                handleChange(e, idx)
-                                            }
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                {formDataState.length !== 1 && (
-                                    <Button
-                                        className="rm-button"
-                                        onClick={(e) =>
-                                            deletePositionFields(idx)
-                                        }
-                                    >
-                                        Remove
-                                    </Button>
-                                )}
-                            </React.Fragment>
-                        )
-                    })}
-                </Row>
-                <Row>
-                    <Col xs={12} md={8}></Col>
-                    <Col xs={12} md={4}>
-                        <Button
-                            className="rm-button"
-                            onClick={addPositionFields}
-                        >
-                            Add
-                        </Button>
-                    </Col>
-                </Row>
+                                    <Form.Control
+                                        type="title"
+                                        name="title"
+                                        value={formDataState.title}
+                                        className="rm-textbox"
+                                        onChange={(e) => handleChange(e, idx)}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="organization">
+                                    <Form.Label>Organization</Form.Label>
+                                    <Form.Control
+                                        type="organization"
+                                        name="organization"
+                                        value={formDataState.organization}
+                                        className="rm-textbox"
+                                        onChange={(e) => handleChange(e, idx)}
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col xs={10} md={5}>
+                                <Form.Group controlId="summary">
+                                    <Form.Label>Summary</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        value={formDataState.summary}
+                                        name="summary"
+                                        className="rm-textbox"
+                                        onChange={(e) => handleChange(e, idx)}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={5} className="px-0">
+                                <Button
+                                    className="w-100 rm-button mx-3"
+                                    onClick={saveDataToList}
+                                >
+                                    Save and close
+                                </Button>
+                            </Col>
+                            <Col md={1}></Col>
+                            <Col md={5} className="px-0">
+                                <Button
+                                    className="w-100 rm-button mx-3"
+                                    onClick={addPositionFields}
+                                >
+                                    Add another
+                                </Button>
+                            </Col>
+                            <Button
+                                className="w-100 rm-button my-2 mx-3"
+                                onClick={resetForm}
+                            >
+                                Reset and delete this
+                            </Button>
+                            <Col xs={10} md={8}></Col>
+                        </Row>
+                    </div>
+                )}
             </Container>
         </AccordionContainer>
     )
 }
-
 export default PositionComponent

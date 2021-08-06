@@ -15,8 +15,8 @@ interface IResetPosotionsAction {
 interface IUpdatePositionByIndexAction {
     type: PositionActionType.UPDATE_POSITION_BY_INDEX
     payload: {
-        updaterecord: IPosition
         idx: number
+        recordToUpdate: IPosition
     }
 }
 
@@ -32,7 +32,7 @@ interface IAddPositionAction {
 
 interface IDeletePositionAction {
     type: PositionActionType.DELETE_POSITION
-    payload: string
+    payload: number
 }
 
 export type IPositionAction =
