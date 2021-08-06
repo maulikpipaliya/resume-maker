@@ -7,6 +7,7 @@ import {
     //updatePositions,
     addPosition,
     deletePosition,
+    updatePositionAtIndex,
     // updatePositionAtIndex,
 } from "../actions/positionAction"
 import AccordionContainer from "./AccordionContainer"
@@ -73,8 +74,8 @@ const PositionComponent: FC = () => {
     }
 
     useEffect(() => {
-        // dispatch(updatePositionAtIndex(idx, formDataState))
-        console.log("helllo maulik")
+        dispatch(updatePositionAtIndex(idx, formDataState))
+        // console.log("helllo maulik")
     }, [formDataState, dispatch, idx])
 
     return (
