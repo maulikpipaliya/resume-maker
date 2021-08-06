@@ -11,6 +11,7 @@ import {
 } from "../actions/positionAction"
 import AccordionContainer from "./AccordionContainer"
 import { useSelector } from "react-redux"
+import PositionListContainer from "./PositionListContainer"
 
 const PositionComponent: FC = () => {
     const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const PositionComponent: FC = () => {
     const [formOpen, setFormOpen] = useState(false)
     const [idx, setIdx] = useState(positionData.length - 1)
 
-    const handleChange = (e: any, idx: number) => {
+    const handleChange = (e: any) => {
         const { name: keyName, value } = e.currentTarget
         switch (keyName) {
             case "title":
@@ -71,19 +72,20 @@ const PositionComponent: FC = () => {
         setFormDataState(formData)
     }
 
-    // useEffect(() => {
-    //     // dispatch(updatePositionAtIndex(idx, formDataState))
-    //     console.log("helllo maulik")
-    // }, [formDataState, dispatch, idx])
+    useEffect(() => {
+        // dispatch(updatePositionAtIndex(idx, formDataState))
+        console.log("helllo maulik")
+    }, [formDataState, dispatch, idx])
 
     return (
         <AccordionContainer title="Positions of Responsibility">
             <Container>
-                <PositionComponent>
+                <PositionListContainer
                     addRecordHandler={addPositionFields}
                     editRecordHandler={editPositioniField}
                     deleteRecordHandler={deletePositionFields}
-                </PositionComponent>
+                />
+
                 {formOpen && (
                     <div className="px-2">
                         <Row>
@@ -96,7 +98,7 @@ const PositionComponent: FC = () => {
                                         name="title"
                                         value={formDataState.title}
                                         className="rm-textbox"
-                                        onChange={(e) => handleChange(e, idx)}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </Form.Group>
                             </Col>
@@ -108,7 +110,7 @@ const PositionComponent: FC = () => {
                                         name="organization"
                                         value={formDataState.organization}
                                         className="rm-textbox"
-                                        onChange={(e) => handleChange(e, idx)}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </Form.Group>
                             </Col>
@@ -121,7 +123,7 @@ const PositionComponent: FC = () => {
                                         value={formDataState.summary}
                                         name="summary"
                                         className="rm-textbox"
-                                        onChange={(e) => handleChange(e, idx)}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </Form.Group>
                             </Col>
