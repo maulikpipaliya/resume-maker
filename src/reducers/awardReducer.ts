@@ -5,7 +5,7 @@ import {
 import { IAwardState } from "../schema/state/IAwardState"
 
 const initialAwardState: IAwardState = {
-    data: [{ title: "" }],
+    data: [],
     error: "",
 }
 
@@ -22,16 +22,16 @@ export const awardReducer = (
             }
 
         case AwardActionType.UPDATE_AWARD_AT_INDEX:
-            const alldata = [...state.data]
+            const awardsCopy = [...state.data]
 
             if (
-                alldata.length <= action.payload.idx ||
+                awardsCopy.length <= action.payload.idx ||
                 action.payload.idx < 0
             ) {
                 return { ...state, error: "Invalid Index" }
             } else {
-                alldata[action.payload.idx] = action.payload.updatedrecord
-                return { ...state, data: alldata }
+                awardsCopy[action.payload.idx] = action.payload.recordToUpdate
+                return { ...state, data: awardsCopy }
             }
 
         case AwardActionType.UPDATE_AWARDS:
@@ -47,10 +47,11 @@ export const awardReducer = (
             return { ...state, data: [...state.data, action.payload] }
 
         case AwardActionType.DELETE_AWARD:
-            const indexOfTitle: number = state.data.findIndex(
-                (item) => item.title === action.payload.title
-            )
-            if (indexOfTitle !== -1) {
+            const indexOfTitle = action.payload
+
+            if (indexOfTitle >= state.data.length || indexOfTitle < 0) {
+                return { ...state, error: "Invalid Index" }
+            } else {
                 const awardToRemove = state.data.splice(indexOfTitle, 1)
                 return {
                     ...state,
@@ -60,8 +61,6 @@ export const awardReducer = (
                         ),
                     ],
                 }
-            } else {
-                return state
             }
 
         default:

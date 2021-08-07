@@ -25,16 +25,14 @@ interface IAddAwardAction {
 interface IUpdateAwardAtIndexAction {
     type: AwardActionType.UPDATE_AWARD_AT_INDEX
     payload: {
-        updatedrecord: IAward
         idx: number
+        recordToUpdate: IAward
     }
 }
 
 interface IDeleteAwardAction {
     type: AwardActionType.DELETE_AWARD
-    payload: {
-        title: string
-    }
+    payload: number
 }
 
 export type IAwardAction =

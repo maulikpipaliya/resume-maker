@@ -14,13 +14,6 @@ export const updateAwards =
             payload: awardList,
         })
     }
-// export const updateAwardAtIndex =
-//     (award: IAward, idx: number) => (dispatch: Dispatch<IAwardAction>) => {
-//         dispatch({
-//             type: AwardActionType.UPDATE_AWARD,
-//             payload: award,
-//         })
-//     }
 
 export const addAward = (
     awardObj: IAward
@@ -34,15 +27,27 @@ export const addAward = (
 }
 
 export const deleteAward = (
-    title: string
+    idx: number
 ): ThunkAction<void, RootState, null, IAwardAction> => {
     return async (dispatch) => {
         dispatch({
             type: AwardActionType.DELETE_AWARD,
-            payload: {
-                title,
-            },
+            payload: idx,
         })
     }
 }
 
+export const updateAwardAtIndex = (
+    idx: number,
+    recordToUpdate: IAward,
+): ThunkAction<void, RootState, null, IAwardAction> => {
+    return async (dispatch) => {
+        dispatch({
+            type: AwardActionType.UPDATE_AWARD_AT_INDEX,
+            payload: {
+                idx,
+                recordToUpdate,
+            },
+        })
+    }
+}
