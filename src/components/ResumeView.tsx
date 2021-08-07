@@ -2,8 +2,8 @@ import React, { FC } from "react"
 import jsPDF from "jspdf"
 import { oldStyle } from "../resumeStyle"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
-import "./daiict-template-style.css"
 import { base_img } from "./base_img"
+import "./daiict-template-style.css"
 
 const ResumeView: FC = () => {
     const generatePDFbyJSPDF = async () => {
@@ -12,6 +12,7 @@ const ResumeView: FC = () => {
         const htmlCode: any = document.querySelector(".ctr-view")
         console.log(htmlCode)
 
+        // doc.addFont("Roboto", "sans-serif", "normal")
         doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
         await doc.html(htmlCode, {
             callback: function (pdf: any) {
@@ -113,6 +114,42 @@ const ResumeView: FC = () => {
                                 </Col>
                             </Row>
                         </header>
+                        <section>
+                            <Row>
+                                <h3>EDUCATION</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong>Degree</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Institute</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Year</strong>
+                                            </td>
+                                            <td>
+                                                <strong>CPI/Aggregate</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MScIT</td>
+                                            <td>DAIICT</td>
+                                            <td>2022</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BCA</td>
+                                            <td>VSNGUIT</td>
+                                            <td>2018</td>
+                                            <td>6</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
                     </div>
                 </Col>
             </Row>

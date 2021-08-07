@@ -18,3 +18,7 @@
     font-weight: bolder;
     letter-spacing: 1px;
 }
+
+.table td{
+    border: none !important;
+}
