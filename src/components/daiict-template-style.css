@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+    font-size: small;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* A4 =  210 mm x  297 mm =  595 pt x  842 pt */
+.ctr-view{
+    width: 150mm;
+}
+
+.ctr-header{
+    width: 100%;
+}
+
+.da-name span{
+    font-size: x-large;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
