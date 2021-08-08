@@ -75,14 +75,28 @@ hr {
     bottom: 50px;
 }
 
-.rm-button {
+.rm-button,
+.rm-form-button {
     border: 1px solid white;
     background-color: transparent;
-    font-size: small;
+    font-size: xx-small;
+}
+.rm-button {
     height: calc(2.5em + 2px);
+    /* height: calc(1.5em + .75rem + 2px); */
+    padding: .375rem .75rem;
 }
 
-.rm-button:hover {
+.hover-danger:hover{
+    background-color: red;
+}
+
+.rm-form-button {
+    height: calc(2em + .75rem + 2px);
+    /* height: calc(1.5em + .75rem + 2px); */
+    padding: .375rem .75rem;
+}
+.rm-button:hover, .rm-form-button:hover {
     background-color: white;
     cursor: pointer;
     color: black;

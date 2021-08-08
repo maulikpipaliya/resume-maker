@@ -152,70 +152,31 @@ const BasicDetailsComponent: FC = () => {
                             <Col xs={1} md={1} className="px-1">
                                 {formDataState.email.length === 1 && (
                                     <Form.Group controlId="addEmail">
+                                        <Form.Label>&nbsp;</Form.Label>
                                         <Button
-                                            className="rm-add-button"
+                                            className="rm-form-button"
                                             onClick={addEmailField}
                                         >
-                                            +
+                                            Add
                                         </Button>
                                     </Form.Group>
                                 )}
                                 {formDataState.email.length === 2 && (
                                     <Form.Group controlId="removeEmail">
+                                        <Form.Label>&nbsp;</Form.Label>
                                         <Button
-                                            className="rm-remove-button"
+                                            className="rm-form-button hover-danger"
                                             onClick={(e) =>
                                                 removeEmailField(idx)
                                             }
                                         >
-                                            -
+                                            Remove
                                         </Button>
                                     </Form.Group>
                                 )}
                             </Col>
                         </React.Fragment>
                     ))}
-                    {/* 
-                {stateObj?.basics?.email.map((emailItem, idx) => (
-                    <React.Fragment key={idx}>
-                        <Col xs={10} md={10}>
-                            <Form.Group controlId='email'>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type='email'
-                                    name='email'
-                                    className='rm-textbox'
-                                    onChange={(e) => emailHandler(e, idx)}
-                                />
-                            </Form.Group>
-                        </Col>
-
-                        {stateObj?.basics.email.length !== 1 && (
-                            <Col xs={1} md={1} className='px-1'>
-                                <Form.Group controlId='removeEmail'>
-                                    <Button
-                                        className='rm-remove-button'
-                                        onClick={() => removeEmailHandler(idx)}
-                                    >
-                                        -
-                                    </Button>
-                                </Form.Group>
-                            </Col>
-                        )}
-                        {stateObj?.basics.email.length - 1 === idx && (
-                            <Col xs={1} md={1} className='px-1'>
-                                <Form.Group controlId='addEmail'>
-                                    <Button
-                                        className='rm-add-button'
-                                        onClick={addEmailBox}
-                                    >
-                                        +
-                                    </Button>
-                                </Form.Group>
-                            </Col>
-                        )}
-                    </React.Fragment>
-                ))} */}
                 </Row>
 
                 <Row>
