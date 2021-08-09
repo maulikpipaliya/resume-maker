@@ -116,35 +116,227 @@ const ResumeView: FC = () => {
                         </header>
                         <section>
                             <Row>
-                                <h3>EDUCATION</h3>
+                                <h3>Education</h3>
                                 <hr />
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <th>
                                                 <strong>Degree</strong>
-                                            </td>
-                                            <td>
-                                                <strong>Institute</strong>
-                                            </td>
-                                            <td>
-                                                <strong>Year</strong>
-                                            </td>
-                                            <td>
-                                                <strong>CPI/Aggregate</strong>
-                                            </td>
+                                            </th>
+                                            <th>
+                                                <strong>University/Institute</strong>
+                                            </th>
+                                            <th>
+                                                <strong>
+                                                    Year
+                                                </strong>
+                                            </th>
+                                            <th>
+                                                <strong>
+                                                    CPI/Aggregate
+                                                </strong>
+                                            </th>
                                         </tr>
                                         <tr>
-                                            <td>MScIT</td>
+                                            <td>Html</td>
                                             <td>DAIICT</td>
                                             <td>2022</td>
-                                            <td>7</td>
+                                            <td>8.93</td>
                                         </tr>
                                         <tr>
                                             <td>BCA</td>
                                             <td>VSNGUIT</td>
                                             <td>2018</td>
-                                            <td>6</td>
+                                            <td>8.01</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
+                        <section>
+                            <Row>
+                                <h3>Skills</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                <strong>Expertise</strong>
+                                            </th>
+                                            <th>
+                                                <strong>Language</strong>
+                                            </th>
+                                            <th>
+                                                <strong>
+                                                    Tools and Technologies
+                                                </strong>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>Html</td>
+                                            <td>DAIICT</td>
+                                            <td>2022</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BCA</td>
+                                            <td>VSNGUIT</td>
+                                            <td>2018</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
+                        <section>
+                            <Row>
+                                <h3>Projects</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <th colSpan={7}>
+                                                <strong>Project Title</strong>
+                                            </th>
+                                            {/* <th colSpan={4}>
+                                                <strong>Project Details</strong>
+                                            </th> */}
+                                            <th colSpan={4}>
+                                                <strong>Duration</strong>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={7}>Furniture House</td>
+                                            
+                                            <td colSpan={4}>2022-2023</td>
+                                        </tr>
+                                        <tr>
+                                        <td colSpan={7}>
+                                                Developed the e-commerce demo
+                                                application from scratch using
+                                                MERN stack.
+                                            </td>
+                                        <td colSpan={4}>
+                                                <span><strong>Team Size-</strong>
+                                                2
+                                                </span>
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={7}>
+                                                <span>
+                                                    <strong>Tools & Technologies - </strong>
+                                                    HTML , CSS and JS
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
+                        <section>
+                            <Row>
+                                <h3>Position of Responsibilities</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <th colSpan={7}>
+                                                
+                                            </th>
+                                            {/* <th colSpan={4}>
+                                                <strong>Project Details</strong>
+                                            </th> */}
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                    Team Leader in Software Engineering Project
+                                                    </li>
+                                                    <li>
+                                                    MSc IT Academic Representative - (DAIICT)
+                                                    </li>
+                                                    <li>
+                                                    Class Representative and Academic Committee Representative - (DAIICT)
+                                                    </li>
+                                                    <li>
+                                                    Volunteer in Mayukh Workshop 2019, Banasthali Vidyapith
+                                                    </li>
+                                                </ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
+                        <section>
+                            <Row>
+                                <h3>Certifications</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <th colSpan={4}>
+                                                <strong>Certificate Name</strong>
+                                            </th>
+                                            {/* <th colSpan={4}>
+                                                <strong>Project Details</strong>
+                                            </th> */}
+                                            <th colSpan={4}>
+                                                <strong>Issue Date</strong>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={4}>French Diploma</td>
+                                            
+                                            <td colSpan={4}>2022-2023</td>
+                                        </tr>
+                                        <tr>
+                                        <td colSpan={4}>
+                                               French Certificate
+                                            </td>
+                                        <td colSpan={4}>
+                                                2020-2021
+                                        </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </Table>
+                            </Row>
+                        </section>
+                        <section>
+                            <Row>
+                                <h3>Interest and Hobbies</h3>
+                                <hr />
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <th colSpan={7}>
+                                                
+                                            </th>
+                                            {/* <th colSpan={4}>
+                                                <strong>Project Details</strong>
+                                            </th> */}
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        Baking
+                                                    </li>
+                                                    <li>
+                                                        Travelling
+                                                    </li>
+                                                    <li>
+                                                        Reading
+                                                    </li>
+                                                </ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </Table>
