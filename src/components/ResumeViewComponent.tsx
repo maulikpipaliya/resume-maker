@@ -25,9 +25,7 @@ const ResumeView: FC = () => {
     return (
         <Container fluid={true} className="p-0">
             <Row>
-                
-               
-                <Col md={{span:6,offset:5}}>
+                <Col md={{ span: 6, offset: 5 }}>
                     <div className="ctr-view p-4 m-2 mx-3">
                         {/* <div className="ctr-header border border-primary">
                             <Row>
@@ -115,17 +113,15 @@ const ResumeView: FC = () => {
                                                 <strong>Degree</strong>
                                             </th>
                                             <th>
-                                                <strong>University/Institute</strong>
-                                            </th>
-                                            <th>
                                                 <strong>
-                                                    Year
+                                                    University/Institute
                                                 </strong>
                                             </th>
                                             <th>
-                                                <strong>
-                                                    CPI/Aggregate
-                                                </strong>
+                                                <strong>Year</strong>
+                                            </th>
+                                            <th>
+                                                <strong>CPI/Aggregate</strong>
                                             </th>
                                         </tr>
                                         <tr>
@@ -196,31 +192,31 @@ const ResumeView: FC = () => {
                                         </tr>
                                         <tr>
                                             <td colSpan={7}>Furniture House</td>
-                                            
+
                                             <td colSpan={4}>2022-2023</td>
                                         </tr>
                                         <tr>
-                                        <td colSpan={7}>
+                                            <td colSpan={7}>
                                                 Developed the e-commerce demo
                                                 application from scratch using
                                                 MERN stack.
                                             </td>
-                                        <td colSpan={4}>
-                                                <span><strong>Team Size-</strong>
-                                                2
+                                            <td colSpan={4}>
+                                                <span>
+                                                    <strong>Team Size-</strong>2
                                                 </span>
-                                        </td>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colSpan={7}>
                                                 <span>
-                                                    <strong>Tools & Technologies  - </strong>
+                                                    <strong>
+                                                        Tools & Technologies -{" "}
+                                                    </strong>
                                                     HTML , CSS and JS
                                                 </span>
                                             </td>
-
                                         </tr>
-                                        
                                     </tbody>
                                 </Table>
                             </Row>
@@ -232,31 +228,35 @@ const ResumeView: FC = () => {
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <th colSpan={7}>
-                                                
-                                            </th>
+                                            <th colSpan={7}></th>
                                             {/* <th colSpan={4}>
                                                 <strong>Project Details</strong>
                                             </th> */}
-                                            
                                         </tr>
                                         <tr>
                                             <td>
                                                 <ul>
                                                     <li>
-                                                    Team Leader in Software Engineering Project
+                                                        Team Leader in Software
+                                                        Engineering Project
                                                     </li>
                                                     <li>
-                                                    MSc IT Academic Representative - (DAIICT)
+                                                        MSc IT Academic
+                                                        Representative -
+                                                        (DAIICT)
                                                     </li>
                                                     <li>
-                                                    Class Representative and Academic Committee Representative - (DAIICT)
+                                                        Class Representative and
+                                                        Academic Committee
+                                                        Representative -
+                                                        (DAIICT)
                                                     </li>
                                                     <li>
-                                                    Volunteer in Mayukh Workshop 2019, Banasthali Vidyapith
+                                                        Volunteer in Mayukh
+                                                        Workshop 2019,
+                                                        Banasthali Vidyapith
                                                     </li>
                                                 </ul>
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -271,7 +271,9 @@ const ResumeView: FC = () => {
                                     <tbody>
                                         <tr>
                                             <th colSpan={4}>
-                                                <strong>Certificate Name</strong>
+                                                <strong>
+                                                    Certificate Name
+                                                </strong>
                                             </th>
                                             {/* <th colSpan={4}>
                                                 <strong>Project Details</strong>
@@ -282,18 +284,15 @@ const ResumeView: FC = () => {
                                         </tr>
                                         <tr>
                                             <td colSpan={4}>French Diploma</td>
-                                            
+
                                             <td colSpan={4}>2022-2023</td>
                                         </tr>
                                         <tr>
-                                        <td colSpan={4}>
-                                               French Certificate
+                                            <td colSpan={4}>
+                                                French Certificate
                                             </td>
-                                        <td colSpan={4}>
-                                                2020-2021
-                                        </td>
+                                            <td colSpan={4}>2020-2021</td>
                                         </tr>
-                                        
                                     </tbody>
                                 </Table>
                             </Row>
@@ -305,28 +304,18 @@ const ResumeView: FC = () => {
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <th colSpan={7}>
-                                                
-                                            </th>
+                                            <th colSpan={7}></th>
                                             {/* <th colSpan={4}>
                                                 <strong>Project Details</strong>
                                             </th> */}
-                                            
                                         </tr>
                                         <tr>
                                             <td>
                                                 <ul>
-                                                    <li>
-                                                        Baking
-                                                    </li>
-                                                    <li>
-                                                        Travelling
-                                                    </li>
-                                                    <li>
-                                                        Reading
-                                                    </li>
+                                                    <li>Baking</li>
+                                                    <li>Travelling</li>
+                                                    <li>Reading</li>
                                                 </ul>
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -334,13 +323,12 @@ const ResumeView: FC = () => {
                             </Row>
                         </section>
                     </div>
-                    
+
                     <Button id="btnGeneratePDF" onClick={generatePDFbyJSPDF}>
-                            Generate PDF 
-                        </Button>
+                        Generate PDF
+                    </Button>
                 </Col>
             </Row>
-            
         </Container>
     )
 }

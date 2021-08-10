@@ -2,7 +2,7 @@ export const convertDate = (date: Date | null | undefined) => {
     if (date === null || date === undefined) {
         return ""
     }
-
+    date = new Date(date)
     let monthNames = [
         "January,",
         "February",
@@ -17,6 +17,8 @@ export const convertDate = (date: Date | null | undefined) => {
         "November",
         "December",
     ]
+    // console.log("hello" + date)
+    // console.log("hel" + new Date(date).getDate())
 
     let day = date.getDate()
 

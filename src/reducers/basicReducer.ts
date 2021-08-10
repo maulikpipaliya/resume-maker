@@ -1,3 +1,4 @@
+import { IResumeData } from "../schema"
 import {
     IBasicAction,
     BasicActionType,
@@ -5,12 +6,23 @@ import {
     BasicActionErrors,
 } from "../schema/action-types/IBasicAction"
 import { IBasicState } from "../schema/state/IBasicState"
+import { initialLocalResumeData } from "../schema/emptyResumeData"
+
+if (localStorage.getItem("localResumeData") === null) {
+    localStorage.setItem(
+        "localResumeData",
+        JSON.stringify(initialLocalResumeData)
+    )
+}
+
+const localResumeData = localStorage.getItem("localResumeData")
+let initialBasicData = initialLocalResumeData.basics
+if (localResumeData) {
+    initialBasicData = JSON.parse(localResumeData).basics
+}
 
 const initialBasicState: IBasicState = {
-    data: {
-        name: "",
-        email: [],
-    },
+    data: initialBasicData,
     loading: false,
     error: null,
     message: null,
@@ -22,6 +34,14 @@ export const basicReducer = (
 ) => {
     switch (action.type) {
         case BasicActionType.UPDATE_BASICS:
+            const localResumeData = localStorage.getItem("localResumeData")
+
+            if (localResumeData) {
+                const obj: IResumeData = JSON.parse(localResumeData)
+                obj.basics = action.payload
+                localStorage.setItem("localResumeData", JSON.stringify(obj))
+            }
+
             return {
                 ...state,
                 data: action.payload,

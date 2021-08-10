@@ -5,6 +5,7 @@ import AccordionContainer from "../components/AccordionContainer"
 
 import { IBasic, ILocation } from "../schema"
 import { updateBasics, resetEmails } from "../actions/basicAction"
+import { initialLocalResumeData } from "../schema/emptyResumeData"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
@@ -20,8 +21,14 @@ const BasicDetailsComponent: FC = () => {
         contact: [""],
         location: locationData,
     }
+    const localResumeData = localStorage.getItem("localResumeData")
+    let initialBasicData = formData
+    if (localResumeData) {
+        initialBasicData = JSON.parse(localResumeData).basics
+    }
+    console.log(initialBasicData)
 
-    const [formDataState, setFormDataState] = useState(formData)
+    const [formDataState, setFormDataState] = useState(initialBasicData)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.currentTarget
@@ -111,6 +118,7 @@ const BasicDetailsComponent: FC = () => {
                             <Form.Control
                                 className="rm-textbox"
                                 name="name"
+                                value={formDataState.name}
                                 onChange={handleChange}
                             />
                         </Form.Group>
@@ -185,6 +193,7 @@ const BasicDetailsComponent: FC = () => {
                             <Form.Label>City</Form.Label>
                             <Form.Control
                                 name="city"
+                                value={formDataState.location?.city}
                                 className="rm-textbox"
                                 onChange={handleChange}
                             />
@@ -195,6 +204,7 @@ const BasicDetailsComponent: FC = () => {
                             <Form.Label>Region/State</Form.Label>
                             <Form.Control
                                 name="region"
+                                value={formDataState.location?.region}
                                 className="rm-textbox"
                                 onChange={handleChange}
                             />
@@ -206,6 +216,7 @@ const BasicDetailsComponent: FC = () => {
                     <Form.Label>Contact Number</Form.Label>
                     <Form.Control
                         name="contact"
+                        value={formDataState.contact}
                         className="rm-textbox"
                         onChange={handleChange}
                     />

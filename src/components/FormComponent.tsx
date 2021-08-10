@@ -11,14 +11,14 @@ import WorkExperienceComponent from "./WorkExperienceComponent"
 import InterestComponent from "./InterestComponent"
 
 const FormComponent: FC = () => {
-    return ( 
+    return (
         <div>
             <Container fluid={true} className="p-0">
                 <Row>
                     <Col
                         xs={10}
                         md={4}
-                        className="rm-ctr-form col-md-4 col-10 overflow-auto position-fixed pt-4"
+                        className="rm-ctr-form overflow-auto position-fixed pt-4"
                         id="ctr-form"
                     >
                         <BasicDetailsComponent></BasicDetailsComponent>
@@ -32,7 +32,7 @@ const FormComponent: FC = () => {
                         <InterestComponent></InterestComponent>
                     </Col>
 
-                    <Col>
+                    <Col md={{ span: 6, offset: 2 }}>
                         <ResumeViewComponent></ResumeViewComponent>
                     </Col>
                 </Row>
