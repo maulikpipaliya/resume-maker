@@ -4,8 +4,28 @@ import { oldStyle } from "../resumeStyle"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import { base_img } from "./base_img"
 import "./daiict-template-style.css"
+import { IResumeData } from "../schema"
+import { RootState } from "../store"
+import { useSelector } from "react-redux"
 
 const ResumeView: FC = () => {
+    const stateObj: IResumeData = useSelector(
+        (state: RootState) => state.resumeData.data
+    )
+
+    const stateData: RootState = useSelector((state: RootState) => state)
+
+    const {
+        basics: { data: basicData },
+        education: { data: educationData },
+        // skills: { data: skillData },
+        // awards: { data: awardData },
+        // projects: { data: projectData },
+        // interests: { data: interestData },
+        // positions: { data: positionData },
+        // work: { data: workData },
+    } = stateData
+
     const generatePDFbyJSPDF = async () => {
         console.log("Generating PDF")
         const doc = new jsPDF("p", "pt", "a4")
@@ -62,7 +82,11 @@ const ResumeView: FC = () => {
                                                     colSpan={4}
                                                     className="da-name"
                                                 >
-                                                    <span>Pipaliya Maulik</span>
+                                                    <span>
+                                                        {basicData.name
+                                                            ? basicData.name
+                                                            : "Your good name here"}
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <tr>

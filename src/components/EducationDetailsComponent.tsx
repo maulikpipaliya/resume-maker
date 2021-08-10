@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 
-import { IEducation } from "../schema"
+import { IEducation, IResumeData } from "../schema"
 
 import AccordionContainer from "./AccordionContainer"
 import {
@@ -13,34 +13,19 @@ import {
 import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
+import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
 
 const EducationDetailsComponentCopy: FC = () => {
-    const formData: IEducation = {
-        degree: "",
-        institution: "",
-        startYear: null,
-        endYear: null,
-        gpa: null,
-    }
+    const formData: IEducation = initialLocalResumeData.education[0]
+
+    const educationData: IEducation[] = useSelector(
+        (state: RootState) => state.education.data
+    )
 
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
-
-    const stateData: RootState = useSelector((state: RootState) => state)
-
     const [formOpen, setFormOpen] = useState(false)
-
-    const {
-        education: { data: educationData },
-        // skills: { data: skillData },
-        // awards: { data: awardData },
-        // projects: { data: projectData },
-        // interests: { data: interestData },
-        // positions: { data: positionData },
-        // work: { data: workData },
-    } = stateData
-
     const [idx, setIdx] = useState(educationData.length - 1)
-    // const nextIndex = stateC;
 
     const dispatch = useDispatch()
 
@@ -94,6 +79,14 @@ const EducationDetailsComponentCopy: FC = () => {
 
     useEffect(() => {
         dispatch(updateEducationAtIndex(idx, formDataState))
+        let localData = localStorage.getItem("localResumeData")
+        if (localData) {
+            const data: IResumeData = JSON.parse(localData)
+            data.education = educationData
+
+            localStorage.setItem("localResumeData", JSON.stringify(data))
+        }
+
         return () => {}
     }, [dispatch, formDataState, idx])
 
@@ -214,8 +207,6 @@ const EducationDetailsComponentCopy: FC = () => {
                                 Reset and delete this
                             </Button>
                             <Col xs={10} md={8}></Col>
-
-                            
                         </Row>
                     </div>
                 )}

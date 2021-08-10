@@ -4,6 +4,12 @@ export const initialLocalResumeData: IResumeData = {
     basics: {
         email: [""],
         name: "",
+        contact: [""],
+        dob: null,
+        location: {
+            city: "",
+            region: "",
+        },
     },
     education: [
         {

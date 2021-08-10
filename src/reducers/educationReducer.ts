@@ -1,11 +1,25 @@
+import { IEducation } from "./../schema"
+import {
+    getInitialDataFromLocalStorage,
+    updateLocalStorageByProperty,
+} from "./localStorageReducer"
 import {
     EducationActionType,
     IEducationAction,
 } from "../schema/action-types/IEducationAction"
 import { IEducationState } from "../schema/state/IEducationState"
+import { initialLocalResumeData } from "../schema/emptyResumeData"
+
+let initialEducationData: IEducation[] =
+    getInitialDataFromLocalStorage("education")
+
+initialEducationData =
+    Object.keys(initialEducationData).length === 0
+        ? initialLocalResumeData.education
+        : initialEducationData
 
 const initialEducationState: IEducationState = {
-    data: [],
+    data: initialEducationData,
     loading: false,
     error: null,
 }
@@ -16,6 +30,8 @@ export const educationReducer = (
 ): IEducationState => {
     switch (action.type) {
         case EducationActionType.UPDATE_EDUCATION:
+            updateLocalStorageByProperty("education", action.payload)
+
             return {
                 ...state,
                 data: action.payload,

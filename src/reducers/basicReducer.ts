@@ -1,4 +1,3 @@
-import { IResumeData } from "../schema"
 import {
     IBasicAction,
     BasicActionType,
@@ -7,19 +6,17 @@ import {
 } from "../schema/action-types/IBasicAction"
 import { IBasicState } from "../schema/state/IBasicState"
 import { initialLocalResumeData } from "../schema/emptyResumeData"
+import {
+    getInitialDataFromLocalStorage,
+    updateLocalStorageByProperty,
+} from "./localStorageReducer"
 
-if (localStorage.getItem("localResumeData") === null) {
-    localStorage.setItem(
-        "localResumeData",
-        JSON.stringify(initialLocalResumeData)
-    )
-}
+let initialBasicData = getInitialDataFromLocalStorage("basics")
 
-const localResumeData = localStorage.getItem("localResumeData")
-let initialBasicData = initialLocalResumeData.basics
-if (localResumeData) {
-    initialBasicData = JSON.parse(localResumeData).basics
-}
+initialBasicData =
+    Object.keys(initialBasicData).length === 0
+        ? initialLocalResumeData.basics
+        : initialBasicData
 
 const initialBasicState: IBasicState = {
     data: initialBasicData,
@@ -34,13 +31,7 @@ export const basicReducer = (
 ) => {
     switch (action.type) {
         case BasicActionType.UPDATE_BASICS:
-            const localResumeData = localStorage.getItem("localResumeData")
-
-            if (localResumeData) {
-                const obj: IResumeData = JSON.parse(localResumeData)
-                obj.basics = action.payload
-                localStorage.setItem("localResumeData", JSON.stringify(obj))
-            }
+            updateLocalStorageByProperty("basics", action.payload)
 
             return {
                 ...state,

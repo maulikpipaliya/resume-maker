@@ -3,30 +3,20 @@ import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import AccordionContainer from "../components/AccordionContainer"
 
-import { IBasic, ILocation } from "../schema"
+import { IBasic } from "../schema"
 import { updateBasics, resetEmails } from "../actions/basicAction"
 import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
 
-    const locationData: ILocation = {
-        city: "",
-        region: "",
-    }
-    const formData: IBasic = {
-        name: "",
-        email: [""],
-        dob: null,
-        contact: [""],
-        location: locationData,
-    }
-    const localResumeData = localStorage.getItem("localResumeData")
-    let initialBasicData = formData
-    if (localResumeData) {
-        initialBasicData = JSON.parse(localResumeData).basics
-    }
-    console.log(initialBasicData)
+    const formData: IBasic = initialLocalResumeData.basics // empty data
+
+    let initialBasicData: IBasic = getInitialDataFromLocalStorage("basics") // localstorage
+
+    initialBasicData =
+        Object.keys(initialBasicData).length === 0 ? formData : initialBasicData
 
     const [formDataState, setFormDataState] = useState(initialBasicData)
 

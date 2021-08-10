@@ -7,6 +7,9 @@ import React, {
 import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
 
 import { useSelector } from "react-redux"
+import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
+import { IEducation } from "../schema"
+import { initialLocalResumeData } from "../schema/emptyResumeData"
 import { RootState } from "../store"
 
 interface IProps {
@@ -24,17 +27,13 @@ const ListContainer: FC<IProps> = ({
     editRecordHandler,
     deleteRecordHandler,
 }) => {
-    const stateData: RootState = useSelector((state: RootState) => state)
+    let educationData: IEducation[] =
+        getInitialDataFromLocalStorage("education")
 
-    const {
-        education: { data: educationData },
-        // skills: { data: skillData },
-        // awards: { data: awardData },
-        // projects: { data: projectData },
-        // interests: { data: interestData },
-        // positions: { data: positionData },
-        // work: { data: workData },
-    } = stateData
+    educationData =
+        Object.keys(educationData).length === 0
+            ? initialLocalResumeData.education
+            : educationData
 
     return (
         // <Container>
