@@ -25,7 +25,7 @@ const ResumeView: FC = () => {
     return (
         <Container fluid={true} className="p-0">
             <Row>
-                <Col md={{ span: 6, offset: 5 }}>
+                <Col>
                     <div className="ctr-view p-4 m-2 mx-3">
                         {/* <div className="ctr-header border border-primary">
                             <Row>

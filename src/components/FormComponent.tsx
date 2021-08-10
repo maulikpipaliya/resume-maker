@@ -32,7 +32,7 @@ const FormComponent: FC = () => {
                         <InterestComponent></InterestComponent>
                     </Col>
 
-                    <Col md={{ span: 6, offset: 2 }}>
+                    <Col md={{ span: 6, offset: 5 }}>
                         <ResumeViewComponent></ResumeViewComponent>
                     </Col>
                 </Row>
