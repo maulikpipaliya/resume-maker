@@ -14,6 +14,7 @@ const ResumeView: FC = () => {
 
         // doc.addFont("Roboto", "sans-serif", "normal")
         doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
+        doc.setFontSize(9)
         await doc.html(htmlCode, {
             callback: function (pdf: any) {
                 pdf.save("resume-maulik.pdf")
@@ -24,20 +25,9 @@ const ResumeView: FC = () => {
     return (
         <Container fluid={true} className="p-0">
             <Row>
-                <Col
-                    md={4}
-                    className="bg-dark h-100"
-                    style={{ minHeight: "100vh" }}
-                >
-                    <Button
-                        className="text-center"
-                        onClick={generatePDFbyJSPDF}
-                    >
-                        {" "}
-                        Generate PDF{" "}
-                    </Button>
-                </Col>
-                <Col md={8}>
+                
+               
+                <Col md={{span:6,offset:5}}>
                     <div className="ctr-view p-4 m-2 mx-3">
                         {/* <div className="ctr-header border border-primary">
                             <Row>
@@ -344,15 +334,13 @@ const ResumeView: FC = () => {
                             </Row>
                         </section>
                     </div>
+                    
+                    <Button id="btnGeneratePDF" onClick={generatePDFbyJSPDF}>
+                            Generate PDF 
+                        </Button>
                 </Col>
             </Row>
-            <Button
-                        className="text-center"
-                        onClick={generatePDFbyJSPDF}
-                    >
-                        {" "}
-                        Generate PDF{" "}
-                    </Button>
+            
         </Container>
     )
 }
