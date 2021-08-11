@@ -22,13 +22,19 @@ export const getInitialDataFromLocalStorage = (propertyName: string) => {
 
 export const updateLocalStorageByProperty = (
     propertyName: string,
-    value: any
+    value: any,
+    idx: number = -1
 ) => {
     let localResumeData = localStorage.getItem("localResumeData")
 
     if (localResumeData !== null) {
         const obj = JSON.parse(localResumeData)
-        obj[propertyName] = value
+
+        if (idx >= 0) {
+            obj[propertyName][idx] = value
+        } else {
+            obj[propertyName] = value
+        }
         localStorage.setItem("localResumeData", JSON.stringify(obj))
     }
 }

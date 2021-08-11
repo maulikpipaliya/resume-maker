@@ -30,8 +30,6 @@ export const educationReducer = (
 ): IEducationState => {
     switch (action.type) {
         case EducationActionType.UPDATE_EDUCATION:
-            updateLocalStorageByProperty("education", action.payload)
-
             return {
                 ...state,
                 data: action.payload,
@@ -82,6 +80,12 @@ export const educationReducer = (
                 action.payload.index >= 0 &&
                 action.payload.index < copy.length
             ) {
+                updateLocalStorageByProperty(
+                    "education",
+                    action.payload.education,
+                    action.payload.index
+                )
+
                 return {
                     ...state,
                     data: [

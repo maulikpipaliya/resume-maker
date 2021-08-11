@@ -27,6 +27,8 @@ const ListContainer: FC<IProps> = ({
     editRecordHandler,
     deleteRecordHandler,
 }) => {
+    // let educationData = useSelector((state: RootState) => state.education.data)
+
     let educationData: IEducation[] =
         getInitialDataFromLocalStorage("education")
 

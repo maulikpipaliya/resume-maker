@@ -14,8 +14,11 @@ export const initialLocalResumeData: IResumeData = {
     education: [
         {
             institution: "",
-            gpa: null,
             degree: "",
+            gpa: null,
+            startYear: null,
+            endYear: null,
+            area: "",
         },
     ],
     work: [

@@ -79,13 +79,6 @@ const EducationDetailsComponentCopy: FC = () => {
 
     useEffect(() => {
         dispatch(updateEducationAtIndex(idx, formDataState))
-        let localData = localStorage.getItem("localResumeData")
-        if (localData) {
-            const data: IResumeData = JSON.parse(localData)
-            data.education = educationData
-
-            localStorage.setItem("localResumeData", JSON.stringify(data))
-        }
 
         return () => {}
     }, [dispatch, formDataState, idx])
