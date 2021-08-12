@@ -1,10 +1,8 @@
 import React, { useState, FC, useEffect } from "react"
 import { Col, Row } from "react-bootstrap"
 import { ISkill } from "../schema"
-import { IResumeDataState } from "../schema/state/IResumeDataState"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
-import { updateResumeData } from "../actions/resumeAction"
 import { addKeyword, removeKeyword } from "../actions/skillActions"
 
 interface Props {
@@ -22,13 +20,11 @@ const SkillTagsInput: FC<Props> = ({
     placeholder,
     skillType,
 }) => {
-    const initialState: IResumeDataState = useSelector(
-        (state: RootState) => state.resumeData
-    )
+    const initialState: RootState = useSelector((state: RootState) => state)
 
     const dispatch = useDispatch()
 
-    const [stateObj, setStateObj] = useState(initialState.data)
+    const [stateObj, setStateObj] = useState(initialState)
 
     const [tags, setTags] = useState<string[]>([])
     const [input, setInput] = useState("")
@@ -63,7 +59,7 @@ const SkillTagsInput: FC<Props> = ({
         const newTags = tags.filter((tag, j) => i !== j)
         setTags(newTags)
 
-        const tempSkills: ISkill[] = [...stateObj?.skills]
+        const tempSkills: ISkill[] = [...stateObj?.skills.data]
         const skill: ISkill = { ...tempSkills[0] }
 
         dispatch(removeKeyword(skillType, tags[i]))
@@ -92,7 +88,7 @@ const SkillTagsInput: FC<Props> = ({
         setInput("")
         setSuggestions([])
 
-        const tempSkills: ISkill[] = [...stateObj?.skills]
+        const tempSkills: ISkill[] = [...stateObj?.skills.data]
         const skill: ISkill = { ...tempSkills[0] }
 
         skill.keywords.push(text)

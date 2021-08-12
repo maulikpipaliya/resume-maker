@@ -6,11 +6,11 @@ import React, {
 } from "react"
 import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
 
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
 import { IEducation } from "../schema"
 import { initialLocalResumeData } from "../schema/emptyResumeData"
-import { RootState } from "../store"
+// import { RootState } from "../store"
 
 interface IProps {
     children?: (ReactElement<any, string | JSXElementConstructor<any>> &

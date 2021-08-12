@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import jsPDF from "jspdf"
-import { oldStyle } from "../resumeStyle"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import { base_img } from "./base_img"
 import "./daiict-template-style.css"

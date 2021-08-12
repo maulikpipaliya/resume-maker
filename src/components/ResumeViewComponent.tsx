@@ -1,23 +1,17 @@
 import React, { FC } from "react"
 import jsPDF from "jspdf"
-import { oldStyle } from "../resumeStyle"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import { base_img } from "./base_img"
 import "./daiict-template-style.css"
-import { IResumeData } from "../schema"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
 
-const ResumeView: FC = () => {
-    const stateObj: IResumeData = useSelector(
-        (state: RootState) => state.resumeData.data
-    )
-
+const ResumeViewComponent: FC = () => {
     const stateData: RootState = useSelector((state: RootState) => state)
 
     const {
         basics: { data: basicData },
-        education: { data: educationData },
+        // education: { data: educationData },
         // skills: { data: skillData },
         // awards: { data: awardData },
         // projects: { data: projectData },
@@ -357,4 +351,4 @@ const ResumeView: FC = () => {
     )
 }
 
-export default ResumeView
+export default ResumeViewComponent

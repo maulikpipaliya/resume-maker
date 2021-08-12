@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 
-import { IEducation, IResumeData } from "../schema"
+import { IEducation } from "../schema"
 
 import AccordionContainer from "./AccordionContainer"
 import {
@@ -14,7 +14,6 @@ import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
 import { initialLocalResumeData } from "../schema/emptyResumeData"
-import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
 
 const EducationDetailsComponentCopy: FC = () => {
     const formData: IEducation = initialLocalResumeData.education[0]

@@ -1,4 +1,3 @@
-import { IResumeData } from "./../schema"
 import { initialLocalResumeData } from "../schema/emptyResumeData"
 
 export const setStateLocalStorage = () => {

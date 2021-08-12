@@ -5,7 +5,6 @@ import {
     addAward,
     deleteAward,
     updateAwardAtIndex,
-    updateAwards,
 } from "../actions/awardAction"
 import { IAward } from "../schema"
 import { RootState } from "../store"
@@ -13,10 +12,6 @@ import AccordionContainer from "./AccordionContainer"
 import AwardListContainer from "./AwardListContainer"
 
 const AwardsDetails: FC = () => {
-    const awardTitle = ""
-    const institute = ""
-    const summary = ""
-
     const formData: IAward = {
         title: "",
         awarder: "",
@@ -35,15 +30,15 @@ const AwardsDetails: FC = () => {
 
     const [idx, setIdx] = useState(awardData.length - 1)
 
-    const addAwardFields = (item: any) => {
-        dispatch(
-            addAward({
-                title: awardTitle,
-                awarder: institute,
-                summary: summary,
-            })
-        )
-    }
+    // const addAwardFields = (item: any) => {
+    //     dispatch(
+    //         addAward({
+    //             title: awardTitle,
+    //             awarder: institute,
+    //             summary: summary,
+    //         })
+    //     )
+    // }
 
     const handlerChange = (e: any, idx: number) => {
         const { name, value } = e.currentTarget

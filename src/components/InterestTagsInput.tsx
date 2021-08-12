@@ -1,10 +1,9 @@
 import React, { useState, FC, useEffect } from "react"
 import { Col, Row } from "react-bootstrap"
 import { ISkill } from "../schema"
-import { IResumeDataState } from "../schema/state/IResumeDataState"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
-import { updateResumeData } from "../actions/resumeAction"
+
 import { addInterest, deleteInterest } from "../actions/interestAction"
 
 interface Props {
@@ -16,13 +15,11 @@ interface Props {
 }
 
 const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
-    const initialState: IResumeDataState = useSelector(
-        (state: RootState) => state.resumeData
-    )
+    const initialState: RootState = useSelector((state: RootState) => state)
 
     const dispatch = useDispatch()
 
-    const [stateObj, setStateObj] = useState(initialState.data)
+    const [stateObj, setStateObj] = useState(initialState)
 
     const [tags, setTags] = useState<string[]>([])
     const [input, setInput] = useState("")
@@ -57,7 +54,7 @@ const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
         const newTags = tags.filter((tag, j) => i !== j)
         setTags(newTags)
 
-        const tempSkills: ISkill[] = [...stateObj?.skills]
+        const tempSkills: ISkill[] = [...stateObj?.skills.data]
         const skill: ISkill = { ...tempSkills[0] }
 
         dispatch(deleteInterest(tags[i]))
@@ -86,7 +83,7 @@ const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
         setInput("")
         setSuggestions([])
 
-        const tempSkills: ISkill[] = [...stateObj?.skills]
+        const tempSkills: ISkill[] = [...stateObj?.skills.data]
         const skill: ISkill = { ...tempSkills[0] }
 
         skill.keywords.push(text)

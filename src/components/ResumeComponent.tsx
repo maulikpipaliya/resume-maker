@@ -8,11 +8,7 @@ import { Container, Row, Col, Figure, Table, Button } from "react-bootstrap"
 import { convertDate } from "../utils"
 
 const ResumeComponent: FC = () => {
-    const stateObj: IResumeData = useSelector(
-        (state: RootState) => state.resumeData.data
-    )
-
-    const stateData: RootState = useSelector((state: RootState) => state)
+    const stateObj: RootState = useSelector((state: RootState) => state)
 
     const {
         basics: { data: basicData },
@@ -23,7 +19,7 @@ const ResumeComponent: FC = () => {
         // interests: { data: interestData },
         // positions: { data: positionData },
         // work: { data: workData },
-    } = stateData
+    } = stateObj
 
     const skills: ISkill[] = useSelector(
         (state: RootState) => state.skills.data
@@ -125,17 +121,17 @@ const ResumeComponent: FC = () => {
                                                 Contact
                                             </td>
                                             <td colSpan={2}>
-                                                {stateObj.basics.contact}
+                                                {stateObj.basics.data.contact}
                                             </td>
                                             <td className="font-weight-bold">
                                                 City
                                             </td>
                                             <td>
-                                                {stateObj?.basics?.location
+                                                {stateObj?.basics?.data.location
                                                     ?.city +
                                                     ", " +
-                                                    stateObj?.basics?.location
-                                                        ?.region}
+                                                    stateObj?.basics?.data
+                                                        .location?.region}
                                             </td>
                                         </tr>
                                     </tbody>
