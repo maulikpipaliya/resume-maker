@@ -122,7 +122,7 @@ const SkillTagsInput: FC<Props> = ({
     }
 
     useEffect(() => {
-        dispatch(updateResumeData(stateObj))
+        // dispatch(updateResumeData(stateObj))
 
         return () => {}
     }, [stateObj, dispatch])

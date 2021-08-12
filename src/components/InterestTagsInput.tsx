@@ -116,7 +116,7 @@ const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
     }
 
     useEffect(() => {
-        dispatch(updateResumeData(stateObj))
+        // dispatch(updateResumeData(stateObj))
 
         return () => {}
     }, [stateObj, dispatch])
