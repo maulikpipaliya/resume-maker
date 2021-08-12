@@ -105,7 +105,7 @@ const ResumeViewComponent: FC = () => {
                                                 </td>
                                                 <td>San Francisco</td>
                                             </tr>
-                                            <tr>
+                                            {/* <tr>
                                                 <td>
                                                     <strong>Links</strong>
                                                 </td>
@@ -114,7 +114,7 @@ const ResumeViewComponent: FC = () => {
                                                         LinkedIn
                                                     </a>
                                                 </td>
-                                            </tr>
+                                            </tr> */}
                                         </tbody>
                                     </Table>
                                 </Col>
