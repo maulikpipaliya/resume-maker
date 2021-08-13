@@ -21,22 +21,22 @@ const RMPuppeteer: FC = () => {
         // work: { data: workData },
     } = stateData
 
-    const downloadPDF = async () => {
-        const url = "http://localhost:8080/download-pdf"
-        return axios.get(url, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            responseType: "arraybuffer",
-        })
-    }
+    // const downloadPDF = async () => {
+    //     const url = "http://localhost:8080/download-pdf"
+    //     return axios.get(url, {
+    //         headers: {
+    //             "Content-Type": "multipart/form-data",
+    //         },
+    //         responseType: "arraybuffer",
+    //     })
+    // }
 
-    const generatePDFbyPuppeteer = async () => {
-        const { data } = await downloadPDF()
-        const blob = new Blob([data], { type: "application/pdf" })
-        saveAs(blob, "tickets.pdf")
-        console.log("Downloaded maybe")
-    }
+    // const generatePDFbyPuppeteer = async () => {
+    //     const { data } = await downloadPDF()
+    //     const blob = new Blob([data], { type: "application/pdf" })
+    //     saveAs(blob, "tickets.pdf")
+    //     console.log("Downloaded maybe")
+    // }
 
     return (
         <Container fluid={true} className="p-0">
@@ -343,13 +343,6 @@ const RMPuppeteer: FC = () => {
                             </Row>
                         </section>
                     </div>
-
-                    <Button
-                        id="btnGeneratePDF"
-                        onClick={generatePDFbyPuppeteer}
-                    >
-                        Generate PDF
-                    </Button>
                 </Col>
             </Row>
         </Container>
