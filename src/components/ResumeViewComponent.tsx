@@ -5,9 +5,15 @@ import { base_img } from "./base_img"
 import "./daiict-template-style.css"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
+import ReactDOMServer from "react-dom/server"
+// import { Document, Page } from 'react-pdf';
 
 const ResumeViewComponent: FC = () => {
     const stateData: RootState = useSelector((state: RootState) => state)
+
+    // const strData = ReactDOMServer.renderToString(element)
+
+    // console.log("strData", strData)
 
     const {
         basics: { data: basicData },
@@ -27,9 +33,10 @@ const ResumeViewComponent: FC = () => {
         console.log(htmlCode)
 
         // doc.addFont("Roboto", "sans-serif", "normal")
-        doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
+        // doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
         doc.setFontSize(9)
         await doc.html(htmlCode, {
+            margin: 500,
             callback: function (pdf: any) {
                 pdf.save("resume-maulik.pdf")
             },
@@ -38,6 +45,11 @@ const ResumeViewComponent: FC = () => {
 
     return (
         <Container fluid={true} className="p-0">
+           <ReactToPdf targetRef={ref} filename="div-blue.pdf">
+        {({toPdf}) => (
+            <button onClick={toPdf}>Generate pdf</button>
+        )}
+    </ReactToPdf>
             <Row>
                 <Col>
                     <div className="ctr-view p-4 m-2 mx-3">
@@ -84,30 +96,22 @@ const ResumeViewComponent: FC = () => {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <strong>Email</strong>
-                                                </td>
+                                                <td className="h6">Email</td>
                                                 <td>
                                                     maulik.pipaliya@gmail.com
                                                 </td>
-                                                <td>
-                                                    <strong>DOB</strong>
-                                                </td>
+                                                <td>DOB</td>
                                                 <td>30 February 2000</td>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <strong>Contact</strong>
-                                                </td>
+                                                <td>Contact</td>
                                                 <td>9876543210</td>
-                                                <td>
-                                                    <strong>City</strong>
-                                                </td>
+                                                <td>City</td>
                                                 <td>San Francisco</td>
                                             </tr>
                                             {/* <tr>
                                                 <td>
-                                                    <strong>Links</strong>
+                                                    Links
                                                 </td>
                                                 <td>
                                                     <a href="https://www.linkedin.com/in/maulikpipaliya/">
@@ -127,20 +131,10 @@ const ResumeViewComponent: FC = () => {
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <th>
-                                                <strong>Degree</strong>
-                                            </th>
-                                            <th>
-                                                <strong>
-                                                    University/Institute
-                                                </strong>
-                                            </th>
-                                            <th>
-                                                <strong>Year</strong>
-                                            </th>
-                                            <th>
-                                                <strong>CPI/Aggregate</strong>
-                                            </th>
+                                            <th>Degree</th>
+                                            <th>University/Institute</th>
+                                            <th>Year</th>
+                                            <th>CPI/Aggregate</th>
                                         </tr>
                                         <tr>
                                             <td>Html</td>
@@ -165,17 +159,9 @@ const ResumeViewComponent: FC = () => {
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <th>
-                                                <strong>Expertise</strong>
-                                            </th>
-                                            <th>
-                                                <strong>Language</strong>
-                                            </th>
-                                            <th>
-                                                <strong>
-                                                    Tools and Technologies
-                                                </strong>
-                                            </th>
+                                            <th>Expertise</th>
+                                            <th>Language</th>
+                                            <th>Tools and Technologies</th>
                                         </tr>
                                         <tr>
                                             <td>Html</td>
@@ -198,15 +184,11 @@ const ResumeViewComponent: FC = () => {
                                 <Table>
                                     <tbody>
                                         <tr>
-                                            <th colSpan={7}>
-                                                <strong>Project Title</strong>
-                                            </th>
+                                            <th colSpan={7}>Project Title</th>
                                             {/* <th colSpan={4}>
-                                                <strong>Project Details</strong>
+                                                Project Details
                                             </th> */}
-                                            <th colSpan={4}>
-                                                <strong>Duration</strong>
-                                            </th>
+                                            <th colSpan={4}>Duration</th>
                                         </tr>
                                         <tr>
                                             <td colSpan={7}>Furniture House</td>
@@ -220,18 +202,14 @@ const ResumeViewComponent: FC = () => {
                                                 MERN stack.
                                             </td>
                                             <td colSpan={4}>
-                                                <span>
-                                                    <strong>Team Size-</strong>2
-                                                </span>
+                                                <span>Team Size-2</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colSpan={7}>
                                                 <span>
-                                                    <strong>
-                                                        Tools & Technologies -{" "}
-                                                    </strong>
-                                                    HTML , CSS and JS
+                                                    Tools & Technologies - HTML
+                                                    , CSS and JS
                                                 </span>
                                             </td>
                                         </tr>
@@ -248,7 +226,7 @@ const ResumeViewComponent: FC = () => {
                                         <tr>
                                             <th colSpan={7}></th>
                                             {/* <th colSpan={4}>
-                                                <strong>Project Details</strong>
+                                                Project Details
                                             </th> */}
                                         </tr>
                                         <tr>
@@ -289,16 +267,12 @@ const ResumeViewComponent: FC = () => {
                                     <tbody>
                                         <tr>
                                             <th colSpan={4}>
-                                                <strong>
-                                                    Certificate Name
-                                                </strong>
+                                                Certificate Name
                                             </th>
                                             {/* <th colSpan={4}>
-                                                <strong>Project Details</strong>
+                                                Project Details
                                             </th> */}
-                                            <th colSpan={4}>
-                                                <strong>Issue Date</strong>
-                                            </th>
+                                            <th colSpan={4}>Issue Date</th>
                                         </tr>
                                         <tr>
                                             <td colSpan={4}>French Diploma</td>
@@ -324,7 +298,7 @@ const ResumeViewComponent: FC = () => {
                                         <tr>
                                             <th colSpan={7}></th>
                                             {/* <th colSpan={4}>
-                                                <strong>Project Details</strong>
+                                                Project Details
                                             </th> */}
                                         </tr>
                                         <tr>

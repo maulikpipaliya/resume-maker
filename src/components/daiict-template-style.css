@@ -1,24 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-*{
-    font-size: small;
-    font-family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+    font-size: medium;
+    font-family: "Roboto", sans-serif;
 }
 
 /* A4 =  210 mm x  297 mm =  595 pt x  842 pt */
-.ctr-view{
+.ctr-view {
     width: 150mm;
+    font-size: 0.5rem;
 }
 
-.ctr-header{
+td, tr,th, span{
+    font-size: 0.8em;
+}
+
+.ctr-header {
     width: 100%;
 }
 
-.da-name span{
+.da-name span {
     font-size: x-large;
     font-weight: bolder;
     letter-spacing: 1px;
 }
 
-.table td{
+.table td {
     border: none !important;
 }
