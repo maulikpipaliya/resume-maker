@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import ResumeView from "./components/ResumeView"
 import RMPuppeteer from "./templates/RMPuppeteer"
 import ResumeViewComponent from "./components/ResumeViewComponent"
+import PrintPDF from "./components/PrintPDF"
 
 const App: FC = () => {
     return (
@@ -12,7 +13,7 @@ const App: FC = () => {
             <Route path="/rm-puppeteer" component={RMPuppeteer} exact />
             <Route
                 path="/preview-resume"
-                component={ResumeViewComponent}
+                component={PrintPDF}
                 exact
             />
             <Route path="/" component={FormComponent} exact />

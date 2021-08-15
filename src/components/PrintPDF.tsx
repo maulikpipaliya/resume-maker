@@ -2,14 +2,17 @@ import React, { FC } from "react"
 import jsPDF from "jspdf"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import { base_img } from "./base_img"
-import "./daiict-template-style.css"
+// import "./daiict-template-style.css"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
 import ReactDOMServer from "react-dom/server"
+import "./da-style.css"
 // import { Document, Page } from 'react-pdf';
 
-const ResumeViewComponent: FC = () => {
+const PrintPDF: FC = () => {
     const stateData: RootState = useSelector((state: RootState) => state)
+
+    // const strData = ReactDOMServer.renderToString(element)
 
     // console.log("strData", strData)
 
@@ -44,8 +47,8 @@ const ResumeViewComponent: FC = () => {
     return (
         <Container fluid={true} className="p-0">
             <Row>
-                <Col>
-                    <div className="ctr-view p-4 m-2 mx-3">
+                <Col className="main">
+                    <div className="ctr-view main p-4 m-2 mx-3">
                         {/* <div className="ctr-header border border-primary">
                             <Row>
                                 <Col md={1}>1</Col>
@@ -82,9 +85,7 @@ const ResumeViewComponent: FC = () => {
                                                     className="da-name"
                                                 >
                                                     <span>
-                                                        {basicData.name
-                                                            ? basicData.name
-                                                            : "Your good name here"}
+                                                        Hahah
                                                     </span>
                                                 </td>
                                             </tr>
@@ -318,4 +319,4 @@ const ResumeViewComponent: FC = () => {
     )
 }
 
-export default ResumeViewComponent
+export default PrintPDF

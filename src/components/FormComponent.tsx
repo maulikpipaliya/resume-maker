@@ -14,11 +14,47 @@ import { saveAs } from "file-saver"
 import jsPDF from "jspdf"
 import "./daiict-template-style.css"
 import html2canvas from "html2canvas"
+import ReactDOMServer from "react-dom/server"
+import Trial1 from "./Trial1"
+import { useSelector } from "react-redux"
+import { RootState } from "../store"
 
 const FormComponent: FC = () => {
-    const downloadPDF = async () => {
-        const url = "http://localhost:8080/download-pdf"
-        return axios.get(url, {
+    console.log("ReactDOMServer")
+    const stateDataPDF: RootState = useSelector((state: RootState) => state)
+
+    // console.log("strData", strData)
+
+    const {
+        basics: { data: basicData },
+        // education: { data: educationData },
+        // skills: { data: skillData },
+        // awards: { data: awardData },
+        // projects: { data: projectData },
+        // interests: { data: interestData },
+        // positions: { data: positionData },
+        // work: { data: workData },
+    } = stateDataPDF
+    const strdata = ReactDOMServer.renderToStaticMarkup(
+        <Trial1 mystatedata={stateDataPDF} />
+    )
+    console.log(strdata)
+
+    const sendDataToServer = async () => {
+        console.log("Sending data")
+
+        console.log(strdata)
+        const dataToSend = {
+            params: {
+                htmlString: strdata,
+            },
+        }
+
+        const url = "http://localhost:3000/download-pdf"
+        return await axios.get(url, {
+            params: {
+                htmlString: strdata,
+            },
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -26,8 +62,21 @@ const FormComponent: FC = () => {
         })
     }
 
+    console.log("haha")
+    // const downloadPDF = async () => {
+    //     const url = "http://localhost:8080/download-pdf"
+    //     return axios.get(url, {
+    //         headers: {
+    //             "Content-Type": "multipart/form-data",
+    //         },
+    //         responseType: "arraybuffer",
+    //     })
+    // }
+
     const generatePDFbyPuppeteer = async () => {
-        const { data } = await downloadPDF()
+        // await sendDataToServer()
+
+        const { data } = await sendDataToServer()
         const blob = new Blob([data], { type: "application/pdf" })
         saveAs(blob, "tickets.pdf")
         console.log("Downloaded maybe")
@@ -84,7 +133,10 @@ const FormComponent: FC = () => {
                         <ResumeViewComponent></ResumeViewComponent>
                     </Col>
 
-                    <Button id="btnGeneratePDF" onClick={generatePDFbyPuppeteer}>
+                    <Button
+                        id="btnGeneratePDF"
+                        onClick={generatePDFbyPuppeteer}
+                    >
                         Generate PDF New
                     </Button>
                 </Row>

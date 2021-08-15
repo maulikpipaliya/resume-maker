@@ -8,39 +8,11 @@ import { useSelector } from "react-redux"
 import ReactDOMServer from "react-dom/server"
 // import { Document, Page } from 'react-pdf';
 
-const ResumeViewComponent: FC = () => {
-    const stateData: RootState = useSelector((state: RootState) => state)
+interface IProps {
+    mystatedata: RootState
+}
 
-    // console.log("strData", strData)
-
-    const {
-        basics: { data: basicData },
-        // education: { data: educationData },
-        // skills: { data: skillData },
-        // awards: { data: awardData },
-        // projects: { data: projectData },
-        // interests: { data: interestData },
-        // positions: { data: positionData },
-        // work: { data: workData },
-    } = stateData
-
-    const generatePDFbyJSPDF = async () => {
-        console.log("Generating PDF")
-        const doc = new jsPDF("p", "pt", "a4")
-        const htmlCode: any = document.querySelector(".ctr-view")
-        console.log(htmlCode)
-
-        // doc.addFont("Roboto", "sans-serif", "normal")
-        // doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
-        doc.setFontSize(9)
-        await doc.html(htmlCode, {
-            margin: 500,
-            callback: function (pdf: any) {
-                pdf.save("resume-maulik.pdf")
-            },
-        })
-    }
-
+const Trial1: FC<IProps> = ({ mystatedata }) => {
     return (
         <Container fluid={true} className="p-0">
             <Row>
@@ -66,7 +38,7 @@ const ResumeViewComponent: FC = () => {
                             <Row>
                                 <Col md={3}>
                                     <img
-                                        src={base_img}
+                                        src="http://intranet.daiict.ac.in/~daiict_nt01/Announcement/LOGO/DA-IICT-Emblem-Final%20Colour.png"
                                         alt="DAIICT Logo"
                                         className="m-2 my-4"
                                         width="125px"
@@ -82,9 +54,10 @@ const ResumeViewComponent: FC = () => {
                                                     className="da-name"
                                                 >
                                                     <span>
-                                                        {basicData.name
-                                                            ? basicData.name
-                                                            : "Your good name here"}
+                                                        {
+                                                            mystatedata.basics
+                                                                .data.name
+                                                        }
                                                     </span>
                                                 </td>
                                             </tr>
@@ -308,14 +281,10 @@ const ResumeViewComponent: FC = () => {
                             </Row>
                         </section>
                     </div>
-
-                    <Button id="btnGeneratePDF" onClick={generatePDFbyJSPDF}>
-                        Generate PDF
-                    </Button>
                 </Col>
             </Row>
         </Container>
     )
 }
 
-export default ResumeViewComponent
+export default Trial1
