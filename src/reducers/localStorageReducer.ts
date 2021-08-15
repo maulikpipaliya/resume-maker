@@ -6,6 +6,18 @@ export const setStateLocalStorage = () => {
     }
 }
 
+export const isLSPropertyEmpty = async (propertyName: string) => {
+    const localResumeData = localStorage.getItem("localResumeData")
+
+    if (localResumeData) {
+        const resumeData = JSON.parse(localResumeData)
+        
+        if (Object.keys(resumeData[propertyName]).length === 0) return true
+        if (resumeData[propertyName].length === 0) return true
+        return false
+    }
+}
+
 export const getDataFromLS = (propertyName: string, idx: number = -1) => {
     const localResumeData = localStorage.getItem("localResumeData")
 
@@ -15,10 +27,13 @@ export const getDataFromLS = (propertyName: string, idx: number = -1) => {
 
         // if array is empty, return null
         if (resumeData[propertyName].length === 0) {
+            console.log("Education array is empty")
             return []
         }
 
         if (idx >= 0) {
+            console.log(`Education array at ${idx} is below`)
+            console.log(resumeData[propertyName][idx])
             return resumeData[propertyName][idx]
         }
         return resumeData[propertyName]

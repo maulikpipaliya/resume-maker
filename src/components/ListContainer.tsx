@@ -5,11 +5,13 @@ import React, {
     ReactNode,
 } from "react"
 import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
+import { useSelector } from "react-redux"
 
 // import { useSelector } from "react-redux"
 import { getDataFromLS } from "../reducers/localStorageReducer"
 import { IEducation } from "../schema"
 import { initResumeData } from "../schema/initResumeData"
+import { RootState } from "../store"
 // import { RootState } from "../store"
 
 interface IProps {
@@ -27,22 +29,23 @@ const ListContainer: FC<IProps> = ({
     editRecordHandler,
     deleteRecordHandler,
 }) => {
-    // let educationData = useSelector((state: RootState) => state.education.data)
+    let educationData = useSelector((state: RootState) => state.education.data)
 
-    let educationData: IEducation[] =
-        getDataFromLS("education")
+    // let educationData: IEducation[] =
+    //     getDataFromLS("education")
 
-    educationData =
-        Object.keys(educationData).length === 0
-            ? initResumeData.education
-            : educationData
+    // educationData =
+    //     Object.keys(educationData).length === 0
+    //         ? initResumeData.education
+    //         : educationData
 
     return (
         // <Container>
         <Form className="px-2 py-1">
             <Card className="bg-grey">
                 <Card.Body>
-                    {educationData !== null &&  educationData.length > 0 &&
+                    {educationData !== null &&
+                        educationData.length > 0 &&
                         educationData.map((item, index) => (
                             <Row key={index}>
                                 <Col xs={6} md={3}>

@@ -1,6 +1,8 @@
+import { initEducationObj } from "./../schema/initResumeData"
 import { IEducation } from "./../schema"
 import {
     getDataFromLS,
+    isLSPropertyEmpty,
     updateLocalStorageByProperty,
 } from "./localStorageReducer"
 import {
@@ -9,29 +11,18 @@ import {
 } from "../schema/action-types/IEducationAction"
 import { IEducationState } from "../schema/state/IEducationState"
 import { initResumeData } from "../schema/initResumeData"
-
-let lsEducationData = getDataFromLS("education")
+import { addEducation } from "../actions/educationAction"
 
 let initialEducationData: IEducation[] = []
 
-console.log("lsEducationData")
-console.log(lsEducationData)
-
-if (lsEducationData.length !== 0) {
-    console.log("[reducer] educationReducer: found data in local storage")
-    initialEducationData = lsEducationData
-}
+if (!isLSPropertyEmpty("education"))
+    initialEducationData = getDataFromLS("education")
 
 console.log("initialEducationData")
 console.log(initialEducationData)
 
-// initialEducationData =
-//     Object.keys(initialEducationData).length === 0
-//         ? initResumeData.education
-//         : initialEducationData
-
 const initialEducationState: IEducationState = {
-    data: initialEducationData,
+    data: [],
     loading: false,
     error: null,
 }
@@ -88,15 +79,21 @@ export const educationReducer = (
 
         case EducationActionType.UPDATE_EDUCATION_AT_INDEX:
             const copy = [...state.data]
-            if (
-                action.payload.index >= 0 &&
-                action.payload.index < copy.length
-            ) {
-                updateLocalStorageByProperty(
-                    "education",
-                    action.payload.education,
-                    action.payload.index
-                )
+            if (action.payload.index >= 0) {
+                //if incoming object is empty
+                if (
+                    JSON.stringify(initEducationObj) ===
+                    JSON.stringify(action.payload.education)
+                ) {
+                    return {
+                        ...state,
+                        message: "Object is empty",
+                    }
+                }
+
+                if (copy.length === 0) {
+                    addEducation(action.payload.education)
+                }
 
                 return {
                     ...state,

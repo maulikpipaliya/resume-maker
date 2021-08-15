@@ -5,12 +5,21 @@ import thunk from "redux-thunk"
 import { rootReducer } from "./reducers/index"
 import { setStateLocalStorage } from "./reducers/localStorageReducer"
 
+import { loadState, saveState } from "./reducers/localData"
+
+const persistedState = loadState()
+
 const store = createStore(
     rootReducer,
+    persistedState,
     composeWithDevTools(applyMiddleware(thunk))
 )
 
-setStateLocalStorage()
+store.subscribe(() => {
+    saveState(store.getState())
+})
+
+// setStateLocalStorage()
 
 export type RootState = ReturnType<typeof rootReducer>
 

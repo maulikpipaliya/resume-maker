@@ -1,24 +1,28 @@
 import React, { useState, useEffect, FC } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import AccordionContainer from "../components/AccordionContainer"
 
 import { IBasic } from "../schema"
 import { updateBasics, resetEmails } from "../actions/basicAction"
 import { initResumeData } from "../schema/initResumeData"
 import { getDataFromLS } from "../reducers/localStorageReducer"
+import { RootState } from "../store"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
 
-    const formData: IBasic = initResumeData.basics // empty data
+    // const formData: IBasic = initResumeData.basics // empty data
+    const formData: IBasic = useSelector(
+        (state: RootState) => state.basics.data
+    )
 
     let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
 
     initialBasicData =
         Object.keys(initialBasicData).length === 0 ? formData : initialBasicData
 
-    const [formDataState, setFormDataState] = useState(initialBasicData)
+    const [formDataState, setFormDataState] = useState(formData)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.currentTarget

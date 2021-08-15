@@ -14,26 +14,34 @@ import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
 import { initEducationObj, initResumeData } from "../schema/initResumeData"
-import { getDataFromLS } from "../reducers/localStorageReducer"
+import {
+    getDataFromLS,
+    isLSPropertyEmpty,
+    updateLocalStorageByProperty,
+} from "../reducers/localStorageReducer"
 
 const EducationDetailsComponentCopy: FC = () => {
-    const formData: IEducation = initResumeData.education[0]
+    const formData: IEducation = initEducationObj
 
     // local storage
     const educationDataLS: IEducation[] = getDataFromLS("education")
-    
+
     //state data
     const educationData: IEducation[] = useSelector(
         (state: RootState) => state.education.data
     )
 
+    const educationDataMain = educationDataLS
+
+    const [lsEducationObj, setLsEducationObj] = useState(educationDataLS)
+
+    //state variables
+    const [lsIdx, setLsIdx] = useState(educationDataMain.length)
+
     console.log("educationDataLS")
     console.log(educationDataLS)
     console.log("educationData")
     console.log(educationData)
-
-
-    const [lsIdx, setLsIdx] = useState(educationDataLS.length)
 
     console.log("lsIdx")
     console.log(lsIdx)
@@ -44,6 +52,9 @@ const EducationDetailsComponentCopy: FC = () => {
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
     const [formOpen, setFormOpen] = useState(false)
     const [idx, setIdx] = useState(educationData.length - 1)
+
+    console.log("idx")
+    console.log(idx)
 
     const dispatch = useDispatch()
 
@@ -96,7 +107,10 @@ const EducationDetailsComponentCopy: FC = () => {
     }
 
     useEffect(() => {
-        // dispatch(updateEducationAtIndex(idx, formDataState))
+        dispatch(updateEducationAtIndex(idx, formDataState))
+        console.log("educationData")
+        console.log(educationData)
+        // updateLocalStorageByProperty("education", educationData)
 
         return () => {}
     }, [dispatch, formDataState, idx])
