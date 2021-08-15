@@ -1,6 +1,6 @@
 import { IEducation } from "./../schema"
 import {
-    getInitialDataFromLocalStorage,
+    getDataFromLS,
     updateLocalStorageByProperty,
 } from "./localStorageReducer"
 import {
@@ -8,15 +8,27 @@ import {
     IEducationAction,
 } from "../schema/action-types/IEducationAction"
 import { IEducationState } from "../schema/state/IEducationState"
-import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { initResumeData } from "../schema/initResumeData"
 
-let initialEducationData: IEducation[] =
-    getInitialDataFromLocalStorage("education")
+let lsEducationData = getDataFromLS("education")
 
-initialEducationData =
-    Object.keys(initialEducationData).length === 0
-        ? initialLocalResumeData.education
-        : initialEducationData
+let initialEducationData: IEducation[] = []
+
+console.log("lsEducationData")
+console.log(lsEducationData)
+
+if (lsEducationData.length !== 0) {
+    console.log("[reducer] educationReducer: found data in local storage")
+    initialEducationData = lsEducationData
+}
+
+console.log("initialEducationData")
+console.log(initialEducationData)
+
+// initialEducationData =
+//     Object.keys(initialEducationData).length === 0
+//         ? initResumeData.education
+//         : initialEducationData
 
 const initialEducationState: IEducationState = {
     data: initialEducationData,

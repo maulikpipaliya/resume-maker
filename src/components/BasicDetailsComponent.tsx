@@ -5,15 +5,15 @@ import AccordionContainer from "../components/AccordionContainer"
 
 import { IBasic } from "../schema"
 import { updateBasics, resetEmails } from "../actions/basicAction"
-import { initialLocalResumeData } from "../schema/emptyResumeData"
-import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
+import { initResumeData } from "../schema/initResumeData"
+import { getDataFromLS } from "../reducers/localStorageReducer"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
 
-    const formData: IBasic = initialLocalResumeData.basics // empty data
+    const formData: IBasic = initResumeData.basics // empty data
 
-    let initialBasicData: IBasic = getInitialDataFromLocalStorage("basics") // localstorage
+    let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
 
     initialBasicData =
         Object.keys(initialBasicData).length === 0 ? formData : initialBasicData

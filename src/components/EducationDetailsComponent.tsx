@@ -13,14 +13,33 @@ import {
 import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
-import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { initEducationObj, initResumeData } from "../schema/initResumeData"
+import { getDataFromLS } from "../reducers/localStorageReducer"
 
 const EducationDetailsComponentCopy: FC = () => {
-    const formData: IEducation = initialLocalResumeData.education[0]
+    const formData: IEducation = initResumeData.education[0]
 
+    // local storage
+    const educationDataLS: IEducation[] = getDataFromLS("education")
+    
+    //state data
     const educationData: IEducation[] = useSelector(
         (state: RootState) => state.education.data
     )
+
+    console.log("educationDataLS")
+    console.log(educationDataLS)
+    console.log("educationData")
+    console.log(educationData)
+
+
+    const [lsIdx, setLsIdx] = useState(educationDataLS.length)
+
+    console.log("lsIdx")
+    console.log(lsIdx)
+
+    console.log("educationDataLS")
+    console.log(educationDataLS)
 
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
     const [formOpen, setFormOpen] = useState(false)
@@ -63,7 +82,7 @@ const EducationDetailsComponentCopy: FC = () => {
 
     // let idx = 0;
     const addEducationFields = () => {
-        setFormDataState(formData)
+        setFormDataState(initEducationObj)
         setFormOpen(true)
         dispatch(addEducation(formData))
         setIdx(idx + 1)
@@ -77,7 +96,7 @@ const EducationDetailsComponentCopy: FC = () => {
     }
 
     useEffect(() => {
-        dispatch(updateEducationAtIndex(idx, formDataState))
+        // dispatch(updateEducationAtIndex(idx, formDataState))
 
         return () => {}
     }, [dispatch, formDataState, idx])

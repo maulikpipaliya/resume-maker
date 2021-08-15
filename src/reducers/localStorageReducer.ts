@@ -1,19 +1,26 @@
-import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { initResumeData } from "../schema/initResumeData"
 
 export const setStateLocalStorage = () => {
     if (localStorage.getItem("localResumeData") === null) {
-        localStorage.setItem(
-            "localResumeData",
-            JSON.stringify(initialLocalResumeData)
-        )
+        localStorage.setItem("localResumeData", JSON.stringify(initResumeData))
     }
 }
 
-export const getInitialDataFromLocalStorage = (propertyName: string) => {
+export const getDataFromLS = (propertyName: string, idx: number = -1) => {
     const localResumeData = localStorage.getItem("localResumeData")
 
     if (localResumeData) {
         const resumeData = JSON.parse(localResumeData)
+        console.log("LS:", resumeData[propertyName])
+
+        // if array is empty, return null
+        if (resumeData[propertyName].length === 0) {
+            return []
+        }
+
+        if (idx >= 0) {
+            return resumeData[propertyName][idx]
+        }
         return resumeData[propertyName]
     }
     return {}

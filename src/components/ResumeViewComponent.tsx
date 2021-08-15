@@ -45,11 +45,7 @@ const ResumeViewComponent: FC = () => {
 
     return (
         <Container fluid={true} className="p-0">
-           <ReactToPdf targetRef={ref} filename="div-blue.pdf">
-        {({toPdf}) => (
-            <button onClick={toPdf}>Generate pdf</button>
-        )}
-    </ReactToPdf>
+           
             <Row>
                 <Col>
                     <div className="ctr-view p-4 m-2 mx-3">

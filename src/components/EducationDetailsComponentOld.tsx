@@ -7,7 +7,7 @@ import { IEducation } from "../schema"
 import AccordionContainer from "./AccordionContainer"
 import { updateEducation } from "../actions/educationAction"
 
-const EducationDetailsComponent: FC = () => {
+const EducationDetailsComponentOld: FC = () => {
     const formData: IEducation[] = [
         {
             degree: "",
@@ -183,4 +183,4 @@ const EducationDetailsComponent: FC = () => {
     )
 }
 
-export default EducationDetailsComponent
+export default EducationDetailsComponentOld

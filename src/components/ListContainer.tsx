@@ -7,9 +7,9 @@ import React, {
 import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
 
 // import { useSelector } from "react-redux"
-import { getInitialDataFromLocalStorage } from "../reducers/localStorageReducer"
+import { getDataFromLS } from "../reducers/localStorageReducer"
 import { IEducation } from "../schema"
-import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { initResumeData } from "../schema/initResumeData"
 // import { RootState } from "../store"
 
 interface IProps {
@@ -30,11 +30,11 @@ const ListContainer: FC<IProps> = ({
     // let educationData = useSelector((state: RootState) => state.education.data)
 
     let educationData: IEducation[] =
-        getInitialDataFromLocalStorage("education")
+        getDataFromLS("education")
 
     educationData =
         Object.keys(educationData).length === 0
-            ? initialLocalResumeData.education
+            ? initResumeData.education
             : educationData
 
     return (
@@ -42,7 +42,7 @@ const ListContainer: FC<IProps> = ({
         <Form className="px-2 py-1">
             <Card className="bg-grey">
                 <Card.Body>
-                    {educationData.length > 0 &&
+                    {educationData !== null &&  educationData.length > 0 &&
                         educationData.map((item, index) => (
                             <Row key={index}>
                                 <Col xs={6} md={3}>

@@ -5,17 +5,17 @@ import {
     BasicActionErrors,
 } from "../schema/action-types/IBasicAction"
 import { IBasicState } from "../schema/state/IBasicState"
-import { initialLocalResumeData } from "../schema/emptyResumeData"
+import { initResumeData } from "../schema/initResumeData"
 import {
-    getInitialDataFromLocalStorage,
+    getDataFromLS,
     updateLocalStorageByProperty,
 } from "./localStorageReducer"
 
-let initialBasicData = getInitialDataFromLocalStorage("basics")
+let initialBasicData = getDataFromLS("basics")
 
 initialBasicData =
     Object.keys(initialBasicData).length === 0
-        ? initialLocalResumeData.basics
+        ? initResumeData.basics
         : initialBasicData
 
 const initialBasicState: IBasicState = {
