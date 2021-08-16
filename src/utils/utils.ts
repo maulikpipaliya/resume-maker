@@ -29,3 +29,10 @@ export const convertDate = (date: Date | null | undefined) => {
 
     return `${monthName} ${day}, ${year}`
 }
+
+export const convertToSlug = (text: string) => {
+    return text
+        .toLowerCase()
+        .replace(/[^\w ]+/g, "")
+        .replace(/ +/g, "-")
+}

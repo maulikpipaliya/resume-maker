@@ -18,6 +18,8 @@ import ReactDOMServer from "react-dom/server"
 import Trial1 from "./Trial1"
 import { useSelector } from "react-redux"
 import { RootState } from "../store"
+import TemplateDAIICT from "../templates/TemplateDAIICT"
+import { convertToSlug } from "../utils/utils"
 
 const FormComponent: FC = () => {
     console.log("ReactDOMServer")
@@ -36,7 +38,7 @@ const FormComponent: FC = () => {
         // work: { data: workData },
     } = stateDataPDF
     const strdata = ReactDOMServer.renderToStaticMarkup(
-        <Trial1 mystatedata={stateDataPDF} />
+        <TemplateDAIICT stateData={stateDataPDF} />
     )
     console.log(strdata)
 
@@ -76,9 +78,14 @@ const FormComponent: FC = () => {
     const generatePDFbyPuppeteer = async () => {
         // await sendDataToServer()
 
+        const fileName = `${
+            convertToSlug(basicData.name) +
+            "-" +
+            new Date().toISOString().slice(0, 10)
+        }.pdf`
         const { data } = await sendDataToServer()
         const blob = new Blob([data], { type: "application/pdf" })
-        saveAs(blob, "tickets.pdf")
+        saveAs(blob, fileName)
         console.log("Downloaded maybe")
     }
 
@@ -129,8 +136,11 @@ const FormComponent: FC = () => {
                         <InterestComponent></InterestComponent>
                     </Col>
 
-                    <Col md={{ span: 6, offset: 5 }}>
-                        <ResumeViewComponent></ResumeViewComponent>
+                    <Col md={{ span: 8, offset: 4 }}>
+                        {/* <ResumeViewComponent></ResumeViewComponent> */}
+                        <TemplateDAIICT
+                            stateData={stateDataPDF}
+                        ></TemplateDAIICT>
                     </Col>
 
                     <Button

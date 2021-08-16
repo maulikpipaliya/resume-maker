@@ -5,6 +5,7 @@ import ResumeView from "./components/ResumeView"
 import RMPuppeteer from "./templates/RMPuppeteer"
 import ResumeViewComponent from "./components/ResumeViewComponent"
 import PrintPDF from "./components/PrintPDF"
+import TemplateDAIICT from "./templates/TemplateDAIICT"
 
 const App: FC = () => {
     return (
@@ -13,7 +14,7 @@ const App: FC = () => {
             <Route path="/rm-puppeteer" component={RMPuppeteer} exact />
             <Route
                 path="/preview-resume"
-                component={PrintPDF}
+                component={TemplateDAIICT}
                 exact
             />
             <Route path="/" component={FormComponent} exact />

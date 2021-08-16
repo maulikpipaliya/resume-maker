@@ -1,0 +1,17 @@
+.rm-da-template {
+    font-size: smaller;
+    /* border: 1px solid black; */
+}
+
+td,
+tr,
+table,
+th {
+    border: none;
+}
+
+.rm-da-logo {
+    width: 12em;
+    height: 12em;
+    margin: 1em;
+}
