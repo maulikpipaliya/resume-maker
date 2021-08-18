@@ -92,25 +92,39 @@ export const skillReducer = (
         }
 
         case SkillActionType.DELETE_KEYWORD: {
-            const skillFound = state.data.find(
-                (skill) => skill.name === action.payload.name
+            //find if skill exists
+            const skillName = action.payload.name
+            const stateDataCopy = [...state.data]
+            const skillIndex = stateDataCopy.findIndex(
+                (s) => s.name === skillName
             )
-            if (skillFound) {
-                const keywordIndex = skillFound.keywords.indexOf(
-                    action.payload.keyword
-                )
-                if (keywordIndex !== -1) {
-                    skillFound.keywords.splice(keywordIndex, 1)
-                }
 
+            if (skillIndex === -1) {
                 return {
                     ...state,
-                    data: state.data.map((x) =>
-                        x === skillFound ? skillFound : x
-                    ),
+                    error: "Skill not found",
+                    message: "",
                 }
-            } else {
-                return state
+            }
+
+            //find if keyword exists in that skill
+            const keyword = action.payload.keyword
+            const keywordIndex = stateDataCopy[skillIndex].keywords.findIndex(
+                (s) => s === keyword
+            )
+            if (keywordIndex === -1) {
+                return {
+                    ...state,
+                    error: "Keyword not found",
+                    message: "",
+                }
+            }
+            stateDataCopy[skillIndex].keywords.splice(keywordIndex, 1)
+            return {
+                ...state,
+                data: stateDataCopy,
+                message: `Keyword at index ${keywordIndex} deleted`,
+                error: "",
             }
         }
         default:

@@ -3,6 +3,7 @@ import { RootState } from "../store"
 import { Row, Col, Container, Image, Table } from "react-bootstrap"
 import "./style/TemplateDAIICT.css"
 import { convertDate } from "../utils"
+import { ISkill } from "../schema"
 
 interface IProps {
     stateData: RootState
@@ -76,66 +77,73 @@ const TemplateDAIICT: FC<IProps> = ({ stateData }) => {
                 </Col>
             </Row>
 
-            <hr />
-            <Row>
-                <Col xs={2} className="font-weight-bold">
-                    Degree
-                </Col>
-                <Col xs={6} className="font-weight-bold">
-                    University
-                </Col>
-                <Col xs={2} className="font-weight-bold">
-                    Year
-                </Col>
-                <Col xs={2} className="font-weight-bold">
-                    CPI
-                </Col>
-            </Row>
+            {educationData.length > 0 && (
+                <>
+                    <hr />
 
-            {educationData.map((education, index) => (
-                <Row className="mt-4">
-                    <Col xs={2}>{education.degree}</Col>
-                    <Col xs={6}>{education.institution}</Col>
-                    <Col xs={2}>{education.endYear}</Col>
-                    <Col xs={2}>{education.gpa}</Col>
-                </Row>
-            ))}
+                    <Row>
+                        <Col xs={2} className="font-weight-bold">
+                            Degree
+                        </Col>
+                        <Col xs={6} className="font-weight-bold">
+                            University
+                        </Col>
+                        <Col xs={2} className="font-weight-bold">
+                            Year
+                        </Col>
+                        <Col xs={2} className="font-weight-bold">
+                            CPI
+                        </Col>
+                    </Row>
 
-            <hr />
-            <section className="mt-4">
-                <Row className="my-4">
-                    <Col xs={2} className="font-weight-bold">
-                        Expertise
-                    </Col>
-                    <Col xs={6}>
-                        {new Array(skillData[0].keywords.join(", "))}
+                    {educationData.map((education, index) => (
+                        <Row className="mt-4">
+                            <Col xs={2}>{education.degree}</Col>
+                            <Col xs={6}>{education.institution}</Col>
+                            <Col xs={2}>{education.endYear}</Col>
+                            <Col xs={2}>{education.gpa}</Col>
+                        </Row>
+                    ))}
+                </>
+            )}
 
-                        {/* {skillData[0].keywords.map((keyword, index) => (
-                            <>
-                                <span key={index}>{keyword}</span>
-                            </>
-                        ))} */}
-                    </Col>
-                </Row>
-                <Row className="my-4">
-                    {" "}
-                    <Col xs={2} className="font-weight-bold">
-                        Languages
-                    </Col>
-                    <Col xs={6}>
-                        {new Array(skillData[1].keywords.join(", "))}
-                    </Col>
-                </Row>
-                <Row className="my-4">
-                    {" "}
-                    <Col xs={2} className="font-weight-bold">
-                        Tools & Technologies
-                    </Col>
-                    <Col xs={6}>
-                        {new Array(skillData[2].keywords.join(", "))}
-                    </Col>
-                </Row>
-            </section>
+            {/* checking if no skills have been entered */}
+            {!Object.values(skillData).every((key: ISkill) => {
+                return key.keywords.length === 0
+            }) && (
+                <>
+                    <hr />
+                    <section className="mt-4">
+                        <Row className="my-4">
+                            <Col xs={2} className="font-weight-bold">
+                                Expertise
+                            </Col>
+                            <Col xs={6}>
+                                {console.log(skillData[0])}
+                                {new Array(skillData[0].keywords.join(", "))}
+                            </Col>
+                        </Row>
+                        <Row className="my-4">
+                            {" "}
+                            <Col xs={2} className="font-weight-bold">
+                                Languages
+                            </Col>
+                            <Col xs={6}>
+                                {new Array(skillData[1].keywords.join(", "))}
+                            </Col>
+                        </Row>
+                        <Row className="my-4">
+                            {" "}
+                            <Col xs={2} className="font-weight-bold">
+                                Tools & Technologies
+                            </Col>
+                            <Col xs={6}>
+                                {new Array(skillData[2].keywords.join(", "))}
+                            </Col>
+                        </Row>
+                    </section>
+                </>
+            )}
         </Container>
     )
 }

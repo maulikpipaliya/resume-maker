@@ -63,16 +63,11 @@ const SkillTagsInput: FC<Props> = ({
     }
 
     const handleDelete = (i: number) => {
+        const tagToRemove = tags[i]
         const newTags = tags.filter((tag, j) => i !== j)
         setTags(newTags)
 
-        const tempSkills: ISkill[] = [...initialSkillData]
-        const skill: ISkill = { ...tempSkills[0] }
-
-        dispatch(removeKeyword(skillType, tags[i]))
-
-        skill.keywords.splice(i, 1)
-        tempSkills[0] = skill
+        dispatch(removeKeyword(skillType, tagToRemove))
     }
 
     const addTag = (text: any) => {
@@ -85,12 +80,6 @@ const SkillTagsInput: FC<Props> = ({
         }
         setInput("")
         setSuggestions([])
-
-        const tempSkills: ISkill[] = [...initialSkillData]
-        const skill: ISkill = { ...tempSkills[skillTypeIndex] }
-
-        skill.keywords.push(text)
-        tempSkills[0] = skill
 
         dispatch(addKeywordInName(skillType, text))
     }
