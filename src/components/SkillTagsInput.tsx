@@ -3,10 +3,11 @@ import { Col, Row } from "react-bootstrap"
 import { ISkill } from "../schema"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
-import { addKeyword, removeKeyword } from "../actions/skillActions"
+import { addKeywordInName, removeKeyword } from "../actions/skillActions"
 
 interface Props {
     skillType: string
+
     tagInputData: {
         id: number
         text: string
@@ -20,13 +21,21 @@ const SkillTagsInput: FC<Props> = ({
     placeholder,
     skillType,
 }) => {
-    const initialState: RootState = useSelector((state: RootState) => state)
+    const initialSkillData: ISkill[] = useSelector(
+        (state: RootState) => state.skills.data
+    )
 
     const dispatch = useDispatch()
 
-    const [stateObj, setStateObj] = useState(initialState)
+    const [skillData, setSkillData] = useState<ISkill[]>(initialSkillData)
 
-    const [tags, setTags] = useState<string[]>([])
+    const skillTypeIndex = skillData.findIndex(
+        (s: ISkill) => s.name === skillType
+    )
+
+    const [tags, setTags] = useState<string[]>(
+        skillData[skillTypeIndex].keywords
+    )
     const [input, setInput] = useState("")
     const [suggestions, setSuggestions] = useState<
         {
@@ -36,7 +45,6 @@ const SkillTagsInput: FC<Props> = ({
     >([])
 
     const handleSuggestion = () => {
-        //  const { input, tags } = this.state;
         const suggestFilterInput = tagInputData.filter((suggest) =>
             suggest.text.toLowerCase().includes(input.toLowerCase())
         )
@@ -55,51 +63,36 @@ const SkillTagsInput: FC<Props> = ({
     }
 
     const handleDelete = (i: number) => {
-        //const { tags } = this.state;
         const newTags = tags.filter((tag, j) => i !== j)
         setTags(newTags)
 
-        const tempSkills: ISkill[] = [...stateObj?.skills.data]
+        const tempSkills: ISkill[] = [...initialSkillData]
         const skill: ISkill = { ...tempSkills[0] }
 
         dispatch(removeKeyword(skillType, tags[i]))
 
         skill.keywords.splice(i, 1)
         tempSkills[0] = skill
-
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            skills: [tempSkills[0]],
-        }))
-        // setStateObj((prevState: any) => ({
-        //     ...prevState,
-        //     skills: {
-        //         ...prevState.skills,
-        //         keywords: newTags,
-        //     },
-        // }));
     }
 
     const addTag = (text: any) => {
         // const list: string[] = [...tags];
+
+        console.log("addingtag in", skillType)
+
         if (!tags.includes(text)) {
             setTags([...tags, text])
         }
         setInput("")
         setSuggestions([])
 
-        const tempSkills: ISkill[] = [...stateObj?.skills.data]
-        const skill: ISkill = { ...tempSkills[0] }
+        const tempSkills: ISkill[] = [...initialSkillData]
+        const skill: ISkill = { ...tempSkills[skillTypeIndex] }
 
         skill.keywords.push(text)
         tempSkills[0] = skill
 
-        dispatch(addKeyword(skillType, text))
-
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            skills: [tempSkills[0]],
-        }))
+        dispatch(addKeywordInName(skillType, text))
     }
 
     const handleKeyDown = (e: any) => {
@@ -116,12 +109,6 @@ const SkillTagsInput: FC<Props> = ({
             if (similarTags.length === 0) addTag(text)
         }
     }
-
-    useEffect(() => {
-        // dispatch(updateResumeData(stateObj))
-
-        return () => {}
-    }, [stateObj, dispatch])
 
     return (
         <>

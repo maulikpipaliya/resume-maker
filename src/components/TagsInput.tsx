@@ -5,6 +5,7 @@ interface Props {
         id: number
         text: string
     }[]
+    placeholder: string
 }
 
 const TagsInput: FC<Props> = ({ tagInputData }) => {

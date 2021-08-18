@@ -13,15 +13,16 @@ const initialSkillState: ISkillState = {
             keywords: [],
         },
         {
-            name: "ToolsAndTechnologies",
+            name: "Languages",
             keywords: [],
         },
         {
-            name: "Languages",
+            name: "ToolsAndTechnologies",
             keywords: [],
         },
     ],
     error: "",
+    message: "",
 }
 
 export const skillReducer = (
@@ -30,27 +31,63 @@ export const skillReducer = (
 ): ISkillState => {
     switch (action.type) {
         case SkillActionType.ADD_SKILL: {
-            return {
-                ...state,
-                data: [...state.data, action.payload],
+            //check if skill already exists
+            const existSkill = state.data.findIndex(
+                (skill) => skill.name === action.payload.name
+            )
+            if (existSkill === -1) {
+                return {
+                    ...state,
+                    data: [...state.data, action.payload],
+                    message: `New skill category ${action.payload} added`,
+                    error: "",
+                }
+            } else {
+                return {
+                    ...state,
+                    message: `SkillCategory ${action.payload.name} already exists`,
+                }
             }
         }
 
         case SkillActionType.ADD_KEYWORD: {
-            const skillFound = state.data.find(
-                (skill) => skill.name === action.payload.name
-            )
-            skillFound?.keywords.push(action.payload.keyword)
+            console.log("adding")
 
-            if (skillFound) {
+            const keyword = action.payload.keyword
+            const skillName = action.payload.name
+            const stateDataCopy = [...state.data]
+            const skillIndex = stateDataCopy.findIndex(
+                (s) => s.name === skillName
+            )
+
+            if (skillIndex === -1) {
+                console.log("skill not found")
                 return {
                     ...state,
-                    data: state.data.map((x) =>
-                        x === skillFound ? skillFound : x
-                    ),
+                    error: "Skill not found",
+                    message: "",
+                }
+            }
+
+            const keywordIndex = stateDataCopy[skillIndex].keywords.findIndex(
+                (s) => s === keyword
+            )
+            if (keywordIndex === -1) {
+                console.log("Adding keyword")
+                stateDataCopy[skillIndex].keywords.push(keyword)
+                return {
+                    ...state,
+                    data: stateDataCopy,
+                    message: "Keyword added",
+                    error: "",
                 }
             } else {
-                return state
+                console.log("Keyword already exists")
+                return {
+                    ...state,
+                    error: "Keyword already exists",
+                    message: "",
+                }
             }
         }
 

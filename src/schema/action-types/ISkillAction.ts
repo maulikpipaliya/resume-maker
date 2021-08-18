@@ -29,7 +29,7 @@ interface IResetSkillsAction {
     type: SkillActionType.RESET_SKILLS
 }
 
-interface IAddKeywordAction {
+interface IaddKeywordInNameAction {
     type: SkillActionType.ADD_KEYWORD
     payload: {
         name: string
@@ -57,6 +57,6 @@ export type ISkillAction =
     | IUpdateSkillAction
     | IDeleteSkillAction
     | IResetSkillsAction
-    | IAddKeywordAction
+    | IaddKeywordInNameAction
     | IRemoveKeywordAction
     | IResetKeywordsAction

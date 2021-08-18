@@ -23,7 +23,7 @@ export const updateResumeData = (
 }
 
 //Action Creator
-export const addKeyword = (
+export const addKeywordInName = (
     name: string,
     keyword: string
 ): ThunkAction<void, RootState, null, ISkillAction> => {
