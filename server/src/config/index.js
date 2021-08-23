@@ -1,3 +1,4 @@
-import { setUpExpressServer } from "./setup/express.js"
+import { setUpExpressServer } from "./setup/setUpExpress.js"
+import { connectToMongoDB } from "./setup/connectToDatabase.js"
 
-export { setUpExpressServer }
+export { setUpExpressServer, connectToMongoDB }
