@@ -1,30 +1,10 @@
-const fs = require("fs")
-const express = require("express")
-const puppeteer = require("puppeteer")
-const cors = require("cors")
-var uuid = require("uuid")
+import asyncHandler from "express-async-handler"
+import { v1 as getUUID } from "uuid"
+import puppeteer from "puppeteer"
 
-const bodyParser = require("body-parser")
-const app = express()
-app.use(bodyParser.json())
-app.use(
-    bodyParser.urlencoded({
-        extended: true,
-    })
-)
-app.use(express.static("../src/templates/style"))
-
-app.use(cors())
-
-const port = 8080 // default port to listen
-
-app.get("/", (req, res) => {
-    res.send("Yes, Joyy! Well done. This is working! <3")
-})
-
-app.get("/download-pdf", (req, res) => {
+export const downloadPDF = asyncHandler(async (req, res) => {
     console.log("Downloading PDF")
-    const filename = uuid.v1()
+    const filename = getUUID()
     const dlResume = async () => {
         const browser = await puppeteer.launch()
         const page = await browser.newPage()
@@ -49,9 +29,9 @@ app.get("/download-pdf", (req, res) => {
     dlResume()
 })
 
-app.get("/download-trial", (req, res) => {
+export const sampleDownloadFromURL = asyncHandler(async (req, res) => {
     ;(async () => {
-        const filename = uuid.v1()
+        const filename = getUUID()
         const url = "https://themes.jsonresume.org/theme/modern"
         const browser = await puppeteer.launch()
         const page = await browser.newPage()
@@ -64,8 +44,4 @@ app.get("/download-trial", (req, res) => {
 
         await browser.close()
     })()
-})
-
-app.listen(port, () => {
-    console.log(`server started at http://localhost:${port}`)
 })
