@@ -1,16 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
     font-size: medium;
-    font-family: "Roboto", sans-serif;
 }
 
 /* A4 =  210 mm x  297 mm =  595 pt x  842 pt */
 .ctr-view {
+    font-family: "Roboto", sans-serif;
     width: 150mm;
     font-size: 0.5rem;
 }
 
-td, tr,th, span{
+.cp:hover,
+cp:active,
+.cp:focus {
+    cursor: pointer;
+}
+
+td,
+tr,
+th,
+span {
     font-size: 0.8em;
 }
 

@@ -3,6 +3,7 @@ import colors from "colors"
 
 export const connectToMongoDB = async (databaseURL) => {
     console.log(`Connecting to database...`)
+
     try {
         const conn = await mongoose.connect(databaseURL, {
             useUnifiedTopology: true,
