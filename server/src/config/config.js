@@ -1,6 +1,7 @@
 //application level configuration
 import dotenv from "dotenv"
-dotenv.config()
+
+const { parsed: configENV } = dotenv.config()
 
 export const config = {
     port: process.env.PORT,
