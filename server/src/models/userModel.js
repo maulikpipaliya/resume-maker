@@ -3,7 +3,7 @@ import * as ResumeSchema from "./schema.js"
 
 //Only one MongooseSchema
 const userSchema = new mongoose.Schema({
-    authMail: {
+    authEmail: {
         type: String,
         required: true,
     },
