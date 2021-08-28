@@ -17,6 +17,10 @@ interface Props {
 const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
     const initialState: RootState = useSelector((state: RootState) => state)
 
+    const initialInterestData: string[] = useSelector(
+        (state: RootState) => state.interests.data
+    )
+
     const dispatch = useDispatch()
 
     const [stateObj, setStateObj] = useState(initialState)
@@ -50,29 +54,10 @@ const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
     }
 
     const handleDelete = (i: number) => {
-        //const { tags } = this.state;
         const newTags = tags.filter((tag, j) => i !== j)
         setTags(newTags)
 
-        const tempSkills: ISkill[] = [...stateObj?.skills.data]
-        const skill: ISkill = { ...tempSkills[0] }
-
         dispatch(deleteInterest(tags[i]))
-
-        skill.keywords.splice(i, 1)
-        tempSkills[0] = skill
-
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            skills: [tempSkills[0]],
-        }))
-        // setStateObj((prevState: any) => ({
-        //     ...prevState,
-        //     skills: {
-        //         ...prevState.skills,
-        //         keywords: newTags,
-        //     },
-        // }));
     }
 
     const addTag = (text: any) => {
@@ -83,18 +68,7 @@ const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
         setInput("")
         setSuggestions([])
 
-        const tempSkills: ISkill[] = [...stateObj?.skills.data]
-        const skill: ISkill = { ...tempSkills[0] }
-
-        skill.keywords.push(text)
-        tempSkills[0] = skill
-
         dispatch(addInterest(text))
-
-        setStateObj((prevState: any) => ({
-            ...prevState,
-            skills: [tempSkills[0]],
-        }))
     }
 
     const handleKeyDown = (e: any) => {

@@ -11,19 +11,12 @@ import { RootState } from "../store"
 import AccordionContainer from "./AccordionContainer"
 import ProjectListContainer from "./ProjectListContainer"
 import { useSelector } from "react-redux"
+import { initProjectObj } from "../schema/initResumeData"
 
 const ProjectComponent: FC = () => {
     const dispatch = useDispatch()
 
-    const formData: IProject = {
-        name: "",
-        summary: "",
-        startDate: "",
-        endDate: "",
-        guide: "",
-        website: "",
-    }
-
+    const formData: IProject = initProjectObj
     const [formDataState, setFormDataState] = useState<IProject>(formData)
     const projectData: IProject[] = useSelector(
         (state: RootState) => state.projects.data
@@ -38,6 +31,7 @@ const ProjectComponent: FC = () => {
             case "summary":
             case "guide":
             case "website":
+            case "teamSize":
                 setFormDataState({
                     ...formDataState,
                     [keyName]: value,
@@ -110,11 +104,11 @@ const ProjectComponent: FC = () => {
                             </Col>
 
                             <Col xs={10} md={5}>
-                                <Form.Group controlId="teamsize">
+                                <Form.Group controlId="teamSize">
                                     <Form.Label>Team-size</Form.Label>
                                     <Form.Control
                                         className="rm-textbox"
-                                        name="teamsize"
+                                        name="teamSize"
                                         value={formDataState.teamSize}
                                         onChange={(e) =>
                                             projectDetailHandler(e)
@@ -125,13 +119,13 @@ const ProjectComponent: FC = () => {
                         </Row>
                         <Row>
                             <Col xs={10} md={5}>
-                                <Form.Group controlId="startdate">
+                                <Form.Group controlId="startDate">
                                     <Form.Label>Start Date</Form.Label>
                                     <Form.Control
                                         type="date"
-                                        name="startdate"
+                                        name="startDate"
                                         className="rm-textbox"
-                                        value={formDataState.startDate}
+                                        // value={formDataState.startDate}
                                         onChange={(e) =>
                                             projectDetailHandler(e)
                                         }
@@ -139,13 +133,13 @@ const ProjectComponent: FC = () => {
                                 </Form.Group>
                             </Col>
                             <Col xs={10} md={5}>
-                                <Form.Group controlId="enddate">
+                                <Form.Group controlId="endDate">
                                     <Form.Label>End Date</Form.Label>
                                     <Form.Control
                                         type="date"
-                                        name="enddate"
+                                        name="endDate"
                                         className="rm-textbox"
-                                        value={formDataState.endDate}
+                                        // value={formDataState.endDate}
                                         onChange={(e) =>
                                             projectDetailHandler(e)
                                         }

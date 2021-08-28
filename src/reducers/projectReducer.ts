@@ -5,14 +5,7 @@ import {
 } from "../schema/action-types/IProjectAction"
 
 const initialProjectState: IProjectState = {
-    data: [
-        {
-            name: "",
-            summary: "",
-            guide: "",
-            website: "",
-        },
-    ],
+    data: [],
     loading: false,
     error: null,
     message: "",

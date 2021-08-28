@@ -46,6 +46,10 @@ export const initProjectObj: IProject = {
     name: "",
     guide: "",
     summary: "",
+    teamSize: 0,
+    endDate: undefined,
+    startDate: undefined,
+    website: "",
 }
 
 export const initResumeData: IResumeData = {

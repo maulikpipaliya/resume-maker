@@ -3,7 +3,7 @@ import { RootState } from "../store"
 import { Row, Col, Container, Image, Table } from "react-bootstrap"
 import "./style/TemplateDAIICT.css"
 import { convertDate } from "../utils"
-import { ISkill } from "../schema"
+import { IAward, ISkill } from "../schema"
 
 interface IProps {
     stateData: RootState
@@ -14,11 +14,11 @@ const TemplateDAIICT: FC<IProps> = ({ stateData }) => {
         basics: { data: basicData },
         education: { data: educationData },
         skills: { data: skillData },
-        // awards: { data: awardData },
-        // projects: { data: projectData },
-        // interests: { data: interestData },
-        // positions: { data: positionData },
-        // work: { data: workData },
+        awards: { data: awardData },
+        projects: { data: projectData },
+        interests: { data: interestData },
+        positions: { data: positionData },
+        work: { data: workData },
     } = stateData
 
     return (
@@ -79,6 +79,7 @@ const TemplateDAIICT: FC<IProps> = ({ stateData }) => {
 
             {educationData.length > 0 && (
                 <>
+                    <h3>EDUCATION DETAILS</h3>
                     <hr />
 
                     <Row>
@@ -112,6 +113,8 @@ const TemplateDAIICT: FC<IProps> = ({ stateData }) => {
                 return key.keywords.length === 0
             }) && (
                 <>
+                    <h3 className="mt-5">SKILLS</h3>
+
                     <hr />
                     <section className="mt-4">
                         <Row className="my-4">
@@ -142,6 +145,109 @@ const TemplateDAIICT: FC<IProps> = ({ stateData }) => {
                             </Col>
                         </Row>
                     </section>
+                </>
+            )}
+
+            {workData.length > 0 && (
+                <>
+                    <h3 className="mt-5">PROFESSIONAL EXPERIENCE</h3>
+                    <hr />
+
+                    {workData.map((work, index) => (
+                        <Row className="mt-4">
+                            <Col xs={8}>
+                                <strong>{work.company}</strong>
+                            </Col>
+                            <Col xs={4}>
+                                {work.startDate !== undefined &&
+                                    convertDate(work.startDate)}
+                                {" - "}
+                                {work.endDate !== undefined &&
+                                    convertDate(work.endDate)}
+                            </Col>
+                            <Col xs={4}> {work.summary} </Col>
+                            <Col xs={8}> {work.highlights} </Col>
+                        </Row>
+                    ))}
+                </>
+            )}
+
+            {projectData.length > 0 && (
+                <>
+                    <h3 className="mt-5">PROJECTS</h3>
+                    <hr />
+
+                    {projectData.map((project, index) => (
+                        <Row className="mt-4">
+                            <Col xs={8}>
+                                <strong>{project.name}</strong>
+                            </Col>
+                            <Col xs={4}> Team Size : {project.teamSize} </Col>
+                            <Col xs={8}> {project.summary} </Col>
+                            <Col xs={4}>
+                                {project.startDate !== undefined &&
+                                    convertDate(project.startDate)}
+                                {" - "}
+                                {project.endDate !== undefined &&
+                                    convertDate(project.endDate)}
+                            </Col>
+                        </Row>
+                    ))}
+                </>
+            )}
+
+            {positionData.length > 0 && (
+                <>
+                    <h3 className="mt-5">POSITIONS OF RESPONSIBITY</h3>
+                    <hr />
+
+                    <ul>
+                        {positionData.map((position, index) => (
+                            <Row className="mt-4">
+                                <li>
+                                    <strong>{position.title}</strong>
+                                    {" - "}
+                                    {position.summary} {" - "}
+                                    {position.organization}
+                                </li>
+                            </Row>
+                        ))}
+                    </ul>
+                </>
+            )}
+
+            {awardData.length > 0 && (
+                <>
+                    <h3 className="mt-5">Awards</h3>
+                    <hr />
+
+                    <ul>
+                        {awardData.map((award, index) => (
+                            <Row className="mt-4">
+                                <li>
+                                    <strong>{award.title}</strong>
+                                    {" - "}
+                                    {award.summary} {" - "}
+                                    {award.awarder}
+                                </li>
+                            </Row>
+                        ))}
+                    </ul>
+                </>
+            )}
+
+            {interestData.length > 0 && (
+                <>
+                    <h3 className="mt-5">Interests</h3>
+                    <hr />
+
+                    <ul>
+                        <section className="mt-4">
+                            {interestData.map((interest, index) => (
+                                <li>{interest}</li>
+                            ))}
+                        </section>
+                    </ul>
                 </>
             )}
         </Container>

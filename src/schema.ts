@@ -1,8 +1,10 @@
+import { JSDocNullableType } from "typescript"
+
 export interface IProject {
     name: string
     guide?: string
-    startDate?: string
-    endDate?: string
+    startDate?: Date | null
+    endDate?: Date | null
     website?: string
     summary: string
     teamSize?: number
