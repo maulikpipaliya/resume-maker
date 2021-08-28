@@ -15,7 +15,7 @@ export const downloadPDF = asyncHandler(async (req, res) => {
         })
 
         await page.addStyleTag({
-            url: "http://localhost:8080/TemplateDAIICT.css",
+            url: "http://localhost:5000/TemplateDAIICT.css",
         })
 
         await page.pdf({ path: `${filename}.pdf`, format: "a4" })
