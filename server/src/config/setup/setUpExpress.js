@@ -9,7 +9,8 @@ export const setUpExpressServer = () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(cors())
-    app.use(express.static("../src/templates/style"))
+
+    app.use(express.static("../client/src/templates/style"))
 
     dotenv.config()
 

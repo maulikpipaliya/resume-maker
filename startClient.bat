@@ -1,1 +1,1 @@
-start powershell -noexit -command "npm run start";
+start powershell -noexit -command "cd client;npm run start";

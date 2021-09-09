@@ -18,12 +18,14 @@ export const downloadPDF = asyncHandler(async (req, res) => {
             url: "http://localhost:5000/TemplateDAIICT.css",
         })
 
-        await page.pdf({ path: `${filename}.pdf`, format: "a4" })
+        const filePath = `downloads/` + filename + ".pdf"
+
+        await page.pdf({ path: filePath, format: "a4" })
         await browser.close()
 
         console.log("Sending PDF")
 
-        res.download(`./${filename}.pdf`)
+        res.download(filePath)
     }
 
     dlResume()
