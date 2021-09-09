@@ -6,12 +6,12 @@ import { config } from "../config"
 import "./GoogleButton.css"
 
 const GoogleLoginComponent = () => {
-    const googleClientId: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || ""
+    const googleClientId: string = config.googleClientId || ""
 
     return (
         <div>
             <GoogleLogin
-                clientId={config.googleClientId}
+                clientId={googleClientId}
                 cookiePolicy="single_host_origin"
                 scope="profile email"
                 onSuccess={(loginResponse) => {

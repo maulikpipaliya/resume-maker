@@ -24,6 +24,10 @@ const BasicDetailsComponent: FC = () => {
 
     const [formDataState, setFormDataState] = useState(formData)
 
+    const onSaveHandler = () => {
+        
+    }
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.currentTarget
         switch (name) {
@@ -151,12 +155,12 @@ const BasicDetailsComponent: FC = () => {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={1} md={1} className="px-1">
+                            <Col xs={2} md={2} className="">
                                 {formDataState.email.length === 1 && (
                                     <Form.Group controlId="addEmail">
                                         <Form.Label>&nbsp;</Form.Label>
                                         <Button
-                                            className="rm-form-button"
+                                            className="rm-button w-100 br-1"
                                             onClick={addEmailField}
                                         >
                                             Add
@@ -215,6 +219,17 @@ const BasicDetailsComponent: FC = () => {
                         onChange={handleChange}
                     />
                 </Form.Group>
+
+                <Row>
+                    <Col xs={10} md={12}>
+                        <div
+                            className="rm-button w-100 p-3 mt-2 text-center hover-bg-grey br-1"
+                            onClick={onSaveHandler}
+                        >
+                            Save
+                        </div>
+                    </Col>
+                </Row>
             </Container>
         </AccordionContainer>
     )

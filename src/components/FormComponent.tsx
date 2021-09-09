@@ -146,8 +146,9 @@ const FormComponent: FC = () => {
                     <Button
                         id="btnGeneratePDF"
                         onClick={generatePDFbyPuppeteer}
+                        className=""
                     >
-                        Generate PDF New
+                        Generate PDF
                     </Button>
                 </Row>
             </Container>

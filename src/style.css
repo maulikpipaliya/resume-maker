@@ -42,6 +42,10 @@ hr {
     background-color: #212121;
 }
 
+.br-1 {
+    border-radius: 0.5rem;
+}
+
 .bg-grey {
     background-color: #212121;
 }
@@ -80,28 +84,34 @@ hr {
 .rm-form-button {
     border: 1px solid white;
     background-color: transparent;
-    font-size: xx-small;
+    /* font-size: xx-small; */
 }
 .rm-button {
-    height: calc(2.5em + 2px);
+    /* height: calc(2.5em + 2px); */
     /* height: calc(1.5em + .75rem + 2px); */
-    padding: .375rem .75rem;
+    /* padding: .375rem .75rem; */
 }
 
-.hover-danger:hover{
+.hover-danger:hover {
     background-color: red;
 }
 
 .rm-form-button {
-    height: calc(2em + .75rem + 2px);
+    height: calc(2em + 0.75rem + 2px);
     /* height: calc(1.5em + .75rem + 2px); */
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
 }
-.rm-button:hover, .rm-form-button:hover {
+.rm-button:hover,
+.rm-form-button:hover {
     background-color: white;
     cursor: pointer;
     color: black;
 }
+/* 
+.hover-bg-grey:hover,
+.hover-bg-grey:focus .hover-bg-grey:active {
+    background-color: #212121;
+} */
 
 .rm-add-button,
 .rm-remove-button {

@@ -5,6 +5,7 @@ import {
     IBasicAction,
 } from "../schema/action-types/IBasicAction"
 import { RootState } from "../store"
+import axios from "axios"
 
 export const updateName = (
     newName: string
@@ -26,6 +27,15 @@ export const updateBasics = (
             payload: basicObj,
         })
     }
+}
+
+/**
+ * @description update the profile in database
+ */
+
+export const dbUpdateBasics = async (basicObj: IBasic) => {
+    const res = await axios.put(`/api/profile/basics`, basicObj)
+    return res.data
 }
 
 export const resetEmails = (): ThunkAction<
