@@ -5,7 +5,8 @@ import * as ResumeSchema from "./schema.js"
 const userSchema = new mongoose.Schema({
     authEmail: {
         type: String,
-        required: true,
+        required: true, 
+        unique: true,
     },
     data: [ResumeSchema.IResumeData],
 })

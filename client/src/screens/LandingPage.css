@@ -132,7 +132,6 @@ header {
 .rm-google-button:hover,
 .rm-google-button:active {
     background-color: var(--main-color);
-
-    color: white;
     font-weight: 500;
+    color: white !important;
 }
