@@ -1,10 +1,10 @@
-import userModel from "../../models/userModel.js"
+import userModel from "../../models/user.model.js"
 import asyncHandler from "express-async-handler"
+import UserResumeService from "../../services/userResume.service.js"
 
 /**
  * @author Sachin Rathod
  * @description - This function is used to get all the resumes of a user
- *
  */
 export const setBasics = asyncHandler(async (req, res) => {
     const { data, authEmail } = req.body
@@ -30,6 +30,27 @@ export const setBasics = asyncHandler(async (req, res) => {
         const response = await user.save()
         if (!response) return res.status(400).json("Failed to update")
         else return res.status(201).json(response)
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+})
+
+/**
+ * @description  Get all the resumes of a user
+ */
+
+export const getResumeData = asyncHandler(async (req, res) => {
+    const { authEmail } = req.body
+
+    console.log("API called")
+    try {
+        const response = await new UserResumeService().getAllResumeData(
+            authEmail
+        )
+        console.log("response")
+        console.log(response)
+        if (response.success) return res.status(200).json(response)
+        else return res.status(400).json(response)
     } catch (err) {
         return res.status(400).send(err)
     }

@@ -39,7 +39,7 @@ export const deleteAward = (
 
 export const updateAwardAtIndex = (
     idx: number,
-    recordToUpdate: IAward,
+    recordToUpdate: IAward
 ): ThunkAction<void, RootState, null, IAwardAction> => {
     return async (dispatch) => {
         dispatch({

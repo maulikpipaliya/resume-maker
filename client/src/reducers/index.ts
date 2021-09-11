@@ -7,6 +7,7 @@ import { skillReducer } from "./skillReducer"
 import { positionReducer } from "./positionReducer"
 import { workReducer } from "./workReducer"
 import { basicReducer } from "./basicReducer"
+import { authReducer } from "./authReducer"
 import { combineReducers } from "redux"
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     interests: interestReducer,
     positions: positionReducer,
     work: workReducer,
+    auth: authReducer,
 })
 
 export { rootReducer }

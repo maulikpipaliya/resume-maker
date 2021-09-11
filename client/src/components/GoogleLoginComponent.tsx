@@ -1,59 +1,77 @@
 import React, { useEffect, useState } from "react"
-import GoogleLogin from "react-google-login"
+import GoogleLogin, { GoogleLogout } from "react-google-login"
 
 import { config } from "../config"
 import axios from "axios"
 
 import "./GoogleButton.css"
+import { resetAuth, updateAuth } from "../actions/authAction"
+import { useDispatch } from "react-redux"
+import { IAuth } from "../schema"
+import { refreshToken } from "../utils/refreshToken"
+import { getTokenFromLocalStorage } from "../utils/utils"
+
+interface userProfileType {
+    name?: string
+    picture?: string
+}
+
+const googleClientId: string = config.googleClientId || ""
 
 const GoogleLoginComponent = () => {
-    const googleClientId: string = config.googleClientId || ""
+    const dispatch = useDispatch()
 
-    interface userProfileType {
-        name?: string
-        picture?: string
-    }
-    let localToken = localStorage.getItem("googleTicket")
+    let localToken = getTokenFromLocalStorage()
 
     const [userProfile, setUserProfile] = useState<userProfileType>()
 
     const googleLoginSuccess = async (response: any) => {
         console.log(response)
-        const tokenId = response.tokenId
-        const tokenObj = response.tokenObj
-        const profileObj = response.profileObj
 
-        console.log("haha")
-        const passToken = await axios.post(
+        const { tokenId, profileObj } = response
+
+        const verifyIdToken = await axios.post(
             `${config.serverURL}/api/auth/login`,
             {
-                tokenId,
+                authEmail: profileObj.email,
+            },
+            {
+                headers: { Authorization: `Bearer ${tokenId}` },
             }
         )
 
-        console.log("passToken")
-        console.log(passToken)
+        refreshToken(response)
 
-        if (passToken.data.success) {
+        console.log("passToken")
+        console.log(verifyIdToken)
+
+        if (verifyIdToken.data.success) {
+            const { tokenId, name, picture, authEmail } = verifyIdToken.data
             //store token in cache
             localStorage.setItem(
                 "googleTicket",
                 JSON.stringify({
-                    tokenId: passToken.data.tokenId,
-                    name: passToken.data.name,
-                    picture: passToken.data.picture,
+                    tokenId,
+                    name,
+                    picture,
                 })
             )
 
             setUserProfile({
-                name: passToken.data.name,
-                picture: passToken.data.picture,
+                name,
+                picture,
             })
-        }
 
-        console.log(tokenId)
-        console.log(tokenObj.id_token)
-        console.log(profileObj)
+            const authData: IAuth = {
+                authEmail,
+                isAuthenticated: true,
+                name,
+                picture,
+                tokenId,
+            }
+
+            dispatch(updateAuth(authData))
+        }
     }
 
     useEffect(() => {
@@ -100,14 +118,6 @@ const GoogleLoginComponent = () => {
                                 Login with Google
                             </a>
                         </div>
-
-                        /*<button
-                        onClick={renderProps.onClick}
-                        className="rm-google-button p-1"
-                    >
-                        <i className="fab fa-google m-3"></i>
-                        Sign in with Google
-                    </button> */
                     )}
                 />
             )}
@@ -117,15 +127,16 @@ const GoogleLoginComponent = () => {
                     <div className="row p-2 py-3">
                         Hello {userProfile?.name}
                     </div>
-                    {/* <div>
-                        <img
-                            src={userProfile?.picture}
-                            // className="rounded"
-                            alt="img"
-                            width="100px"
-                            height="100px"
-                        />
-                    </div> */}
+
+                    <GoogleLogout
+                        clientId={googleClientId}
+                        buttonText="Logout"
+                        onLogoutSuccess={() => {
+                            localStorage.removeItem("googleTicket")
+                            setUserProfile({})
+                            dispatch(resetAuth())
+                        }}
+                    />
                 </>
             )}
         </div>

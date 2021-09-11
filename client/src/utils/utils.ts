@@ -36,3 +36,12 @@ export const convertToSlug = (text: string) => {
         .replace(/[^\w ]+/g, "")
         .replace(/ +/g, "-")
 }
+
+export const getTokenFromLocalStorage = () => {
+    let token = localStorage.getItem("googleTicket")
+    if (token) {
+        const parsedToken = JSON.parse(token)
+        return parsedToken.tokenId
+    }
+    return null
+}

@@ -70,6 +70,7 @@ export const IVolunteer = {
 }
 
 export const IEducation = {
+    orderIndex: Number,
     institution: String,
     area: String,
     studyType: String,
@@ -99,6 +100,8 @@ export const IPosition = {
 //Main const
 
 export const IResumeData = {
+    resumeIdx: Number,
+    resumeTitle: String,
     basics: IBasic,
     work: [IWork],
     volunteer: [IVolunteer],

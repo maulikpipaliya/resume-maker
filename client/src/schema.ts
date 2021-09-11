@@ -1,6 +1,7 @@
 import { JSDocNullableType } from "typescript"
 
 export interface IProject {
+    orderIndex?: number
     name: string
     guide?: string
     startDate?: Date | null
@@ -11,12 +12,14 @@ export interface IProject {
 }
 
 export interface ISkill {
+    orderIndex?: number
     name: string
     level?: string
     keywords: string[]
 }
 
 export interface IAward {
+    orderIndex?: number
     title: string
     date?: Date
     awarder?: string
@@ -50,6 +53,7 @@ export interface IBasic {
 }
 
 export interface IWork {
+    orderIndex?: number
     company: string
     position: string
     website?: string
@@ -60,6 +64,7 @@ export interface IWork {
 }
 
 export interface IVolunteer {
+    orderIndex?: number
     organization: string
     position: string
     website: string
@@ -70,6 +75,7 @@ export interface IVolunteer {
 }
 
 export interface IEducation {
+    orderIndex?: number
     institution: string
     area?: string
     studyType?: string
@@ -91,11 +97,13 @@ export interface ILanguage {
 // }
 
 export interface IReference {
+    orderIndex?: number
     name: string
     reference: string
 }
 
 export interface IPosition {
+    orderIndex?: number
     title: string
     organization?: string
     summary?: string
@@ -114,4 +122,12 @@ export interface IResumeData {
     interests?: string[]
     references?: IReference[]
     positions?: IPosition[]
+}
+
+export interface IAuth {
+    isAuthenticated: boolean
+    authEmail: string
+    name: string
+    picture: string
+    tokenId: string
 }

@@ -3,8 +3,12 @@ import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import AccordionContainer from "../components/AccordionContainer"
 
-import { IBasic } from "../schema"
-import { updateBasics, resetEmails } from "../actions/basicAction"
+import { IAuth, IBasic } from "../schema"
+import {
+    updateBasics,
+    resetEmails,
+    dbUpdateBasics,
+} from "../actions/basicAction"
 import { initResumeData } from "../schema/initResumeData"
 import { getDataFromLS } from "../reducers/localStorageReducer"
 import { RootState } from "../store"
@@ -17,6 +21,8 @@ const BasicDetailsComponent: FC = () => {
         (state: RootState) => state.basics.data
     )
 
+    let authData: IAuth = useSelector((state: RootState) => state.auth.data)
+
     let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
 
     initialBasicData =
@@ -25,7 +31,7 @@ const BasicDetailsComponent: FC = () => {
     const [formDataState, setFormDataState] = useState(formData)
 
     const onSaveHandler = () => {
-        
+        dbUpdateBasics(formDataState, authData.authEmail)
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

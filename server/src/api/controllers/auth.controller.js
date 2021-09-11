@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler"
-import userModel from "../../models/userModel.js"
+import userModel from "../../models/user.model.js"
 import { OAuth2Client } from "google-auth-library"
 
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
@@ -8,34 +8,18 @@ const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
  * @api {post} /api/login/
  */
 export const googleLogin = asyncHandler(async (req, res) => {
-    const { tokenId } = req.body
+    const { name, authEmail, email_verified, picture } = req.body.user
 
-    console.log("tokenId")
-    console.log(tokenId)
-
-    const loginTicket = await client.verifyIdToken({
-        idToken: tokenId,
-        audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    })
-
-    if (!loginTicket) {
-        return res.status(400).json({
-            success: false,
-            message: "Invalid token",
-        })
-    }
-
-    const { payload } = loginTicket
-    const { email, name, picture, email_verified } = payload
-
+    console.log("req.body")
+    console.log(req.body)
     if (email_verified) {
-        const user = await userModel.findOne({ authEmail: email })
+        const user = await userModel.findOne({ authEmail })
 
-        console.log("user")
-        console.log(user)
+        console.log("User with email " + authEmail + " found: " + user)
+
         if (!user) {
             const newUser = new userModel({
-                authEmail: email,
+                authEmail,
             })
 
             await newUser.save()
@@ -44,11 +28,14 @@ export const googleLogin = asyncHandler(async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Login successful",
-            tokenId,
             name,
             picture,
+            authEmail,
         })
     }
 
-    res.send("google login")
+    return res.status(401).json({
+        success: false,
+        message: "Login failed",
+    })
 })
