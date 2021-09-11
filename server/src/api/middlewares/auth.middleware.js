@@ -51,7 +51,7 @@ const isAuthenticated = asyncHandler(async (req, res, next) => {
     }
 
     const { name, email, picture, email_verified } = loginTicket.getPayload()
-    req.body.user = { name, authEmail: email, picture, email_verified }
+    req.body.user = { name, authEmail: email, picture, email_verified, tokenId }
 
     console.log("Verified that user is authenticated : ", email)
     next()

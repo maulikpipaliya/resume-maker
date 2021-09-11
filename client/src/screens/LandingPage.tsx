@@ -1,23 +1,10 @@
 import React, { FC } from "react"
 import { LinkContainer } from "react-router-bootstrap"
-import {
-    Container,
-    Navbar,
-    Nav,
-    NavDropdown,
-    Row,
-    Col,
-    Image,
-    Card,
-    Button,
-    ListGroupItem,
-    ListGroup,
-} from "react-bootstrap"
+import { Container, Navbar, Nav, Row, Col, Image, Card } from "react-bootstrap"
 import "./LandingPage.css"
 import GoogleLoginComponent from "../components/GoogleLoginComponent"
 
 const LandingPage: FC = () => {
-    const logoutHandler = () => {}
     return (
         <Container className="ctr-landing">
             <header>
@@ -72,19 +59,17 @@ const LandingPage: FC = () => {
                         <Row className="align-items-center">
                             <Col xs={12} md={5}>
                                 <div>
-                                    <p>
-                                        <h1 className="text-left">
-                                            Tailor your resume.
-                                            <br /> Real Quick.
-                                        </h1>
+                                    <p className="text-left h1">
+                                        Tailor your resume.
+                                        <br /> Real Quick.
                                     </p>
-                                    <p>
-                                        <h6>
-                                            It's about the career and choices.
-                                            Utilize the tools and make the most
-                                            of the opportunities
-                                        </h6>
+
+                                    <p className="h6">
+                                        It's about the career and choices.
+                                        Utilize the tools and make the most of
+                                        the opportunities
                                     </p>
+
                                     <button className="rm-home-button rm-home-gs">
                                         GET STARTED
                                     </button>
@@ -106,36 +91,32 @@ const LandingPage: FC = () => {
                             </Col>
                             <Col xs={12} md={5}>
                                 <div>
-                                    <p className="text-right">
-                                        <h1 className="text-right">
-                                            Preview Your Resume.
-                                            <br /> Real Quick.
-                                        </h1>
+                                    <p className="text-right h1">
+                                        Preview Your Resume.
+                                        <br /> Real Quick.
                                     </p>
-                                    <p>
-                                        <h6 className="text-right">
-                                            Why not to see it how it looks?
-                                        </h6>
-                                    </p>
+
+                                    <h6 className="text-right">
+                                        <p>Why not to see it how it looks?</p>
+                                    </h6>
                                 </div>
                             </Col>
                         </Row>
                         <Row className="align-items-center">
                             <Col xs={12} md={5}>
                                 <div>
-                                    <p className="text-left">
-                                        <div className="text-left h1">
-                                            Make it professional. <br />
-                                            Real Quick.
-                                        </div>
+                                    <p className="text-left h1">
+                                        Make it professional. <br />
+                                        Real Quick.
                                     </p>
-                                    <p>
-                                        <h6 className="text-left">
+
+                                    <h6 className="text-left">
+                                        <p>
                                             Company judges your professionality
                                             based on your resume. So why not
                                             make a professional one?
-                                        </h6>
-                                    </p>
+                                        </p>
+                                    </h6>
                                 </div>
                             </Col>
                             <Col xs={12} md={7}>
@@ -233,18 +214,18 @@ const LandingPage: FC = () => {
                             </LinkContainer>
                         </Col>
                         <Col xs={12} md={4}>
-                            <p>
-                                <h5>GET STARTED</h5>
-                            </p>
+                            <h5>
+                                <p>GET STARTED</p>
+                            </h5>
                             <p>
                                 <li>Build Resume</li>
                                 <li>Templates (Coming soon)</li>
                             </p>
                         </Col>
                         <Col xs={12} md={4}>
-                            <p>
-                                <h5>RESOURCES</h5>
-                            </p>
+                            <h5>
+                                <p>RESOURCES</p>
+                            </h5>
                             <p>
                                 <li>
                                     <a href="https://github.com/maulikpipaliya/resume-maker">

@@ -23,7 +23,7 @@ export const getDataFromLS = (propertyName: string, idx: number = -1) => {
 
     if (localResumeData) {
         const resumeData = JSON.parse(localResumeData)
-        console.log("LS:", resumeData[propertyName])
+        // console.log("LS:", resumeData[propertyName])
 
         // if array is empty, return null
         if (resumeData[propertyName].length === 0) {

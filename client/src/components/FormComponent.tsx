@@ -3,7 +3,6 @@ import { Button, Col, Container, Row } from "react-bootstrap"
 import EducationDetailsComponentCopy from "./EducationDetailsComponent"
 import BasicDetailsComponent from "./BasicDetailsComponent"
 import SkillDetailsComponent from "./SkillDetailsComponent"
-import ResumeViewComponent from "./ResumeViewComponent"
 import AwardsDetailsComponent from "./AwardsDetailsComponent"
 import ProjectComponent from "./ProjectComponent"
 import PositionComponent from "./PositionComponent"
@@ -11,11 +10,8 @@ import WorkExperienceComponent from "./WorkExperienceComponent"
 import InterestComponent from "./InterestComponent"
 import axios from "axios"
 import { saveAs } from "file-saver"
-import jsPDF from "jspdf"
 import "./daiict-template-style.css"
-import html2canvas from "html2canvas"
 import ReactDOMServer from "react-dom/server"
-import Trial1 from "./Trial1"
 import { useSelector } from "react-redux"
 import { RootState } from "../store"
 import TemplateDAIICT from "../templates/TemplateDAIICT"
@@ -46,11 +42,11 @@ const FormComponent: FC = () => {
         console.log("Sending data")
 
         console.log(strdata)
-        const dataToSend = {
-            params: {
-                htmlString: strdata,
-            },
-        }
+        // const dataToSend = {
+        //     params: {
+        //         htmlString: strdata,
+        //     },
+        // }
 
         const url = "http://localhost:5000/downloadPdf"
         return await axios.get(url, {
@@ -89,6 +85,7 @@ const FormComponent: FC = () => {
         console.log("Downloaded maybe")
     }
 
+    /*
     const generatePDFbyJSPDF = async () => {
         console.log("Generating PDF")
         const doc = new jsPDF("p", "pt", "a4")
@@ -115,6 +112,7 @@ const FormComponent: FC = () => {
             // ],
         })
     }
+    */
     return (
         <div>
             <Container fluid={true} className="p-0">

@@ -13,12 +13,8 @@ import {
 import ListContainer from "./ListContainer"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
-import { initEducationObj, initResumeData } from "../schema/initResumeData"
-import {
-    getDataFromLS,
-    isLSPropertyEmpty,
-    updateLocalStorageByProperty,
-} from "../reducers/localStorageReducer"
+import { initEducationObj } from "../schema/initResumeData"
+import { getDataFromLS } from "../reducers/localStorageReducer"
 
 const EducationDetailsComponentCopy: FC = () => {
     const formData: IEducation = initEducationObj
@@ -31,20 +27,18 @@ const EducationDetailsComponentCopy: FC = () => {
         (state: RootState) => state.education.data
     )
 
-    const educationDataMain = educationDataLS
-
-    const [lsEducationObj, setLsEducationObj] = useState(educationDataLS)
+    // const educationDataMain = educationDataLS
 
     //state variables
-    const [lsIdx, setLsIdx] = useState(educationDataMain.length)
+    // const [lsIdx, setLsIdx] = useState(educationDataMain.length)
 
     console.log("educationDataLS")
     console.log(educationDataLS)
     console.log("educationData")
     console.log(educationData)
 
-    console.log("lsIdx")
-    console.log(lsIdx)
+    // console.log("lsIdx")
+    // console.log(lsIdx)
 
     console.log("educationDataLS")
     console.log(educationDataLS)
@@ -116,7 +110,7 @@ const EducationDetailsComponentCopy: FC = () => {
     }, [dispatch, formDataState, idx])
 
     return (
-        <AccordionContainer title="Education Details">
+    <AccordionContainer title="Education Details">
             <Container>
                 <ListContainer
                     addRecordHandler={addEducationFields}

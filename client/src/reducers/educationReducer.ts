@@ -1,25 +1,11 @@
 import { initEducationObj } from "./../schema/initResumeData"
-import { IEducation } from "./../schema"
-import {
-    getDataFromLS,
-    isLSPropertyEmpty,
-    updateLocalStorageByProperty,
-} from "./localStorageReducer"
+
 import {
     EducationActionType,
     IEducationAction,
 } from "../schema/action-types/IEducationAction"
 import { IEducationState } from "../schema/state/IEducationState"
-import { initResumeData } from "../schema/initResumeData"
 import { addEducation } from "../actions/educationAction"
-
-let initialEducationData: IEducation[] = []
-
-if (!isLSPropertyEmpty("education"))
-    initialEducationData = getDataFromLS("education")
-
-console.log("initialEducationData")
-console.log(initialEducationData)
 
 const initialEducationState: IEducationState = {
     data: [],

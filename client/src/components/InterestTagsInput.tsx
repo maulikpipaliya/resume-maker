@@ -1,6 +1,5 @@
 import React, { useState, FC, useEffect } from "react"
 import { Col, Row } from "react-bootstrap"
-import { ISkill } from "../schema"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../store"
 
@@ -17,9 +16,9 @@ interface Props {
 const InterestTagsInput: FC<Props> = ({ tagInputData, placeholder }) => {
     const initialState: RootState = useSelector((state: RootState) => state)
 
-    const initialInterestData: string[] = useSelector(
-        (state: RootState) => state.interests.data
-    )
+    // const initialInterestData: string[] = useSelector(
+    //     (state: RootState) => state.interests.data
+    // )
 
     const dispatch = useDispatch()
 

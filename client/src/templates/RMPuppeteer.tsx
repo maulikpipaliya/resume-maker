@@ -1,11 +1,9 @@
 import React, { FC } from "react"
-import { Button, Col, Container, Row, Table } from "react-bootstrap"
+import { Col, Container, Row, Table } from "react-bootstrap"
 import { base_img } from "../components/base_img"
 import "../components/daiict-template-style.css"
 import { RootState } from "../store"
 import { useSelector } from "react-redux"
-import axios from "axios"
-import { saveAs } from "file-saver"
 
 const RMPuppeteer: FC = () => {
     const stateData: RootState = useSelector((state: RootState) => state)

@@ -1,4 +1,4 @@
-import React, { useState, FC, useEffect } from "react"
+import React, { useState, FC } from "react"
 import { Col, Row } from "react-bootstrap"
 import { ISkill } from "../schema"
 import { useDispatch, useSelector } from "react-redux"

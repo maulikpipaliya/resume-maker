@@ -8,9 +8,6 @@ import { Form, Button, Badge, Row, Col, Card } from "react-bootstrap"
 import { useSelector } from "react-redux"
 
 // import { useSelector } from "react-redux"
-import { getDataFromLS } from "../reducers/localStorageReducer"
-import { IEducation } from "../schema"
-import { initResumeData } from "../schema/initResumeData"
 import { RootState } from "../store"
 // import { RootState } from "../store"
 

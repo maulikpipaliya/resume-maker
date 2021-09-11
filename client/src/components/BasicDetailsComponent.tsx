@@ -9,8 +9,7 @@ import {
     resetEmails,
     dbUpdateBasics,
 } from "../actions/basicAction"
-import { initResumeData } from "../schema/initResumeData"
-import { getDataFromLS } from "../reducers/localStorageReducer"
+
 import { RootState } from "../store"
 
 const BasicDetailsComponent: FC = () => {
@@ -23,10 +22,10 @@ const BasicDetailsComponent: FC = () => {
 
     let authData: IAuth = useSelector((state: RootState) => state.auth.data)
 
-    let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
+    // let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
 
-    initialBasicData =
-        Object.keys(initialBasicData).length === 0 ? formData : initialBasicData
+    // initialBasicData =
+    //     Object.keys(initialBasicData).length === 0 ? formData : initialBasicData
 
     const [formDataState, setFormDataState] = useState(formData)
 

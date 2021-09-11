@@ -1,9 +1,9 @@
 import React, { FC } from "react"
 import { RootState } from "../store"
-import { Row, Col, Container, Image, Table } from "react-bootstrap"
+import { Row, Col, Container, Image } from "react-bootstrap"
 import "./style/TemplateDAIICT.css"
 import { convertDate } from "../utils"
-import { IAward, ISkill } from "../schema"
+import { ISkill } from "../schema"
 
 interface IProps {
     stateData: RootState

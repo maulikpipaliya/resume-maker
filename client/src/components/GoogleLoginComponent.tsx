@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import GoogleLogin, { GoogleLogout } from "react-google-login"
 
 import { config } from "../config"
@@ -9,11 +9,12 @@ import { resetAuth, updateAuth } from "../actions/authAction"
 import { useDispatch } from "react-redux"
 import { IAuth } from "../schema"
 import { refreshToken } from "../utils/refreshToken"
-import { getTokenFromLocalStorage } from "../utils/utils"
+import { getTicketFromLocalStorage } from "../utils/utils"
 
 interface userProfileType {
     name?: string
     picture?: string
+    tokenId?: string
 }
 
 const googleClientId: string = config.googleClientId || ""
@@ -21,9 +22,9 @@ const googleClientId: string = config.googleClientId || ""
 const GoogleLoginComponent = () => {
     const dispatch = useDispatch()
 
-    let localToken = getTokenFromLocalStorage()
+    let localTicket = getTicketFromLocalStorage()
 
-    const [userProfile, setUserProfile] = useState<userProfileType>()
+    const [userProfile, setUserProfile] = useState<userProfileType>(localTicket)
 
     const googleLoginSuccess = async (response: any) => {
         console.log(response)
@@ -47,19 +48,20 @@ const GoogleLoginComponent = () => {
 
         if (verifyIdToken.data.success) {
             const { tokenId, name, picture, authEmail } = verifyIdToken.data
-            //store token in cache
+            //store token in localstorage
             localStorage.setItem(
                 "googleTicket",
                 JSON.stringify({
-                    tokenId,
                     name,
                     picture,
+                    tokenId,
                 })
             )
 
             setUserProfile({
                 name,
                 picture,
+                tokenId,
             })
 
             const authData: IAuth = {
@@ -74,20 +76,15 @@ const GoogleLoginComponent = () => {
         }
     }
 
-    useEffect(() => {
-        if (localToken) {
-            let ls = JSON.parse(localToken)
-            setUserProfile({
-                name: ls.name,
-                picture: ls.picture,
-            })
-        }
-        return () => {}
-    }, [])
+    const logoutHandler = () => {
+        localStorage.removeItem("googleTicket")
+        setUserProfile({})
+        dispatch(resetAuth())
+    }
 
     return (
         <div>
-            {!localToken && (
+            {!localTicket && (
                 <GoogleLogin
                     clientId={googleClientId}
                     cookiePolicy="single_host_origin"
@@ -122,7 +119,7 @@ const GoogleLoginComponent = () => {
                 />
             )}
 
-            {localToken && (
+            {localTicket && (
                 <>
                     <div className="row p-2 py-3">
                         Hello {userProfile?.name}
@@ -131,11 +128,7 @@ const GoogleLoginComponent = () => {
                     <GoogleLogout
                         clientId={googleClientId}
                         buttonText="Logout"
-                        onLogoutSuccess={() => {
-                            localStorage.removeItem("googleTicket")
-                            setUserProfile({})
-                            dispatch(resetAuth())
-                        }}
+                        onLogoutSuccess={logoutHandler}
                     />
                 </>
             )}

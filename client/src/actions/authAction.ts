@@ -1,5 +1,3 @@
-import { ThunkAction } from "redux-thunk"
-import { RootState } from "../store"
 import { IAuth } from "../schema"
 import { Dispatch } from "redux"
 import { AuthActionType, IAuthAction } from "../schema/action-types/IAuthAction"

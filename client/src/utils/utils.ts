@@ -37,11 +37,11 @@ export const convertToSlug = (text: string) => {
         .replace(/ +/g, "-")
 }
 
-export const getTokenFromLocalStorage = () => {
+export const getTicketFromLocalStorage = () => {
     let token = localStorage.getItem("googleTicket")
     if (token) {
         const parsedToken = JSON.parse(token)
-        return parsedToken.tokenId
+        return parsedToken
     }
     return null
 }
