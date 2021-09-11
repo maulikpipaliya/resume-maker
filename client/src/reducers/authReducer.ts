@@ -7,7 +7,7 @@ const initialAuthState: IAuthState = {
         isAuthenticated: false,
         name: "",
         picture: "",
-        token: "",
+        tokenId: "",
     },
     error: "",
     message: "",

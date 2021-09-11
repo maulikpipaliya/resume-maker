@@ -45,3 +45,19 @@ export const getTokenFromLocalStorage = () => {
     }
     return null
 }
+
+/**
+ *
+ * @todo testing needs to be done on this function
+ *
+ */
+export const updateTokenInLocalStorage = (token: string) => {
+    let oldToken = localStorage.getItem("googleTicket")
+    if (oldToken) {
+        const parsedToken = JSON.parse(oldToken)
+        parsedToken.tokenId = token
+        localStorage.setItem("googleTicket", JSON.stringify(parsedToken))
+        return true
+    }
+    return null
+}

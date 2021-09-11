@@ -1,4 +1,5 @@
 import { GoogleLoginResponse } from "react-google-login"
+import { updateTokenInLocalStorage } from "./utils"
 
 /**
  *
@@ -11,6 +12,8 @@ export const refreshToken = async (response: GoogleLoginResponse) => {
     const doRefresh = async () => {
         const newAuthResponse = await response.reloadAuthResponse()
         expiresIn = (newAuthResponse.expires_in || 3600 - 5 * 60) * 1000
+
+        updateTokenInLocalStorage(newAuthResponse.id_token)
 
         setTimeout(() => {
             doRefresh()
