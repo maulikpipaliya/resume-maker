@@ -9,7 +9,7 @@ import { errorHandler, notFound } from "../middlewares/error.middleware.js"
 export const setUpRoutes = (app) => {
     app.use("/", commonRouter)
     app.use("/api/auth", authRouter)
-    // app.use("/downloadPdf", pdfRouter)
+    app.use("/downloadPdf", pdfRouter)
     app.use("/api/r", resumeRouter)
     // app.use("/api/r/:resumeIdx/", profileRouter)
     app.use("/api/r/:resumeIdx/", resumeDataRouter)

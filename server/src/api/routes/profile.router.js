@@ -1,7 +1,6 @@
 import { Router } from "express"
 
 import {
-    updateBasics,
     updateEducation,
     addEducation,
     getBasicDetails,
@@ -12,7 +11,7 @@ const router = Router()
 router.get("/", getResumeDataAtIndex)
 router.get("/basics", getBasicDetails)
 
-router.put("/basics", updateBasics)
+// router.put("/basics", updateBasics)
 
 router.post("/education/", addEducation)
 router.put("/education/:idx", updateEducation)

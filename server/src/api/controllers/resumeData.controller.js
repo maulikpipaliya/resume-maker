@@ -34,51 +34,6 @@ export const getProfile = asyncHandler(async (req, res) => {
     const { authEmail } = req.params.id
 })
 
-/**
- * @author Maulik Pipaliya
- * @description - This function is used to update the basic profile of a user
- * @param {Object} req - Request object - Basic Profile Object
- */
-
-export const updateBasics = asyncHandler(async (req, res) => {
-    const { basicObj: data, authEmail } = req.body
-
-    console.log("Updating basic data")
-    if (!authEmail)
-        return res.status(401).send({
-            message: "Missing Email",
-            success: false,
-        })
-
-    const user = await userModel.findOneAndUpdate(
-        { authEmail },
-        {
-            $set: {
-                data: [
-                    {
-                        basics: data,
-                    },
-                ],
-            },
-        },
-        { new: true, upsert: true, setDefaultsOnInsert: true }
-    )
-
-    console.log("userFoundAndUpdated")
-    console.log(user)
-
-    // if (!userFoundAndUpdated)
-    //     return res.status(400).send({
-    //         message: "Failed to update",
-    //         success: false,
-    //     })
-
-    return res.status(200).send({
-        message: "Successfully updated",
-        success: true,
-    })
-})
-
 export const resetBasics = asyncHandler(async (req, res) => {
     const { authEmail } = req.body
 })

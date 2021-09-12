@@ -8,7 +8,6 @@ export const connectToMongoDB = async (databaseURL) => {
         const conn = await mongoose.connect(databaseURL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
-            useCreateIndex: true,
         })
 
         if (conn) {

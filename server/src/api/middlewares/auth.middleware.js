@@ -21,11 +21,10 @@ const getTokenFromHeader = (req) => {
 /**
  * @description Middleware to check if the user is authenticated
  * @todo Add a check for the token
+ * @returns {Object} name, authEmail, picture, email_verified, tokenId, exp,
  */
 const isAuthenticated = asyncHandler(async (req, res, next) => {
     const tokenId = getTokenFromHeader(req)
-
-    console.log("tokenId", tokenId)
 
     if (!tokenId)
         return res.status(400).json({
@@ -58,6 +57,9 @@ const isAuthenticated = asyncHandler(async (req, res, next) => {
     }
 
     console.log("Verified that user is authenticated : ", email)
+
+    console.log("req.params")
+    console.log(req.params)
     next()
 })
 

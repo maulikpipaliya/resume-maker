@@ -75,7 +75,7 @@ export interface IVolunteer {
 }
 
 export interface IEducation {
-    orderIndex?: number
+    edIdx?: number
     institution: string
     area?: string
     studyType?: string
