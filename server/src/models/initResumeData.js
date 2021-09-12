@@ -59,3 +59,11 @@ export const initResumeData = {
     positions: [],
     projects: [],
 }
+
+export const initAuthData = {
+    authEmail: "",
+    name: "",
+    picture: "",
+    tokenId: "",
+    exp: 0,
+}

@@ -143,7 +143,7 @@ const BasicDetailsComponent: FC = () => {
                 <Row>
                     {formDataState.email.map((email, idx) => (
                         <React.Fragment key={idx}>
-                            <Col xs={10} md={10}>
+                            <Col xs={9} md={9}>
                                 <Form.Group
                                     controlId="email"
                                     data-toggle="tooltip"
@@ -160,7 +160,7 @@ const BasicDetailsComponent: FC = () => {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={2} md={2} className="">
+                            <Col xs={3} md={3} className="">
                                 {formDataState.email.length === 1 && (
                                     <Form.Group controlId="addEmail">
                                         <Form.Label>&nbsp;</Form.Label>

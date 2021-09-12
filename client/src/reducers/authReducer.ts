@@ -4,10 +4,10 @@ import { IAuthState } from "../schema/state/IAuthState"
 const initialAuthState: IAuthState = {
     data: {
         authEmail: "",
-        isAuthenticated: false,
         name: "",
         picture: "",
         tokenId: "",
+        exp: 0,
     },
     error: "",
     message: "",
@@ -34,6 +34,7 @@ export const authReducer = (
                     ...authCopy,
                     ...action.payload,
                 },
+                message: "AUTH_HAS_BEEN_UPDATED",
             }
 
         default:

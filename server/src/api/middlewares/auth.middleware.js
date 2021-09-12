@@ -10,10 +10,8 @@ const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
  */
 const getTokenFromHeader = (req) => {
     if (
-        (req.headers.authorization &&
-            req.headers.authorization.split(" ")[0] === "Token") ||
-        (req.headers.authorization &&
-            req.headers.authorization.split(" ")[0] === "Bearer")
+        req.headers.authorization &&
+        req.headers.authorization.split(" ")[0] === "Bearer"
     ) {
         return req.headers.authorization.split(" ")[1]
     }
@@ -27,21 +25,18 @@ const getTokenFromHeader = (req) => {
 const isAuthenticated = asyncHandler(async (req, res, next) => {
     const tokenId = getTokenFromHeader(req)
 
+    console.log("tokenId", tokenId)
+
     if (!tokenId)
         return res.status(400).json({
             success: false,
             message: "Not logged in yet, no token found",
         })
 
-    console.log("tokenId")
-    console.log(tokenId)
     const loginTicket = await client.verifyIdToken({
         idToken: tokenId,
         audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     })
-
-    console.log("loginTicket")
-    console.log(loginTicket)
 
     if (!loginTicket) {
         return res.status(401).json({
@@ -50,8 +45,17 @@ const isAuthenticated = asyncHandler(async (req, res, next) => {
         })
     }
 
-    const { name, email, picture, email_verified } = loginTicket.getPayload()
-    req.body.user = { name, authEmail: email, picture, email_verified, tokenId }
+    const { name, email, picture, email_verified, sub, iat, exp } =
+        loginTicket.getPayload()
+
+    req.body.user = {
+        name,
+        authEmail: email,
+        picture,
+        email_verified,
+        tokenId,
+        exp,
+    }
 
     console.log("Verified that user is authenticated : ", email)
     next()

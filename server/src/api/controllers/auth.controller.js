@@ -8,7 +8,8 @@ const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
  * @api {post} /api/login/
  */
 export const googleLogin = asyncHandler(async (req, res) => {
-    const { name, authEmail, email_verified, picture, tokenId } = req.body.user
+    const { name, authEmail, email_verified, picture, tokenId, exp } =
+        req.body.user
 
     console.log("req.body")
     console.log(req.body)
@@ -32,11 +33,12 @@ export const googleLogin = asyncHandler(async (req, res) => {
             picture,
             authEmail,
             tokenId,
+            exp,
         })
     }
 
     return res.status(401).json({
         success: false,
-        message: "Login failed",
+        message: "Login failed. Please try again",
     })
 })

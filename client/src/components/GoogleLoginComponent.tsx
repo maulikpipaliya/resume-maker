@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import GoogleLogin, { GoogleLogout } from "react-google-login"
 
 import { config } from "../config"
@@ -9,84 +9,126 @@ import { resetAuth, updateAuth } from "../actions/authAction"
 import { useDispatch } from "react-redux"
 import { IAuth } from "../schema"
 import { refreshToken } from "../utils/refreshToken"
-import { getTicketFromLocalStorage } from "../utils/utils"
+import {
+    getTicketFromLocalStorage,
+    removeFromLS,
+    setToLS,
+} from "../utils/utils"
+import { initAuthData } from "../schema/initResumeData"
 
-interface userProfileType {
-    name?: string
-    picture?: string
-    tokenId?: string
+/**
+ *
+ * @param {String} responseTokenId
+ */
+
+const verifyAtServer = async (tokenId: string) => {
+    const serverVerification = await axios.post(
+        `${config.serverURL}/api/auth/login`,
+        {},
+        {
+            headers: {
+                Authorization: `Bearer ${tokenId}`,
+            },
+        }
+    )
+
+    if (serverVerification.data.success) {
+        const { name, exp, authEmail, picture, tokenId } =
+            serverVerification.data
+        const userAuthData: IAuth = {
+            authEmail,
+            name,
+            picture,
+            tokenId,
+            exp,
+        }
+        return userAuthData
+    }
+    return null
 }
-
-const googleClientId: string = config.googleClientId || ""
 
 const GoogleLoginComponent = () => {
     const dispatch = useDispatch()
 
-    let localTicket = getTicketFromLocalStorage()
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [authData, setAuthData] = useState(initAuthData)
 
-    const [userProfile, setUserProfile] = useState<userProfileType>(localTicket)
+    const fillAuthData = (authData: IAuth) => {
+        setAuthData(authData)
+        setIsAuthenticated(true)
+        dispatch(updateAuth(authData))
+    }
 
-    const googleLoginSuccess = async (response: any) => {
-        console.log(response)
+    const emptyAuthData = () => {
+        setAuthData(initAuthData)
+        setIsAuthenticated(false)
+        dispatch(resetAuth())
+    }
 
-        const { tokenId, profileObj } = response
+    const authenticateUser = async () => {
+        const loggedIn = await alreadyLoggedIn()
+        if (!loggedIn) emptyAuthData()
 
-        const verifyIdToken = await axios.post(
-            `${config.serverURL}/api/auth/login`,
-            {
-                authEmail: profileObj.email,
-            },
-            {
-                headers: { Authorization: `Bearer ${tokenId}` },
-            }
+        if (loggedIn) {
+            const userAuthData: IAuth = loggedIn
+            fillAuthData(userAuthData)
+            console.info("User already has valid token")
+        }
+    }
+
+    const alreadyLoggedIn = async () => {
+        console.log("Checking if user already has valid token")
+
+        let localTicket = getTicketFromLocalStorage()
+
+        if (localTicket) {
+            const userAuthData = await verifyAtServer(localTicket.tokenId)
+            if (userAuthData) return userAuthData
+        }
+
+        console.log("User needs to login again")
+
+        return null
+    }
+
+    const googleLoginSuccess = async (googleLoginResponse: any) => {
+        const serverVerifiedToken = await verifyAtServer(
+            googleLoginResponse.tokenId
         )
 
-        refreshToken(response)
+        refreshToken(googleLoginResponse)
 
-        console.log("passToken")
-        console.log(verifyIdToken)
+        if (serverVerifiedToken) {
+            const userAuthData = serverVerifiedToken
 
-        if (verifyIdToken.data.success) {
-            const { tokenId, name, picture, authEmail } = verifyIdToken.data
-            //store token in localstorage
-            localStorage.setItem(
-                "googleTicket",
-                JSON.stringify({
-                    name,
-                    picture,
-                    tokenId,
-                })
-            )
+            setToLS("gt", userAuthData)
 
-            setUserProfile({
-                name,
-                picture,
-                tokenId,
-            })
+            fillAuthData(userAuthData)
 
-            const authData: IAuth = {
-                authEmail,
-                isAuthenticated: true,
-                name,
-                picture,
-                tokenId,
-            }
-
-            dispatch(updateAuth(authData))
+            console.info("User has logged in successfully")
+        } else {
+            console.log("Unable to login")
+            console.log("Server couldn't verify the token")
         }
     }
 
     const logoutHandler = () => {
-        localStorage.removeItem("googleTicket")
-        setUserProfile({})
-        dispatch(resetAuth())
+        removeFromLS("gt")
+        emptyAuthData()
     }
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            authenticateUser()
+        }
+        return () => {}
+    })
 
     return (
         <div>
-            {!localTicket && (
+            {!isAuthenticated && (
                 <GoogleLogin
-                    clientId={googleClientId}
+                    clientId={config.googleClientId}
                     cookiePolicy="single_host_origin"
                     scope="profile email"
                     onSuccess={googleLoginSuccess}
@@ -119,14 +161,12 @@ const GoogleLoginComponent = () => {
                 />
             )}
 
-            {localTicket && (
+            {isAuthenticated && (
                 <>
-                    <div className="row p-2 py-3">
-                        Hello {userProfile?.name}
-                    </div>
+                    <div className="row p-2 py-3">Hello {authData?.name}</div>
 
                     <GoogleLogout
-                        clientId={googleClientId}
+                        clientId={config.googleClientId}
                         buttonText="Logout"
                         onLogoutSuccess={logoutHandler}
                     />

@@ -13,6 +13,7 @@ export const refreshToken = async (response: GoogleLoginResponse) => {
         const newAuthResponse = await response.reloadAuthResponse()
         expiresIn = (newAuthResponse.expires_in || 3600 - 5 * 60) * 1000
 
+        localStorage.setItem("lastRefreshed", JSON.stringify(new Date()))
         updateTokenInLocalStorage(newAuthResponse.id_token)
 
         setTimeout(() => {

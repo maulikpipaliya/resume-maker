@@ -125,9 +125,9 @@ export interface IResumeData {
 }
 
 export interface IAuth {
-    isAuthenticated: boolean
     authEmail: string
     name: string
     picture: string
     tokenId: string
+    exp: number
 }

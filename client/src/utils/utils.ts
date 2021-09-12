@@ -38,12 +38,7 @@ export const convertToSlug = (text: string) => {
 }
 
 export const getTicketFromLocalStorage = () => {
-    let token = localStorage.getItem("googleTicket")
-    if (token) {
-        const parsedToken = JSON.parse(token)
-        return parsedToken
-    }
-    return null
+    return getFromLS("gt")
 }
 
 /**
@@ -51,13 +46,34 @@ export const getTicketFromLocalStorage = () => {
  * @todo testing needs to be done on this function
  *
  */
-export const updateTokenInLocalStorage = (token: string) => {
-    let oldToken = localStorage.getItem("googleTicket")
+export const updateTokenInLocalStorage = (newToken: string) => {
+    console.log("Updating new token at ", new Date())
+    let oldToken = localStorage.getItem("gt")
     if (oldToken) {
         const parsedToken = JSON.parse(oldToken)
-        parsedToken.tokenId = token
-        localStorage.setItem("googleTicket", JSON.stringify(parsedToken))
+        parsedToken.tokenId = newToken
+        localStorage.setItem("gt", JSON.stringify(parsedToken))
         return true
     }
     return null
+}
+
+export const getFromLS = (key: string) => {
+    let value = localStorage.getItem(key)
+    if (value) {
+        try {
+            return JSON.parse(value)
+        } catch (e) {
+            return value
+        }
+    }
+    return null
+}
+
+export const setToLS = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const removeFromLS = (key: string) => {
+    localStorage.removeItem(key)
 }

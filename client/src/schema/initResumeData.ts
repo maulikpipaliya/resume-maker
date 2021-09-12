@@ -1,4 +1,12 @@
-import { IAward, IBasic, IPosition, IProject, ISkill, IWork } from "../schema"
+import {
+    IAuth,
+    IAward,
+    IBasic,
+    IPosition,
+    IProject,
+    ISkill,
+    IWork,
+} from "../schema"
 import { IEducation, IResumeData } from "../schema"
 
 export const initBasicDetailObj: IBasic = {
@@ -61,4 +69,12 @@ export const initResumeData: IResumeData = {
     interests: [],
     positions: [],
     projects: [],
+}
+
+export const initAuthData: IAuth = {
+    authEmail: "",
+    name: "",
+    picture: "",
+    tokenId: "",
+    exp: 0,
 }

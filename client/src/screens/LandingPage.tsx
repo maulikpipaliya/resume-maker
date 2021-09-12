@@ -71,7 +71,12 @@ const LandingPage: FC = () => {
                                     </p>
 
                                     <button className="rm-home-button rm-home-gs">
-                                        GET STARTED
+                                        <a
+                                            href="/"
+                                            className="hover-color-white"
+                                        >
+                                            GET STARTED
+                                        </a>
                                     </button>
                                 </div>
                             </Col>
@@ -152,7 +157,7 @@ const LandingPage: FC = () => {
                                 </Card.Body>
                                 <Card.Body>
                                     <button className="rm-home-button">
-                                        Start creating
+                                        <a href="/" className="hover-color-white">Start creating</a>
                                     </button>
                                 </Card.Body>
                             </Card>
