@@ -24,43 +24,14 @@ const getTokenFromHeader = (req) => {
  * @returns {Object} name, authEmail, picture, email_verified, tokenId, exp,
  */
 const isAuthenticated = asyncHandler(async (req, res, next) => {
-    const tokenId = getTokenFromHeader(req)
-
-    if (!tokenId)
-        return res.status(400).json({
-            success: false,
-            message: "Not logged in yet, no token found",
-        })
-
-    const loginTicket = await client.verifyIdToken({
-        idToken: tokenId,
-        audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    })
-
-    if (!loginTicket) {
+    if (req.user) {
+        return next()
+    } else {
         return res.status(401).json({
             success: false,
-            message: "Bad login request. Try again",
+            message: "You are not authenticated",
         })
     }
-
-    const { name, email, picture, email_verified, sub, iat, exp } =
-        loginTicket.getPayload()
-
-    req.body.user = {
-        name,
-        authEmail: email,
-        picture,
-        email_verified,
-        tokenId,
-        exp,
-    }
-
-    console.log("Verified that user is authenticated : ", email)
-
-    console.log("req.params")
-    console.log(req.params)
-    next()
 })
 
 export { isAuthenticated }

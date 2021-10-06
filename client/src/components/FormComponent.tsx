@@ -48,7 +48,7 @@ const FormComponent: FC = () => {
         //     },
         // }
 
-        const url = "http://localhost:5000/downloadPdf"
+        const url = `${process.env.REACT_APP_SERVER_URL}/downloadPdf`
         return await axios.get(url, {
             params: {
                 htmlString: strdata,
@@ -61,15 +61,6 @@ const FormComponent: FC = () => {
     }
 
     console.log("haha")
-    // const downloadPDF = async () => {
-    //     const url = "http://localhost:8080/download-pdf"
-    //     return axios.get(url, {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //         },
-    //         responseType: "arraybuffer",
-    //     })
-    // }
 
     const generatePDFbyPuppeteer = async () => {
         // await sendDataToServer()

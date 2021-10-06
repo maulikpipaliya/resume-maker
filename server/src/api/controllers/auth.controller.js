@@ -4,6 +4,21 @@ import { OAuth2Client } from "google-auth-library"
 
 const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID)
 
+const getUserData = asyncHandler(async (req, res, next) => {
+    if (req.user) {
+        const user = await userModel.findById(req.user.id).select("-password")
+        res.status(200).json({
+            success: true,
+            data: user,
+        })
+    } else {
+        res.status(401).json({
+            success: false,
+            message: "Unauthorized",
+        })
+    }
+})
+
 /**
  * @api {post} /api/login/
  */

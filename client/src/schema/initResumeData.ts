@@ -75,6 +75,5 @@ export const initAuthData: IAuth = {
     authEmail: "",
     name: "",
     picture: "",
-    tokenId: "",
-    exp: 0,
+    isLoggedIn: false,
 }

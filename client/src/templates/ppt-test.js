@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer")
 
 ;(async () => {
-    const url = "http://localhost:3000/"
+    const url = process.env.REACT_APP_CLIENT_URL
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(url, {

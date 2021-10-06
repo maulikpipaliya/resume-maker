@@ -19,16 +19,6 @@ const RMPuppeteer: FC = () => {
         // work: { data: workData },
     } = stateData
 
-    // const downloadPDF = async () => {
-    //     const url = "http://localhost:8080/download-pdf"
-    //     return axios.get(url, {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //         },
-    //         responseType: "arraybuffer",
-    //     })
-    // }
-
     // const generatePDFbyPuppeteer = async () => {
     //     const { data } = await downloadPDF()
     //     const blob = new Blob([data], { type: "application/pdf" })

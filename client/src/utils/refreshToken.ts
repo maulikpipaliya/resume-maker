@@ -8,13 +8,17 @@ import { updateTokenInLocalStorage } from "./utils"
 export const refreshToken = async (response: GoogleLoginResponse) => {
     //time to renew access token
 
+    const mins50  =  50 * 60 * 1000
     //50 minutes in milliseconds
-    const refreshIn = 50 * 60 * 1000
+    let refreshIn = 0
+    // refreshIn = 50 * 60 * 1000 // 50mins
+    refreshIn = 20000 // 20sec
 
     console.log("Refreshing token")
-    let expiresIn = (response.tokenObj.expires_in || 3600 - 5 * 60) * 1000
+    let expiresIn = (response.tokenObj.expires_in * 1000 || mins50)
 
     localStorage.setItem("refreshTokenCalled", JSON.stringify(new Date()))
+
     const doRefresh = async () => {
         console.log("doRefresh called at ", new Date())
         const newAuthResponse = await response.reloadAuthResponse()

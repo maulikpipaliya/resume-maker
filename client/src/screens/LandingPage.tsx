@@ -4,6 +4,8 @@ import { Container, Navbar, Nav, Row, Col, Image, Card } from "react-bootstrap"
 import "./LandingPage.css"
 import GoogleLoginComponent from "../components/GoogleLoginComponent"
 
+import axios from "axios"
+
 const LandingPage: FC = () => {
     return (
         <Container className="ctr-landing">
@@ -157,7 +159,12 @@ const LandingPage: FC = () => {
                                 </Card.Body>
                                 <Card.Body>
                                     <button className="rm-home-button">
-                                        <a href="/" className="hover-color-white">Start creating</a>
+                                        <a
+                                            href="/"
+                                            className="hover-color-white"
+                                        >
+                                            Start creating
+                                        </a>
                                     </button>
                                 </Card.Body>
                             </Card>

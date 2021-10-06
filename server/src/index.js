@@ -4,5 +4,6 @@ import { config } from "./config/config.js"
 
 const app = setUpExpressServer()
 
-setUpRoutes(app)
 connectToMongoDB(config.dbURL)
+
+setUpRoutes(app)

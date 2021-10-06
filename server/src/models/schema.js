@@ -97,6 +97,15 @@ export const IPosition = {
     summary: String,
 }
 
+export const IGoogleProfile = {
+    googleId: String,
+    name: String,
+    givenName: String,
+    familyName: String,
+    picture: String,
+    email: String,
+}
+
 //Main const
 
 export const IResumeData = {

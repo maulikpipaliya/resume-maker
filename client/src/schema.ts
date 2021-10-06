@@ -128,6 +128,5 @@ export interface IAuth {
     authEmail: string
     name: string
     picture: string
-    tokenId: string
-    exp: number
+    isLoggedIn: boolean
 }

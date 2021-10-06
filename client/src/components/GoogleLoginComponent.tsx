@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import GoogleLogin, { GoogleLogout } from "react-google-login"
+import React, { FC, useEffect, useState } from "react"
 
 import { config } from "../config"
 import axios from "axios"
@@ -15,45 +14,18 @@ import {
     setToLS,
 } from "../utils/utils"
 import { initAuthData } from "../schema/initResumeData"
+import { Button } from "react-bootstrap"
 
-/**
- *
- * @param {String} responseTokenId
- */
-
-const verifyAtServer = async (tokenId: string) => {
-    const serverVerification = await axios.post(
-        `${config.serverURL}/api/auth/login`,
-        {},
-        {
-            headers: {
-                Authorization: `Bearer ${tokenId}`,
-            },
-        }
-    )
-
-    if (serverVerification.data.success) {
-        const { name, exp, authEmail, picture, tokenId } =
-            serverVerification.data
-        const userAuthData: IAuth = {
-            authEmail,
-            name,
-            picture,
-            tokenId,
-            exp,
-        }
-        return userAuthData
-    }
-    return null
-}
-
-const GoogleLoginComponent = () => {
+const GoogleLoginComponent: FC = () => {
     const dispatch = useDispatch()
 
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [authData, setAuthData] = useState(initAuthData)
 
+    const [authorizedUser, setAuthorizedUser] = useState({})
+
     const fillAuthData = (authData: IAuth) => {
+        console.log("fillAuthData", authData)
         setAuthData(authData)
         setIsAuthenticated(true)
         dispatch(updateAuth(authData))
@@ -65,111 +37,113 @@ const GoogleLoginComponent = () => {
         dispatch(resetAuth())
     }
 
-    const authenticateUser = async () => {
-        const loggedIn = await alreadyLoggedIn()
-        if (!loggedIn) emptyAuthData()
+    const getUserData = async (): Promise<IAuth> => {
+        const getUserDataURL = `${config.serverURL}/api/auth/getUserData`
+        const { data } = await axios.get(getUserDataURL, {
+            withCredentials: true,
+        })
 
-        if (loggedIn) {
-            const userAuthData: IAuth = loggedIn
-            fillAuthData(userAuthData)
-            console.info("User already has valid token")
+        if (data.success) {
+            console.log("getUserData", data)
+
+            const {
+                data: {
+                    authProfile: { authEmail, picture, name },
+                },
+            } = data
+
+            const authData: IAuth = {
+                authEmail,
+                name,
+                picture,
+                isLoggedIn: true,
+            }
+
+            console.log("authData", authData)
+
+            fillAuthData(authData)
+
+            return authData
         }
+
+        return initAuthData
     }
 
     const alreadyLoggedIn = async () => {
-        console.log("Checking if user already has valid token")
+        console.log("alreadyLoggedIn")
+        const userData = await getUserData()
 
-        let localTicket = getTicketFromLocalStorage()
-
-        if (localTicket) {
-            const userAuthData = await verifyAtServer(localTicket.tokenId)
-            if (userAuthData) return userAuthData
-        }
-
-        console.log("User needs to login again")
-
-        return null
-    }
-
-    const googleLoginSuccess = async (googleLoginResponse: any) => {
-        const serverVerifiedToken = await verifyAtServer(
-            googleLoginResponse.tokenId
-        )
-
-        refreshToken(googleLoginResponse)
-
-        if (serverVerifiedToken) {
-            const userAuthData = serverVerifiedToken
-
-            setToLS("gt", userAuthData)
-
-            fillAuthData(userAuthData)
-
-            console.info("User has logged in successfully")
+        if (!userData || !userData.isLoggedIn) {
+            emptyAuthData()
+            return false
         } else {
-            console.log("Unable to login")
-            console.log("Server couldn't verify the token")
+            return true
         }
     }
 
-    const logoutHandler = () => {
-        removeFromLS("gt")
-        emptyAuthData()
+    const signInWithGoogle = async () => {
+        // const loginURL = `${process.env.REACT_APP_SERVER_URL}/api/auth/`
+        console.log("signInWithGoogle called")
+        const loginURL = `${process.env.REACT_APP_SERVER_URL}/api/auth/google/login`
+
+        window.open(loginURL, "_self")
+    }
+
+    const logoutHandler = async () => {
+        console.log("logoutHandler")
+
+        const logoutURL = `${process.env.REACT_APP_SERVER_URL}/api/auth/google/logout`
+
+        const { data } = await axios.get(logoutURL, {
+            withCredentials: true,
+        })
+
+        if (data.success) {
+            emptyAuthData()
+        }
     }
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            authenticateUser()
+        const isLoggedIn = alreadyLoggedIn()
+        if (!isLoggedIn) {
+            logoutHandler()
+            signInWithGoogle()
         }
+
         return () => {}
-    })
+    }, [])
 
     return (
         <div>
             {!isAuthenticated && (
-                <GoogleLogin
-                    clientId={config.googleClientId}
-                    cookiePolicy="single_host_origin"
-                    scope="profile email"
-                    onSuccess={googleLoginSuccess}
-                    onFailure={(error) => {
-                        console.log(error)
-                    }}
-                    render={(renderProps) => (
-                        <div className="row p-2 py-3">
-                            <a
-                                className="mx-2 pt-1 rm-google-button p-1 px-3"
-                                href="/users/googleauth"
-                                role="button"
-                                style={{ textTransform: "none" }}
-                                onClick={renderProps.onClick}
-                            >
-                                <img
-                                    width="20px"
-                                    className="mr-3 color-white"
-                                    style={{
-                                        marginBottom: "3px",
-                                        marginRight: "5px",
-                                    }}
-                                    alt="ha"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-                                />
-                                Login with Google
-                            </a>
+                <>
+                    <div className="row p-2 py-3" onClick={signInWithGoogle}>
+                        <div
+                            className="mx-2 pt-1 rm-google-button p-1 px-3"
+                            role="button"
+                            style={{ textTransform: "none" }}
+                        >
+                            <img
+                                width="20px"
+                                className="mr-3 color-white"
+                                style={{
+                                    marginBottom: "3px",
+                                    marginRight: "5px",
+                                }}
+                                alt="ha"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+                            />
+                            Sign in with Google
                         </div>
-                    )}
-                />
+                    </div>
+                </>
             )}
 
             {isAuthenticated && (
                 <>
                     <div className="row p-2 py-3">Hello {authData?.name}</div>
 
-                    <GoogleLogout
-                        clientId={config.googleClientId}
-                        buttonText="Logout"
-                        onLogoutSuccess={logoutHandler}
-                    />
+                    <Button onClick={logoutHandler}>Logout</Button>
                 </>
             )}
         </div>
