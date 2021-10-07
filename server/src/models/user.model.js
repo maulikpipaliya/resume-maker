@@ -6,11 +6,9 @@ initResumeData
 const userSchema = new mongoose.Schema({
     authEmail: {
         type: String,
-        unique: true,
     },
     googleId: {
         type: String,
-        unique: true,
     },
     authProfile: {
         type: ResumeSchema.IGoogleProfile,

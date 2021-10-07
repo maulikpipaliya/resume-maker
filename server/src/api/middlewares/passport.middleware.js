@@ -31,6 +31,7 @@ passport.use(
                 } else {
                     const newUser = await userModel.create({
                         googleId: profile.id,
+                        "authEmail" : profile.emails[0].value,
                         "authProfile.googleId": profile.id,
                         "authProfile.authEmail": profile.emails[0].value,
                         "authProfile.picture": profile.photos[0].value,

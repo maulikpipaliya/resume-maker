@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler"
 import { v1 as getUUID } from "uuid"
 import puppeteer from "puppeteer"
+import { config } from "dotenv"
 
 export const downloadPDF = asyncHandler(async (req, res) => {
     console.log("Downloading PDF")
@@ -15,7 +16,7 @@ export const downloadPDF = asyncHandler(async (req, res) => {
         })
 
         await page.addStyleTag({
-            url: "http://localhost:5000/TemplateDAIICT.css",
+            url: `${process.env.CLIENT_URL}/TemplateDAIICT.css`,
         })
 
         const filePath = `downloads/` + filename + ".pdf"
