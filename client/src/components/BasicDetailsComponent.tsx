@@ -8,29 +8,41 @@ import {
     updateBasics,
     resetEmails,
     dbUpdateBasics,
+    getBasicDataFromServer,
 } from "../actions/basicAction"
 
 import { RootState } from "../store"
+import axios from "axios"
+import { serverURLs } from "../config"
+import data from "./tagInputPropData"
 
 const BasicDetailsComponent: FC = () => {
     const dispatch = useDispatch()
 
+    // const resumeIdx = match.params.idx
+
+    // console.log("resumeIdx from basic details", resumeIdx)
+
     // const formData: IBasic = initResumeData.basics // empty data
+
     const formData: IBasic = useSelector(
         (state: RootState) => state.basics.data
     )
 
     let authData: IAuth = useSelector((state: RootState) => state.auth.data)
 
-    // let initialBasicData: IBasic = getDataFromLS("basics") // localstorage
+    const resumeIdxFromState: number = useSelector(
+        (state: RootState) => state.resumeIdx.resumeIdx
+    )
 
-    // initialBasicData =
-    //     Object.keys(initialBasicData).length === 0 ? formData : initialBasicData
+    const [resumeIdx, setResumeIdx] = useState<number>(resumeIdxFromState)
+
+    dispatch(getBasicDataFromServer(resumeIdx))
 
     const [formDataState, setFormDataState] = useState(formData)
 
     const onSaveHandler = () => {
-        dbUpdateBasics(formDataState, authData.authEmail)
+        dbUpdateBasics(formDataState)
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,6 +120,7 @@ const BasicDetailsComponent: FC = () => {
         }
     }
 
+    // getBasicDataFromServer()
     useEffect(() => {
         dispatch(updateBasics(formDataState))
     }, [formDataState, dispatch])

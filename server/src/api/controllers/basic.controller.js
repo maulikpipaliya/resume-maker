@@ -8,23 +8,23 @@ export const getBasicDetails = asyncHandler(async (req, res, next) => {
         console.log("getBasicDetails API called")
         console.log(req.body)
 
-        const { authEmail } = req.body.user
-        const { resumeIdx } = req.params
+        const { googleId } = req.user
+        const resumeIdx = req.params.resumeIdx
 
-        if (!authEmail || !resumeIdx)
+        if (!googleId || !resumeIdx)
             return responseError(
                 res,
                 400,
-                "AuthEmail and resumeIdx both required"
+                "GoogleId and resumeIdx both required"
             )
 
         const userBasicDetails =
             await new UserBasicDetailService().getBasicDetails(
-                authEmail,
+                googleId,
                 resumeIdx
             )
 
-        if (userBasicDetails) {
+        if (userBasicDetails.success) {
             console.log("userBasicDetails: ", userBasicDetails)
             return responseSuccess(res, 200, userBasicDetails)
         } else return responseError(res, 400, "Some error occured")

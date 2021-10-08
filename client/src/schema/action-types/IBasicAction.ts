@@ -1,6 +1,7 @@
 import { IBasic, IProfile } from "../../schema"
 
 export enum BasicActionType {
+    UPDATE_BASICS_FROM_DB = "UPDATE_BASICS_FROM_DB",
     UPDATE_BASICS = "UPDATE_BASICS",
     UPDATE_NAME = "UPDATE_NAME",
     ADD_EMAIL = "ADD_EMAIL",
@@ -27,6 +28,11 @@ export enum BasicActionSuccess {
     BASICS_UPDATED = "Basic details have been updated",
     EMAIL_ADDED = "Email has been added",
     EMAIL_DELETED = "Email has been deleted",
+}
+
+export interface IUpdateBasicsFromDB {
+    type: BasicActionType.UPDATE_BASICS_FROM_DB
+    payload: IBasic
 }
 
 interface IUpdateBasicAction {
@@ -100,6 +106,7 @@ interface IUpdateContactAction {
 }
 
 export type IBasicAction =
+    | IUpdateBasicsFromDB
     | IUpdateBasicAction
     | IUpdateNameAction
     | IAddEmailAction

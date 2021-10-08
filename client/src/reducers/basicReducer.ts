@@ -10,6 +10,14 @@ import {
     getDataFromLS,
     updateLocalStorageByProperty,
 } from "./localStorageReducer"
+import axios from "axios"
+import { serverURLs } from "../config"
+import { resumeIdxReducer } from "./resumeIdxReducer"
+
+import store from "../store"
+import { IBasic } from "../schema"
+
+const resumeIdx: number = store.getState().resumeIdx.resumeIdx
 
 let initialBasicData = getDataFromLS("basics")
 
@@ -30,6 +38,15 @@ export const basicReducer = (
     action: IBasicAction
 ) => {
     switch (action.type) {
+        case BasicActionType.UPDATE_BASICS_FROM_DB:
+            return {
+                ...state,
+                data: action.payload,
+                loading: false,
+                error: null,
+                message: null,
+            }
+
         case BasicActionType.UPDATE_BASICS:
             updateLocalStorageByProperty("basics", action.payload)
 

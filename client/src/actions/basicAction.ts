@@ -6,7 +6,37 @@ import {
 } from "../schema/action-types/IBasicAction"
 import { RootState } from "../store"
 import axios from "axios"
-import { config } from "../config"
+import { config, serverURLs } from "../config"
+import { initResumeData } from "../schema/initResumeData"
+
+export const getBasicDataFromServer = (
+    resumeIdx: number
+): ThunkAction<void, RootState, null, IBasicAction> => {
+    return async (dispatch) => {
+        const { data: basicData } = await axios.get(
+            serverURLs.basicData(resumeIdx),
+            {
+                withCredentials: true,
+            }
+        )
+
+        if (basicData.success) {
+            const basicDetails: IBasic = basicData.data.data[resumeIdx].basics
+            console.log("basicDetails")
+            console.log(basicDetails)
+
+            dispatch({
+                type: BasicActionType.UPDATE_BASICS_FROM_DB,
+                payload: basicDetails,
+            })
+        } else {
+            dispatch({
+                type: BasicActionType.UPDATE_BASICS_FROM_DB,
+                payload: initResumeData.basics,
+            })
+        }
+    }
+}
 
 export const updateName = (
     newName: string
@@ -34,10 +64,9 @@ export const updateBasics = (
  * @description update the profile in database
  */
 
-export const dbUpdateBasics = async (basicObj: IBasic, authEmail: string) => {
+export const dbUpdateBasics = async (basicObj: IBasic) => {
     const res = await axios.put(`${config.serverURL}/api/profile/basics`, {
         basicObj,
-        authEmail,
     })
 
     if (res.status === 200) {

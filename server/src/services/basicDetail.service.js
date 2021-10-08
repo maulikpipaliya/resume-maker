@@ -4,10 +4,10 @@ import userModel from "../models/user.model.js"
 export default class UserBasicDetailService {
     //declare class member variable
 
-    async getBasicDetails(authEmail, resumeIdx) {
+    async getBasicDetails(googleId, resumeIdx) {
         try {
             const basicDetails = await userModel.findOne({
-                authEmail,
+                googleId,
                 "data.resumeIdx": resumeIdx,
             })
 

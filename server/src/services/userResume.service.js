@@ -7,9 +7,9 @@ export default class UserResumeService {
     }
 
     // Whole object based functions
-    async getAllResumeData(authEmail) {
+    async getAllResumeData(googleId) {
         try {
-            const user = await userModel.findOne({ authEmail })
+            const user = await userModel.findOne({ googleId })
 
             if (user)
                 return {
@@ -21,7 +21,12 @@ export default class UserResumeService {
                 success: false,
                 message: "No resume data found",
             }
-        } catch (error) {}
+        } catch (error) {
+            return {
+                success: false,
+                message: "Error fetching resume data",
+            }
+        }
     }
 
     async getSingleResume(authEmail, resumeIdx) {

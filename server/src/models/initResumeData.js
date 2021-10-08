@@ -49,6 +49,7 @@ export const initProjectObj = {
 }
 
 export const initResumeData = {
+    resumeIdx: 0,
     resumeTitle: "New Resume",
     basics: initBasicDetailObj,
     education: [],

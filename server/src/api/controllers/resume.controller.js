@@ -37,16 +37,23 @@ export const setBasics = asyncHandler(async (req, res) => {
 
 /**
  * @description  Get all the resumes of a user
+ * @author Maulik Pipaliya
+ * @route_code  GET_ALL_RESUMES
  */
 
-export const getResumeData = asyncHandler(async (req, res) => {
+export const getAllResumes = asyncHandler(async (req, res) => {
     const { authEmail } = req.body
+
+    console.log("GET_ALL_RESUMES")
+
+    console.log("req.user")
+    console.log(req.user)
+
+    const gid = req.user.googleId
 
     console.log("API called")
     try {
-        const response = await new UserResumeService().getAllResumeData(
-            authEmail
-        )
+        const response = await new UserResumeService().getAllResumeData(gid)
         console.log("response")
         console.log(response)
         if (response.success) return res.status(200).json(response)

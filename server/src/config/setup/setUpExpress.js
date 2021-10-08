@@ -23,11 +23,16 @@ export const setUpExpressServer = () => {
     app.use(express.static("../client/src/templates/style"))
     app.use(express.json())
 
+    const oneDay = 1000 * 60 * 60 * 24
+
     app.use(
         session({
             secret: "secret",
             resave: true,
             saveUninitialized: true,
+            cookie: {
+                maxAge: oneDay,
+            },
         })
     )
 

@@ -2,6 +2,7 @@ import passport from "passport"
 
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
 import { config } from "../../config/config.js"
+import { initResumeData } from "../../models/initResumeData.js"
 
 import userModel from "../../models/user.model.js"
 
@@ -31,13 +32,14 @@ passport.use(
                 } else {
                     const newUser = await userModel.create({
                         googleId: profile.id,
-                        "authEmail" : profile.emails[0].value,
+                        authEmail: profile.emails[0].value,
                         "authProfile.googleId": profile.id,
                         "authProfile.authEmail": profile.emails[0].value,
                         "authProfile.picture": profile.photos[0].value,
                         "authProfile.name": profile.displayName,
                         "authProfile.familyName": profile.name.familyName,
                         "authProfile.givenName": profile.name.givenName,
+                        "data.0": initResumeData,
                     })
 
                     done(null, newUser)

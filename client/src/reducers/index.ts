@@ -8,10 +8,12 @@ import { positionReducer } from "./positionReducer"
 import { workReducer } from "./workReducer"
 import { basicReducer } from "./basicReducer"
 import { authReducer } from "./authReducer"
+import { resumeIdxReducer } from "./resumeIdxReducer"
 import { combineReducers } from "redux"
 
 const rootReducer = combineReducers({
     // resumeData: resumeReducer,
+    resumeIdx: resumeIdxReducer,
     basics: basicReducer,
     education: educationReducer,
     skills: skillReducer,

@@ -40,12 +40,11 @@ const LandingPage: FC = () => {
                             </Nav>
                             <Nav className="ml-auto">
                                 <a
-                                    href="https://github.com/maulikpipaliya/resume-maker"
+                                    href="/resumes"
                                     className="cp"
-                                    target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <i className="fab fa-github m-3 text-lg main-color h3"></i>
+                                    My Documents
                                 </a>
 
                                 <GoogleLoginComponent />
