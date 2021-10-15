@@ -1,24 +1,18 @@
 import {
-    ResumeIdxAction,
+    IResumeIdxAction,
     ResumeIdxActionType,
 } from "../schema/action-types/ResumeIdxAction"
-import { IResumeIdxState } from "../schema/state/IResumeIdxState"
+// import { IResumeIdxState } from "../schema/state/IResumeIdxState"
 
-const initialState = {
-    resumeIdx: 0,
-}
+const initialState = 0
 
 export const resumeIdxReducer = (
     state = initialState,
-    action: ResumeIdxAction
-): IResumeIdxState => {
+    action: IResumeIdxAction
+): number => {
     switch (action.type) {
         case ResumeIdxActionType.UPDATE_RESUME_IDX:
-            return {
-                ...state,
-                resumeIdx: action.payload,
-            }
-
+            return action.payload
         case ResumeIdxActionType.GET_RESUME_IDX:
             return state
         default:

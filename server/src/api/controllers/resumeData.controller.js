@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler"
 import userModel from "../../models/user.model.js"
 
 import * as initResumeData from "../../models/initResumeData.js"
-import UserResumeService from "../../services/userResume.service.js"
+import UserResumeService from "../services/userResume.service.js"
 
 export const getResumeDataAtIndex = asyncHandler(async (req, res, next) => {
     const { resumeIdx } = req.params

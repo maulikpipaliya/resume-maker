@@ -32,23 +32,23 @@ const EducationDetailsComponentCopy: FC = () => {
     //state variables
     // const [lsIdx, setLsIdx] = useState(educationDataMain.length)
 
-    console.log("educationDataLS")
-    console.log(educationDataLS)
-    console.log("educationData")
-    console.log(educationData)
+    // console.log("educationDataLS")
+    // console.log(educationDataLS)
+    // console.log("educationData")
+    // console.log(educationData)
 
     // console.log("lsIdx")
     // console.log(lsIdx)
 
-    console.log("educationDataLS")
-    console.log(educationDataLS)
+    // console.log("educationDataLS")
+    // console.log(educationDataLS)
 
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
     const [formOpen, setFormOpen] = useState(false)
     const [idx, setIdx] = useState(educationData.length - 1)
 
-    console.log("idx")
-    console.log(idx)
+    // console.log("idx")
+    // console.log(idx)
 
     const dispatch = useDispatch()
 
@@ -102,15 +102,15 @@ const EducationDetailsComponentCopy: FC = () => {
 
     useEffect(() => {
         dispatch(updateEducationAtIndex(idx, formDataState))
-        console.log("educationData")
-        console.log(educationData)
+        // console.log("educationData")
+        // console.log(educationData)
         // updateLocalStorageByProperty("education", educationData)
 
         return () => {}
     }, [dispatch, formDataState, idx])
 
     return (
-    <AccordionContainer title="Education Details">
+        <AccordionContainer title="Education Details">
             <Container>
                 <ListContainer
                     addRecordHandler={addEducationFields}

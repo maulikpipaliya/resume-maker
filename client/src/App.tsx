@@ -23,12 +23,13 @@ const App: FC = () => {
             <Route path="/rm-puppeteer" component={RMPuppeteer} exact />
             <Route path="/preview-resume" component={TemplateDAIICT} exact />
             <Route path="/googleLogin" component={GoogleLoginComponent} exact />
-            <Route path="/landing" component={LandingPage} exact />
             <Route path="/resumes" component={ResumeListView} exact />
 
             <Route path="/resumes/:idx" component={FormResume} exact />
+            <Route path="/landing" component={LandingPage} exact />
+            <Route path="/" component={LandingPage} exact />
 
-            <Route path="/" component={FormComponent} exact />
+            {/* <Route path="/" component={FormComponent} exact /> */}
         </Router>
     )
 }

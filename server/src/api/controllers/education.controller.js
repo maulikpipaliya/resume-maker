@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
 import userModel from "../../models/user.model.js"
-import UserEducationService from "../../services/education.service.js"
-import { responseError, responseSuccess } from "../../services/util.service.js"
+import UserEducationService from "../services/education.service.js"
+import { responseError, responseSuccess } from "../services/util.service.js"
 
 export const getAllEducationItems = asyncHandler(async (req, res, next) => {
     const { authEmail } = req.body.user

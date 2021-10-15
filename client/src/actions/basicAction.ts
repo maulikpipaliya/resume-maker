@@ -9,7 +9,7 @@ import axios from "axios"
 import { config, serverURLs } from "../config"
 import { initResumeData } from "../schema/initResumeData"
 
-export const getBasicDataFromServer = (
+export const setBasicDataFromDB = (
     resumeIdx: number
 ): ThunkAction<void, RootState, null, IBasicAction> => {
     return async (dispatch) => {
@@ -64,10 +64,18 @@ export const updateBasics = (
  * @description update the profile in database
  */
 
-export const dbUpdateBasics = async (basicObj: IBasic) => {
-    const res = await axios.put(`${config.serverURL}/api/profile/basics`, {
-        basicObj,
-    })
+export const dbUpdateBasics = async (basicObj: IBasic, resumeIdx: number) => {
+    const res = await axios.put(
+        serverURLs.basicData(resumeIdx),
+        {
+            basicObj,
+        },
+        {
+            withCredentials: true,
+        }
+    )
+
+    console.log("Updated basic data in Database")
 
     if (res.status === 200) {
         return {

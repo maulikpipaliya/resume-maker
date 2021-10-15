@@ -1,6 +1,6 @@
 import userModel from "../../models/user.model.js"
 import asyncHandler from "express-async-handler"
-import UserResumeService from "../../services/userResume.service.js"
+import UserResumeService from "../services/userResume.service.js"
 
 /**
  * @author Sachin Rathod

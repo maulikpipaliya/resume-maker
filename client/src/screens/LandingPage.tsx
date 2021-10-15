@@ -6,52 +6,55 @@ import GoogleLoginComponent from "../components/GoogleLoginComponent"
 
 import axios from "axios"
 
+const NavBarHeader: FC = () => {
+    return (
+        <Navbar collapseOnSelect expand="lg">
+            <Container>
+                <LinkContainer to="/">
+                    <div className="ctr-logo">ResumeMaker</div>
+                </LinkContainer>
+
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="m-auto">
+                        <a
+                            href="#templates"
+                            className="mx-3 text-sm main-color"
+                        >
+                            Templates
+                        </a>
+                        <a
+                            href="#opportunities"
+                            className="mx-3 text-sm main-color"
+                        >
+                            Opportunities
+                        </a>
+                        <a href="#aboutus" className="mx-3 text-sm main-color">
+                            About us
+                        </a>
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <a
+                            href="/resumes"
+                            className="cp"
+                            rel="noopener noreferrer"
+                        >
+                            My Documents
+                        </a>
+
+                        <GoogleLoginComponent />
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    )
+}
+
 const LandingPage: FC = () => {
     return (
         <Container className="ctr-landing">
             <header>
-                <Navbar collapseOnSelect expand="lg">
-                    <Container>
-                        <LinkContainer to="/">
-                            <div className="ctr-logo">ResumeMaker</div>
-                        </LinkContainer>
-
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                        <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="m-auto">
-                                <a
-                                    href="#templates"
-                                    className="mx-3 text-sm main-color"
-                                >
-                                    Templates
-                                </a>
-                                <a
-                                    href="#opportunities"
-                                    className="mx-3 text-sm main-color"
-                                >
-                                    Opportunities
-                                </a>
-                                <a
-                                    href="#aboutus"
-                                    className="mx-3 text-sm main-color"
-                                >
-                                    About us
-                                </a>
-                            </Nav>
-                            <Nav className="ml-auto">
-                                <a
-                                    href="/resumes"
-                                    className="cp"
-                                    rel="noopener noreferrer"
-                                >
-                                    My Documents
-                                </a>
-
-                                <GoogleLoginComponent />
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+                <NavBarHeader />
             </header>
 
             <main>

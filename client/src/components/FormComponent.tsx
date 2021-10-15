@@ -16,12 +16,16 @@ import { useSelector } from "react-redux"
 import { RootState } from "../store"
 import TemplateDAIICT from "../templates/TemplateDAIICT"
 import { convertToSlug } from "../utils/utils"
+import GoogleLoginComponent from "./GoogleLoginComponent"
 
 const FormComponent: FC = () => {
     console.log("ReactDOMServer")
+
     const stateDataPDF: RootState = useSelector((state: RootState) => state)
 
-    // console.log("strData", strData)
+    const isLoggedIn = useSelector(
+        (state: RootState) => state.auth.data.isLoggedIn
+    )
 
     const {
         basics: { data: basicData },
@@ -42,11 +46,6 @@ const FormComponent: FC = () => {
         console.log("Sending data")
 
         console.log(strdata)
-        // const dataToSend = {
-        //     params: {
-        //         htmlString: strdata,
-        //     },
-        // }
 
         const url = `${process.env.REACT_APP_SERVER_URL}/downloadPdf`
         return await axios.get(url, {
@@ -76,71 +75,47 @@ const FormComponent: FC = () => {
         console.log("Downloaded maybe")
     }
 
-    /*
-    const generatePDFbyJSPDF = async () => {
-        console.log("Generating PDF")
-        const doc = new jsPDF("p", "pt", "a4")
-        const htmlCode: any = document.querySelector(".ctr-view")
-        console.log(htmlCode)
-
-        // doc.addFont("Roboto", "sans-serif", "normal")
-        // doc.textWithLink("test", 30, 30, { url: "https://www.google.com/" })
-        // doc.setFontSize(9)
-        await doc.html(htmlCode, {
-            callback: function (pdf: any) {
-                pdf.save("resume-maulik.pdf")
-            },
-            // fontFaces: [
-            //     {
-            //         family: "Roboto",
-            //         src: [
-            //             {
-            //                 url: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
-            //                 format: "truetype",
-            //             },
-            //         ],
-            //     },
-            // ],
-        })
-    }
-    */
     return (
         <div>
-            <Container fluid={true} className="p-0">
-                <Row>
-                    <Col
-                        xs={10}
-                        md={4}
-                        className="rm-ctr-form overflow-auto position-fixed pt-4"
-                        id="ctr-form"
-                    >
-                        <BasicDetailsComponent></BasicDetailsComponent>
-                        {/* <EducationDetailsComponent></EducationDetailsComponent> */}
-                        <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
-                        <SkillDetailsComponent></SkillDetailsComponent>
-                        <WorkExperienceComponent></WorkExperienceComponent>
-                        <ProjectComponent></ProjectComponent>
-                        <PositionComponent></PositionComponent>
-                        <AwardsDetailsComponent></AwardsDetailsComponent>
-                        <InterestComponent></InterestComponent>
-                    </Col>
+            {isLoggedIn ? (
+                <Container fluid={true} className="p-0">
+                    <Row>
+                        <Col
+                            xs={10}
+                            md={4}
+                            className="rm-ctr-form overflow-auto position-fixed pt-4"
+                            id="ctr-form"
+                        >
+                            <BasicDetailsComponent></BasicDetailsComponent>
+                            {/* <EducationDetailsComponent></EducationDetailsComponent> */}
+                            <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
+                            <SkillDetailsComponent></SkillDetailsComponent>
+                            <WorkExperienceComponent></WorkExperienceComponent>
+                            <ProjectComponent></ProjectComponent>
+                            <PositionComponent></PositionComponent>
+                            <AwardsDetailsComponent></AwardsDetailsComponent>
+                            <InterestComponent></InterestComponent>
+                        </Col>
 
-                    <Col md={{ span: 8, offset: 4 }}>
-                        {/* <ResumeViewComponent></ResumeViewComponent> */}
-                        <TemplateDAIICT
-                            stateData={stateDataPDF}
-                        ></TemplateDAIICT>
-                    </Col>
+                        <Col md={{ span: 8, offset: 4 }}>
+                            {/* <ResumeViewComponent></ResumeViewComponent> */}
+                            <TemplateDAIICT
+                                stateData={stateDataPDF}
+                            ></TemplateDAIICT>
+                        </Col>
 
-                    <Button
-                        id="btnGeneratePDF"
-                        onClick={generatePDFbyPuppeteer}
-                        className=""
-                    >
-                        Generate PDF
-                    </Button>
-                </Row>
-            </Container>
+                        <Button
+                            id="btnGeneratePDF"
+                            onClick={generatePDFbyPuppeteer}
+                            className=""
+                        >
+                            Generate PDF
+                        </Button>
+                    </Row>
+                </Container>
+            ) : (
+                <GoogleLoginComponent></GoogleLoginComponent>
+            )}
         </div>
     )
 }

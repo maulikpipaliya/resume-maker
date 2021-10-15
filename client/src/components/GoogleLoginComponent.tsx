@@ -98,9 +98,7 @@ const GoogleLoginComponent: FC = () => {
             withCredentials: true,
         })
 
-        if (data.success) {
-            emptyAuthData()
-        }
+        if (data.success) emptyAuthData()
     }
 
     useEffect(() => {

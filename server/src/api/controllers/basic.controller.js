@@ -1,7 +1,12 @@
 import asyncHandler from "express-async-handler"
 
-import UserBasicDetailService from "../../services/basicDetail.service.js"
-import { responseError, responseSuccess } from "../../services/util.service.js"
+import UserBasicDetailService from "../services/basicDetail.service.js"
+import { responseError, responseSuccess } from "../services/util.service.js"
+
+/**
+ * @description Get basic details of a user
+ *
+ */
 
 export const getBasicDetails = asyncHandler(async (req, res, next) => {
     try {
@@ -43,18 +48,23 @@ export const updateBasicDetails = asyncHandler(async (req, res) => {
     try {
         console.log("Updating basic data")
 
-        const { authEmail } = req.body.user
-        const { basicObj } = req.body
-        const { resumeIdx } = req.params
+        console.log(req.user)
+        console.log(req.params)
 
-        if (!authEmail)
-            return res.status(401).send({
-                message: "Missing Email",
-                success: false,
-            })
+        const { googleId } = req.user
+        const resumeIdx = req.params.resumeIdx
+
+        const { basicObj } = req.body
+
+        if (!googleId || !resumeIdx)
+            return responseError(
+                res,
+                400,
+                "GoogleId and resumeIdx both required"
+            )
 
         const response = await new UserBasicDetailService().updateBasicDetails(
-            authEmail,
+            googleId,
             resumeIdx,
             basicObj
         )

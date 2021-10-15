@@ -9,4 +9,5 @@ export const serverURLs = {
     basicData: (idx: number) => {
         return `${config.serverURL}/api/r/${idx}/basics`
     },
+        
 }

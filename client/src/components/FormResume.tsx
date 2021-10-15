@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
 import EducationDetailsComponentCopy from "./EducationDetailsComponent"
 import BasicDetailsComponent from "./BasicDetailsComponent"
@@ -17,6 +17,8 @@ import { RootState } from "../store"
 import TemplateDAIICT from "../templates/TemplateDAIICT"
 import { convertToSlug } from "../utils/utils"
 import { serverURLs } from "../config"
+import { setResumeIdx } from "../actions/resumeAction"
+import { setBasicDataFromDB } from "../actions/basicAction"
 
 interface FormResumeProps {
     match: any
@@ -26,6 +28,10 @@ const FormResume: FC<FormResumeProps> = ({ match }) => {
     console.log("ReactDOMServer")
 
     const resumeIdx = match.params.idx
+
+    const isLoggedIn = useSelector(
+        (state: RootState) => state.auth.data.isLoggedIn
+    )
 
     console.log("resumeIdx", resumeIdx)
 
@@ -89,10 +95,16 @@ const FormResume: FC<FormResumeProps> = ({ match }) => {
         console.log("Downloaded maybe")
     }
 
+    useEffect(() => {
+        setResumeIdx(match.params.idx)
+        setBasicDataFromDB(match.params.idx)
+    }, [match])
+
     return (
         <div>
             <Container fluid={true} className="p-0">
                 <Row>
+                    {/* FORM Part */}
                     <Col
                         xs={10}
                         md={4}
@@ -109,6 +121,7 @@ const FormResume: FC<FormResumeProps> = ({ match }) => {
                         <InterestComponent></InterestComponent>
                     </Col>
 
+                    {/* RESUME Part */}
                     <Col md={{ span: 8, offset: 4 }}>
                         <TemplateDAIICT
                             stateData={stateDataPDF}

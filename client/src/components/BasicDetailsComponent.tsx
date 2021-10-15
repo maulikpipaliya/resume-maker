@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react"
+import React, { useState, useEffect, FC, ReactNode } from "react"
 import { Row, Col, Form, Button, Container } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import AccordionContainer from "../components/AccordionContainer"
@@ -8,7 +8,7 @@ import {
     updateBasics,
     resetEmails,
     dbUpdateBasics,
-    getBasicDataFromServer,
+    setBasicDataFromDB,
 } from "../actions/basicAction"
 
 import { RootState } from "../store"
@@ -21,8 +21,6 @@ const BasicDetailsComponent: FC = () => {
 
     // const resumeIdx = match.params.idx
 
-    // console.log("resumeIdx from basic details", resumeIdx)
-
     // const formData: IBasic = initResumeData.basics // empty data
 
     const formData: IBasic = useSelector(
@@ -32,17 +30,20 @@ const BasicDetailsComponent: FC = () => {
     let authData: IAuth = useSelector((state: RootState) => state.auth.data)
 
     const resumeIdxFromState: number = useSelector(
-        (state: RootState) => state.resumeIdx.resumeIdx
+        (state: RootState) => state.resumeIdx
     )
+    console.log("resumeIdx from basic details", resumeIdxFromState)
 
-    const [resumeIdx, setResumeIdx] = useState<number>(resumeIdxFromState)
-
-    dispatch(getBasicDataFromServer(resumeIdx))
+    // const [resumeIdx, setResumeIdx] = useState<number>(resumeIdxFromState)
 
     const [formDataState, setFormDataState] = useState(formData)
 
-    const onSaveHandler = () => {
-        dbUpdateBasics(formDataState)
+    const [dataSaved, setDataSaved] = useState<boolean>(false)
+
+    const onSaveHandler = async () => {
+        console.log("onSaveHandler")
+        const result = await dbUpdateBasics(formDataState, resumeIdxFromState)
+        if (result && result.success) setDataSaved(true)
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,8 +121,15 @@ const BasicDetailsComponent: FC = () => {
         }
     }
 
-    // getBasicDataFromServer()
     useEffect(() => {
+        dispatch(setBasicDataFromDB(resumeIdxFromState))
+        console.log("useEffect in basic details")
+        return () => {}
+    }, [])
+
+    // setBasicDataFromDB()
+    useEffect(() => {
+        setDataSaved(false)
         dispatch(updateBasics(formDataState))
     }, [formDataState, dispatch])
     return (
@@ -244,7 +252,7 @@ const BasicDetailsComponent: FC = () => {
                             className="rm-button w-100 p-3 mt-2 text-center hover-bg-grey br-1"
                             onClick={onSaveHandler}
                         >
-                            Save
+                            {dataSaved ? "Saved" : "Save"}
                         </div>
                     </Col>
                 </Row>

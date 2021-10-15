@@ -1,5 +1,5 @@
-import { initBasicDetailObj } from "../models/initResumeData.js"
-import userModel from "../models/user.model.js"
+import { initBasicDetailObj } from "../../models/initResumeData.js"
+import userModel from "../../models/user.model.js"
 
 export default class UserBasicDetailService {
     //declare class member variable
@@ -31,14 +31,14 @@ export default class UserBasicDetailService {
         }
     }
 
-    async updateBasicDetails(authEmail, resumeIdx, basicObj) {
+    async updateBasicDetails(googleId, resumeIdx, basicObj) {
         try {
             const userData = await userModel.findOne({
-                authEmail,
+                googleId,
                 "data.resumeIdx": resumeIdx,
             })
 
-            userData.data[0].basics = basicObj
+            userData.data[resumeIdx].basics = basicObj
             const savedData = await userData.save()
 
             if (savedData) {
@@ -63,7 +63,7 @@ export default class UserBasicDetailService {
     async resetBasicDetails(authEmail, resumeIdx) {
         try {
             const userData = await userModel.findOne({
-                authEmail,
+                googleId,
                 "data.resumeIdx": resumeIdx,
             })
 

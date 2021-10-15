@@ -12,4 +12,4 @@ interface IGetResumeIdxAction {
     type: ResumeIdxActionType.GET_RESUME_IDX
 }
 
-export type ResumeIdxAction = IUpdateResumeIdxAction | IGetResumeIdxAction
+export type IResumeIdxAction = IUpdateResumeIdxAction | IGetResumeIdxAction

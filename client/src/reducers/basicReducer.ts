@@ -17,7 +17,7 @@ import { resumeIdxReducer } from "./resumeIdxReducer"
 import store from "../store"
 import { IBasic } from "../schema"
 
-const resumeIdx: number = store.getState().resumeIdx.resumeIdx
+// const resumeIdx: number = store.getState().resumeIdx.resumeIdx
 
 let initialBasicData = getDataFromLS("basics")
 
