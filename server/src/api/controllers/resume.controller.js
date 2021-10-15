@@ -1,6 +1,40 @@
 import userModel from "../../models/user.model.js"
 import asyncHandler from "express-async-handler"
 import UserResumeService from "../services/userResume.service.js"
+import { responseError } from "../services/util.service.js"
+
+/**
+ * @author  Maulik Pipaliya
+ * @route   GET /api/r/:resumeIdx
+ */
+export const getResume = asyncHandler(async (req, res) => {
+    const { googleId } = req.user
+    const { resumeIdx } = req.params
+
+    console.log("getting single resume")
+    console.log("req.params")
+    console.log(req.params)
+
+    if (resumeIdx >= 0) {
+        try {
+            const resumeData = await new UserResumeService().getSingleResume(
+                googleId,
+                resumeIdx
+            )
+            res.status(200).json(resumeData)
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error.message,
+            })
+        }
+    } else {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid resume index",
+        })
+    }
+})
 
 /**
  * @author Sachin Rathod
@@ -38,7 +72,7 @@ export const setBasics = asyncHandler(async (req, res) => {
 /**
  * @description  Get all the resumes of a user
  * @author Maulik Pipaliya
- * @route_code  GET_ALL_RESUMES
+ * @route   GET /api/r/
  */
 
 export const getAllResumes = asyncHandler(async (req, res) => {

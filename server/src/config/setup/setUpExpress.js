@@ -1,17 +1,16 @@
 import express from "express"
-import bodyParser from "body-parser"
+
 import cors from "cors"
 import dotenv from "dotenv"
 import { config } from "../config.js"
 
 import session from "express-session"
+import MongoStore from "connect-mongo"
+import mongoose from "mongoose"
+
 import passport from "passport"
-import GoogleStrategy from "passport-google-oauth20"
-import userModel from "../../models/user.model.js"
 
 import "../../api/middlewares/passport.middleware.js"
-
-import cookieSession from "cookie-session"
 
 export const setUpExpressServer = () => {
     const app = express()
@@ -28,11 +27,14 @@ export const setUpExpressServer = () => {
     app.use(
         session({
             secret: "secret",
-            resave: true,
+            resave: false,
             saveUninitialized: true,
             cookie: {
                 maxAge: oneDay,
             },
+            store: MongoStore.create({
+                mongoUrl: config.dbURL,
+            }),
         })
     )
 

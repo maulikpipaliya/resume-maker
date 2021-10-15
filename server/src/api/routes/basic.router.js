@@ -1,9 +1,5 @@
 import { Router } from "express"
-import {
-    getBasicDetails,
-    resetBasicDetails,
-    updateBasicDetails,
-} from "../controllers/basic.controller.js"
+import { BasicController } from "../controllers/index.js"
 
 const router = Router({
     mergeParams: true, // merge params from parent router
@@ -11,8 +7,8 @@ const router = Router({
 
 router
     .route("/")
-    .get(getBasicDetails)
-    .put(updateBasicDetails)
-    .delete(resetBasicDetails)
+    .get(BasicController.getBasicDetails)
+    .put(BasicController.updateBasicDetails)
+    .delete(BasicController.resetBasicDetails)
 
 export default router

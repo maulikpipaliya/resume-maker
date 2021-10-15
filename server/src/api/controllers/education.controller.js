@@ -3,27 +3,43 @@ import userModel from "../../models/user.model.js"
 import UserEducationService from "../services/education.service.js"
 import { responseError, responseSuccess } from "../services/util.service.js"
 
+/**
+ * List of APIs for education
+ *
+ * 1. GET /api/r/:resumeIdx/education/
+ * 2. GET /api/r/:resumeIdx/education/:eIdx
+ * 3. POST /api/r/:resumeIdx/education/
+ * 4. PUT /api/r/:resumeIdx/education/:eIdx
+ * 5. DELETE /api/r/:resumeIdx/education/:eIdx
+ *
+ */
+
+/**
+ * @route  GET /api/r/:resumeIdx/education/
+ */
 export const getAllEducationItems = asyncHandler(async (req, res, next) => {
-    const { authEmail } = req.body.user
+    const { googleId } = req.user
     const { resumeIdx } = req.params
 
     const response = await new UserEducationService().getAllEducationItems(
-        authEmail,
+        googleId,
         resumeIdx
     )
 
     if (response.success) responseSuccess(res, 200, response)
     else responseError(res, 400, response.message)
-
-    console.log(authEmail, resumeIdx)
 })
 
+/**
+ * @route  GET /api/r/:resumeIdx/education/:eIdx
+ */
 export const getEducationItem = asyncHandler(async (req, res, next) => {
-    const { authEmail } = req.body.user
+    const { googleId } = req.user
+
     const { resumeIdx, eIdx } = req.params
 
     const response = await new UserEducationService().getEducationItem(
-        authEmail,
+        googleId,
         resumeIdx,
         eIdx
     )
@@ -32,9 +48,15 @@ export const getEducationItem = asyncHandler(async (req, res, next) => {
     else responseError(res, 400, response.message)
 })
 
+/**
+ * @route  POST /api/r/:resumeIdx/education/
+ */
+
 export const addEducation = asyncHandler(async (req, res) => {
-    const { authEmail } = req.body
-    const user = await userModel.findOne({ authEmail })
+    const { googleId } = req.user
+
+    const { resumeIdx, eIdx } = req.params
+    const user = await userModel.findOne({ googleId })
     if (!user) {
         return res.status(400).send({
             message: "User not found",
@@ -46,7 +68,7 @@ export const addEducation = asyncHandler(async (req, res) => {
 
     //need to be fixed later for multiple education at particular index
     const pushedEmptyEducation = await userModel.findOneAndUpdate(
-        { authEmail, "data.orderIndex": idx },
+        { googleId, "data.orderIndex": idx },
         {
             $push: {
                 "data.0.education": initResumeData.initEducationObj,
@@ -69,10 +91,14 @@ export const addEducation = asyncHandler(async (req, res) => {
     })
 })
 
+/**
+ * @route  PUT /api/r/:resumeIdx/education/:eIdx
+ */
+
 export const updateEducation = asyncHandler(async (req, res) => {
     //add Education Object to database
-    const { educationObj: data, authEmail } = req.body
-    const user = await userModel.findOne({ authEmail })
+    const { educationObj: data, googleId } = req.body
+    const user = await userModel.findOne({ googleId })
 
     if (!user)
         return res.status(400).send({
@@ -81,7 +107,7 @@ export const updateEducation = asyncHandler(async (req, res) => {
         })
 
     const updatedUser = await userModel.findOneAndUpdate(
-        { authEmail, "data.education.orderIndex": req.params.idx },
+        { googleId, "data.education.orderIndex": req.params.idx },
         {
             $set: {
                 "data.education.$": data,

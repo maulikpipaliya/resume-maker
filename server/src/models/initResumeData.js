@@ -1,7 +1,7 @@
 export const initBasicDetailObj = {
-    email: [""],
+    email: [],
     name: "",
-    contact: [""],
+    contact: [],
     dob: null,
     location: {
         city: "",

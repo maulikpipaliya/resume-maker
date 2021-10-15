@@ -4,20 +4,7 @@ import userModel from "../../models/user.model.js"
 import * as initResumeData from "../../models/initResumeData.js"
 import UserResumeService from "../services/userResume.service.js"
 
-export const getResumeDataAtIndex = asyncHandler(async (req, res, next) => {
-    const { resumeIdx } = req.params
-    if (resumeIdx > 0) {
-        try {
-            const resumeData =
-                await new UserResumeService().getResumeDataAtIndex(resumeIdx)
-        } catch (error) {}
-    } else {
-        return res.status(400).json({
-            success: false,
-            message: "Invalid resume index",
-        })
-    }
-})
+export const getResumeDataAtIndex = asyncHandler(async (req, res, next) => {})
 
 /**
  *

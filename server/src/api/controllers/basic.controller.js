@@ -4,7 +4,16 @@ import UserBasicDetailService from "../services/basicDetail.service.js"
 import { responseError, responseSuccess } from "../services/util.service.js"
 
 /**
+ * List of APIs for basic details
+ *
+ * 1. GET /api/r/:resumeIdx/basics
+ * 2. PUT /api/r/:resumeIdx/basics
+ * 3. DELETE /api/r/:resumeIdx/basics
+ */
+
+/**
  * @description Get basic details of a user
+ * @route GET /api/r/:resumeIdx/basics
  *
  */
 
@@ -39,9 +48,10 @@ export const getBasicDetails = asyncHandler(async (req, res, next) => {
 })
 
 /**
- * @author Maulik Pipaliya
+ *
  * @description - This function is used to update the basic profile of a user
- * @param {Object} req - Request object - Basic Profile Object
+ * @param {Object} - Basic Profile Object
+ * @route PUT /api/r/:resumeIdx/basics
  */
 
 export const updateBasicDetails = asyncHandler(async (req, res) => {
@@ -54,7 +64,7 @@ export const updateBasicDetails = asyncHandler(async (req, res) => {
         const { googleId } = req.user
         const resumeIdx = req.params.resumeIdx
 
-        const { basicObj } = req.body
+        const basicObj = req.body
 
         if (!googleId || !resumeIdx)
             return responseError(
@@ -76,25 +86,28 @@ export const updateBasicDetails = asyncHandler(async (req, res) => {
     }
 })
 
+/**
+ * @route DELETE /api/r/:resumeIdx/basics
+ */
 export const resetBasicDetails = asyncHandler(async (req, res) => {
     try {
         console.log("Resetting basic data")
 
-        const { authEmail } = req.body.user
+        const { googleId } = req.user
         const { resumeIdx } = req.params
 
-        if (!authEmail)
+        if (!googleId)
             return res.status(401).send({
-                message: "Missing Email",
+                message: "Missing Authentication",
                 success: false,
             })
 
         const response = await new UserBasicDetailService().resetBasicDetails(
-            authEmail,
+            googleId,
             resumeIdx
         )
 
-        if (response.success) responseSuccess(res, 200, response.message)
+        if (response.success) responseSuccess(res, 200, response)
         else responseError(res, 400, response.message)
     } catch (error) {
         responseError(res, 400, error.message)

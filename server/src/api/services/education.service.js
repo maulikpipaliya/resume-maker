@@ -1,11 +1,11 @@
 import userModel from "../../models/user.model.js"
 
 export default class UserEducationService {
-    async getAllEducationItems(authEmail, resumeIdx) {
+    async getAllEducationItems(googleId, resumeIdx) {
         try {
             const user = await userModel.findOne(
                 {
-                    authEmail,
+                    googleId,
                     "data.resumeIdx": resumeIdx,
                 },
                 { "data.$": 1 }
@@ -31,11 +31,11 @@ export default class UserEducationService {
         }
     }
 
-    async getEducationItem(authEmail, resumeIdx, educationIdx) {
+    async getEducationItem(googleId, resumeIdx, educationIdx) {
         try {
             const user = await userModel.findOne(
                 {
-                    authEmail,
+                    googleId,
                     "data.resumeIdx": resumeIdx,
                     "data.education.edIdx": educationIdx,
                 },
@@ -72,4 +72,6 @@ export default class UserEducationService {
             }
         }
     }
+
+    async addEducationItem(googleId, resumeIdx, educationItem) {}
 }

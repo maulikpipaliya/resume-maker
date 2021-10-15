@@ -6,7 +6,7 @@ export default class UserBasicDetailService {
 
     async getBasicDetails(googleId, resumeIdx) {
         try {
-            const basicDetails = await userModel.findOne({
+            const { data: basicDetails } = await userModel.findOne({
                 googleId,
                 "data.resumeIdx": resumeIdx,
             })
@@ -14,7 +14,7 @@ export default class UserBasicDetailService {
             if (basicDetails) {
                 return {
                     success: true,
-                    data: basicDetails,
+                    data: basicDetails[0].basics,
                     message: "Basic details found",
                 }
             } else {
@@ -55,12 +55,13 @@ export default class UserBasicDetailService {
         } catch (error) {
             return {
                 success: false,
-                message: "Some error occured while updating basic details",
+                message:
+                    "Some error occured while updating basic details. Please check authenticaion/ index again",
             }
         }
     }
 
-    async resetBasicDetails(authEmail, resumeIdx) {
+    async resetBasicDetails(googleId, resumeIdx) {
         try {
             const userData = await userModel.findOne({
                 googleId,

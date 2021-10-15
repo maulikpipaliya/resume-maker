@@ -1,19 +1,19 @@
 import userModel from "../../models/user.model.js"
 
 export default class UserResumeService {
-    async countResumes(authEmail) {
-        const user = await userModel.findOne({ authEmail })
+    async countResumes(googleId) {
+        const user = await userModel.findOne({ googleId })
         return user.data.length
     }
 
     // Whole object based functions
     async getAllResumeData(googleId) {
         try {
-            const user = await userModel.findOne({ googleId })
+            const allResumes = await userModel.findOne({ googleId })
 
-            if (user)
+            if (allResumes)
                 return {
-                    data: user.data,
+                    data: allResumes.data,
                     success: true,
                     message: "Resume data fetched successfully",
                 }
@@ -30,15 +30,16 @@ export default class UserResumeService {
     }
 
     async getSingleResume(googleId, resumeIdx) {
+        console.log("In Service")
         try {
-            const resumeDataAtGivenIdx = await userModel.findOne({
+            const { data: resumeDataAtGivenIdx } = await userModel.findOne({
                 googleId,
                 "data.resumeIdx": resumeIdx,
             })
 
             if (resumeDataAtGivenIdx)
                 return {
-                    data: resumeDataAtGivenIdx,
+                    data: resumeDataAtGivenIdx[0],
                     success: true,
                     message: "Resume data fetched successfully",
                 }
