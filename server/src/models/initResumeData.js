@@ -10,6 +10,7 @@ export const initBasicDetailObj = {
 }
 
 export const initEducationObj = {
+    edIdx: 0,
     institution: "",
     degree: "",
     gpa: null,

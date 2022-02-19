@@ -39,6 +39,9 @@ export const basicReducer = (
 ) => {
     switch (action.type) {
         case BasicActionType.UPDATE_BASICS_FROM_DB:
+            console.log("UPDATE_BASICS_FROM_DB")
+            console.log(action.payload)
+
             return {
                 ...state,
                 data: action.payload,
@@ -48,13 +51,12 @@ export const basicReducer = (
             }
 
         case BasicActionType.UPDATE_BASICS:
-            updateLocalStorageByProperty("basics", action.payload)
-
             return {
                 ...state,
                 data: action.payload,
                 message: BasicActionSuccess.BASICS_UPDATED,
                 error: null,
+                loading: false,
             }
         case BasicActionType.UPDATE_NAME:
             return {

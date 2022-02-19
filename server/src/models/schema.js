@@ -70,7 +70,7 @@ export const IVolunteer = {
 }
 
 export const IEducation = {
-    orderIndex: Number,
+    edIdx: Number,
     institution: String,
     area: String,
     studyType: String,

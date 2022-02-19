@@ -9,5 +9,7 @@ export const serverURLs = {
     basicData: (idx: number) => {
         return `${config.serverURL}/api/r/${idx}/basics`
     },
-        
+    getAllEducation: (idx: number) => {
+        return `${config.serverURL}/api/r/${idx}/education`
+    },
 }

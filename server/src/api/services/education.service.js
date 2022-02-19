@@ -10,18 +10,25 @@ export default class UserEducationService {
                 },
                 { "data.$": 1 }
             )
+            if (!user)
+                return {
+                    success: false,
+                    message: "User not found",
+                }
 
-            if (user) {
+            const educationDataOfUser = user.data[0].education
+
+            if (educationDataOfUser.length > 0) {
                 return {
                     success: true,
-                    data: user.data[0].education,
-                    message:
-                        user.data[0].education.length === 0 ? "ArrayEmpty" : "",
+                    data: educationDataOfUser,
+                    message: "Education details fetched",
                 }
-            }
-            return {
-                success: false,
-                message: "User not found",
+            } else {
+                return {
+                    success: false,
+                    message: "Education details not found",
+                }
             }
         } catch (error) {
             return {
@@ -33,23 +40,18 @@ export default class UserEducationService {
 
     async getEducationItem(googleId, resumeIdx, educationIdx) {
         try {
-            const user = await userModel.findOne(
-                {
-                    googleId,
-                    "data.resumeIdx": resumeIdx,
-                    "data.education.edIdx": educationIdx,
-                },
-                { "data.education.$": 1 }
-            )
+            const userEducation = await userModel.aggregate([
+                { $match: { googleId: googleId } },
+                { $unwind: "$data" },
+                { $match: { "data.resumeIdx": parseInt(resumeIdx) } },
+                { $unwind: "$data.education" },
+                { $match: { "data.education.edIdx": parseInt(educationIdx) } },
+                { $project: { "data.education": 1 } },
+            ])
 
-            console.log("user")
-            console.log(user)
+            if (userEducation && userEducation.length > 0) {
+                const educationItem = userEducation[0].data.education
 
-            if (user) {
-                const educationItem = user.data[0].education[0]
-
-                console.log("educationItem")
-                console.log(educationItem)
                 if (educationItem) {
                     return {
                         success: true,
@@ -73,5 +75,34 @@ export default class UserEducationService {
         }
     }
 
-    async addEducationItem(googleId, resumeIdx, educationItem) {}
+    async addEducationItem(googleId, resumeIdx, educationItem) {
+        const user = await userModel.findOne({
+            googleId,
+            "data.resumeIdx": resumeIdx,
+        })
+
+        if (!user) {
+            return res.status(400).send({
+                message: "User not found",
+                success: false,
+            })
+        }
+
+        try {
+            user.data[0].education.push(educationItem)
+
+            await user.save()
+
+            return {
+                success: true,
+                message: "Education item added",
+                data: educationItem,
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: error.message,
+            }
+        }
+    }
 }

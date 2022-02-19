@@ -37,9 +37,22 @@ export default class UserBasicDetailService {
                 googleId,
                 "data.resumeIdx": resumeIdx,
             })
+            
+            console.log(
+                "🚀 ~ file: basicDetail.service.js ~ line 40 ~ UserBasicDetailService ~ updateBasicDetails ~ userData",
+                userData
+            )
 
             userData.data[resumeIdx].basics = basicObj
+            console.log(
+                "🚀 ~ file: basicDetail.service.js ~ line 42 ~ UserBasicDetailService ~ updateBasicDetails ~ basicObj",
+                basicObj
+            )
             const savedData = await userData.save()
+            console.log(
+                "🚀 ~ file: basicDetail.service.js ~ line 43 ~ UserBasicDetailService ~ updateBasicDetails ~ savedData",
+                savedData
+            )
 
             if (savedData) {
                 return {

@@ -123,6 +123,7 @@ const BasicDetailsComponent: FC = () => {
 
     useEffect(() => {
         dispatch(setBasicDataFromDB(resumeIdxFromState))
+
         console.log("useEffect in basic details")
         return () => {}
     }, [])
@@ -130,8 +131,8 @@ const BasicDetailsComponent: FC = () => {
     // setBasicDataFromDB()
     useEffect(() => {
         setDataSaved(false)
-        dispatch(updateBasics(formDataState))
-    }, [formDataState, dispatch])
+        // dispatch(updateBasics(formDataState))
+    }, [formDataState])
     return (
         <AccordionContainer title="Personal Details">
             <Container>

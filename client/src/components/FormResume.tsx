@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
-import EducationDetailsComponentCopy from "./EducationDetailsComponent"
+import EducationDetailsComponent from "./EducationDetailsComponent"
 import BasicDetailsComponent from "./BasicDetailsComponent"
 import SkillDetailsComponent from "./SkillDetailsComponent"
 import AwardsDetailsComponent from "./AwardsDetailsComponent"
@@ -52,6 +52,8 @@ const FormResume: FC<FormResumeProps> = ({ match }) => {
         // positions: { data: positionData },
         // work: { data: workData },
     } = stateDataPDF
+
+    console.log("stateDataPDF", stateDataPDF)
     const strdata = ReactDOMServer.renderToStaticMarkup(
         <TemplateDAIICT stateData={stateDataPDF} />
     )
@@ -112,7 +114,7 @@ const FormResume: FC<FormResumeProps> = ({ match }) => {
                         id="ctr-form"
                     >
                         <BasicDetailsComponent></BasicDetailsComponent>
-                        <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
+                        <EducationDetailsComponent></EducationDetailsComponent>
                         <SkillDetailsComponent></SkillDetailsComponent>
                         <WorkExperienceComponent></WorkExperienceComponent>
                         <ProjectComponent></ProjectComponent>

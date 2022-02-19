@@ -21,19 +21,14 @@ export const setBasicDataFromDB = (
         )
 
         if (basicData.success) {
-            const basicDetails: IBasic = basicData.data.data[resumeIdx].basics
+            const basicDetails: IBasic = basicData.data
             console.log("basicDetails")
-            console.log(basicDetails)
-
             dispatch({
-                type: BasicActionType.UPDATE_BASICS_FROM_DB,
+                type: BasicActionType.UPDATE_BASICS,
                 payload: basicDetails,
             })
         } else {
-            dispatch({
-                type: BasicActionType.UPDATE_BASICS_FROM_DB,
-                payload: initResumeData.basics,
-            })
+            updateBasics(initResumeData.basics)
         }
     }
 }
@@ -67,13 +62,13 @@ export const updateBasics = (
 export const dbUpdateBasics = async (basicObj: IBasic, resumeIdx: number) => {
     const res = await axios.put(
         serverURLs.basicData(resumeIdx),
-        {
-            basicObj,
-        },
+        { data: basicObj },
         {
             withCredentials: true,
         }
     )
+
+    updateBasics(basicObj)
 
     console.log("Updated basic data in Database")
 

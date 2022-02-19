@@ -9,6 +9,7 @@ import {
     addEducation,
     deleteEducation,
     updateEducationAtIndex,
+    updateEducationFromDB,
 } from "../actions/educationAction"
 import ListContainer from "./ListContainer"
 import { RootState } from "../store"
@@ -16,7 +17,7 @@ import { useSelector } from "react-redux"
 import { initEducationObj } from "../schema/initResumeData"
 import { getDataFromLS } from "../reducers/localStorageReducer"
 
-const EducationDetailsComponentCopy: FC = () => {
+const EducationDetailsComponent: FC = () => {
     const formData: IEducation = initEducationObj
 
     // local storage
@@ -46,6 +47,11 @@ const EducationDetailsComponentCopy: FC = () => {
     const [formDataState, setFormDataState] = useState<IEducation>(formData)
     const [formOpen, setFormOpen] = useState(false)
     const [idx, setIdx] = useState(educationData.length - 1)
+
+    const resumeIdxFromState: number = useSelector(
+        (state: RootState) => state.resumeIdx
+    )
+    console.log("resumeIdx from basic details", resumeIdxFromState)
 
     // console.log("idx")
     // console.log(idx)
@@ -99,6 +105,10 @@ const EducationDetailsComponentCopy: FC = () => {
         setIdx(index)
         setFormDataState(educationData[index])
     }
+
+    useEffect(() => {
+        updateEducationFromDB(resumeIdxFromState)
+    }, [])
 
     useEffect(() => {
         dispatch(updateEducationAtIndex(idx, formDataState))
@@ -234,4 +244,4 @@ const EducationDetailsComponentCopy: FC = () => {
     )
 }
 
-export default EducationDetailsComponentCopy
+export default EducationDetailsComponent

@@ -7,17 +7,17 @@ import { responseError, responseSuccess } from "../services/util.service.js"
  * List of APIs for education
  *
  * 1. GET /api/r/:resumeIdx/education/
- * 2. GET /api/r/:resumeIdx/education/:eIdx
- * 3. POST /api/r/:resumeIdx/education/
- * 4. PUT /api/r/:resumeIdx/education/:eIdx
- * 5. DELETE /api/r/:resumeIdx/education/:eIdx
+ * 2. POST /api/r/:resumeIdx/education/
+ * 3. GET /api/r/:resumeIdx/education/:edIdx
+ * 4. PUT /api/r/:resumeIdx/education/:edIdx
+ * 5. DELETE /api/r/:resumeIdx/education/:edIdx
  *
  */
 
 /**
  * @route  GET /api/r/:resumeIdx/education/
  */
-export const getAllEducationItems = asyncHandler(async (req, res, next) => {
+export const getAllEducation = asyncHandler(async (req, res, next) => {
     const { googleId } = req.user
     const { resumeIdx } = req.params
 
@@ -27,21 +27,44 @@ export const getAllEducationItems = asyncHandler(async (req, res, next) => {
     )
 
     if (response.success) responseSuccess(res, 200, response)
-    else responseError(res, 400, response.message)
+    else responseError(res, 400, response)
 })
 
 /**
- * @route  GET /api/r/:resumeIdx/education/:eIdx
+ * @route  POST /api/r/:resumeIdx/education/
+ * @param  {Object} EducationObject
  */
-export const getEducationItem = asyncHandler(async (req, res, next) => {
+
+export const addEducation = asyncHandler(async (req, res) => {
+    const { googleId } = req.user
+    const { resumeIdx } = req.params
+    const educationBody = req.body
+    
+
+    const response = await new UserEducationService().addEducationItem(
+        googleId,
+        resumeIdx,
+        educationBody
+    )
+
+    if (response.success) responseSuccess(res, 200, response)
+    else responseError(res, 400, response)
+})
+
+/**
+ * @route  GET /api/r/:resumeIdx/education/:edIdx
+ */
+export const getEducation = asyncHandler(async (req, res, next) => {
     const { googleId } = req.user
 
-    const { resumeIdx, eIdx } = req.params
+    const { resumeIdx, edIdx } = req.params
+
+    console.log(req.params)
 
     const response = await new UserEducationService().getEducationItem(
         googleId,
         resumeIdx,
-        eIdx
+        edIdx
     )
 
     if (response.success) responseSuccess(res, 200, response)
@@ -49,50 +72,7 @@ export const getEducationItem = asyncHandler(async (req, res, next) => {
 })
 
 /**
- * @route  POST /api/r/:resumeIdx/education/
- */
-
-export const addEducation = asyncHandler(async (req, res) => {
-    const { googleId } = req.user
-
-    const { resumeIdx, eIdx } = req.params
-    const user = await userModel.findOne({ googleId })
-    if (!user) {
-        return res.status(400).send({
-            message: "User not found",
-            success: false,
-        })
-    }
-
-    const idx = 0
-
-    //need to be fixed later for multiple education at particular index
-    const pushedEmptyEducation = await userModel.findOneAndUpdate(
-        { googleId, "data.orderIndex": idx },
-        {
-            $push: {
-                "data.0.education": initResumeData.initEducationObj,
-            },
-        },
-        { new: true, upsert: true, setDefaultsOnInsert: true }
-    )
-
-    console.log(pushedEmptyEducation)
-
-    if (pushedEmptyEducation)
-        return res.status(200).send({
-            message: "Successfully added",
-            success: true,
-        })
-
-    return res.status(400).send({
-        message: "Failed to add",
-        success: false,
-    })
-})
-
-/**
- * @route  PUT /api/r/:resumeIdx/education/:eIdx
+ * @route  PUT /api/r/:resumeIdx/education/:edIdx
  */
 
 export const updateEducation = asyncHandler(async (req, res) => {
@@ -119,3 +99,5 @@ export const updateEducation = asyncHandler(async (req, res) => {
     console.log("updatedUser")
     console.log(updatedUser)
 })
+
+export const deleteEducation = asyncHandler(async (req, res) => {})

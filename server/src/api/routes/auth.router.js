@@ -1,19 +1,7 @@
 import { Router } from "express"
 import passport from "passport"
 
-import {
-    EducationController,
-    BasicController,
-    AuthController,
-} from "../controllers/index.js"
 import { isAuthenticated } from "../middlewares/auth.middleware.js"
-
-import { Strategy as GoogleStrategy } from "passport-google-oauth20"
-import { config } from "../../config/config.js"
-
-import userModel from "../../models/user.model.js"
-
-import { AuthMiddleware } from "../middlewares/index.js"
 
 const router = Router({
     mergeParams: true, // merge params from parent router
@@ -58,46 +46,5 @@ router.get("/google/logout", (req, res) => {
         message: "LOGGED_OUT",
     })
 })
-
-/**
- * Basic Details Object Manipulation
- */
-
-router.get(
-    "/basics",
-    AuthMiddleware.isAuthenticated,
-    BasicController.getBasicDetails
-)
-router.put(
-    "/basics",
-    AuthMiddleware.isAuthenticated,
-    BasicController.updateBasicDetails
-)
-router.delete(
-    "/basics",
-    AuthMiddleware.isAuthenticated,
-    BasicController.resetBasicDetails
-)
-
-/**
- * Education Details Object Manipulation
- * @todo complete all APIs
- */
-
-router.get(
-    "/education",
-    AuthMiddleware.isAuthenticated,
-    EducationController.getAllEducationItems
-)
-router.get(
-    "/education/:eIdx",
-    AuthMiddleware.isAuthenticated,
-    EducationController.getEducationItem
-)
-// router.put(
-//     "/education/:eIdx",
-//     AuthMiddleware.isAuthenticated,
-//     EducationController.updateEducation
-// )
 
 export default router

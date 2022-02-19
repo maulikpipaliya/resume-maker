@@ -64,7 +64,7 @@ export const updateBasicDetails = asyncHandler(async (req, res) => {
         const { googleId } = req.user
         const resumeIdx = req.params.resumeIdx
 
-        const basicObj = req.body
+        const { data: basicObj } = req.body
 
         if (!googleId || !resumeIdx)
             return responseError(
@@ -79,7 +79,7 @@ export const updateBasicDetails = asyncHandler(async (req, res) => {
             basicObj
         )
 
-        if (response.success) responseSuccess(res, 200, response.message)
+        if (response.success) responseSuccess(res, 200, response)
         else responseError(res, 400, response.message)
     } catch (error) {
         responseError(res, 400, error.message)

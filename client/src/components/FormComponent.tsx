@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
-import EducationDetailsComponentCopy from "./EducationDetailsComponent"
+import EducationDetailsComponent from "./EducationDetailsComponent"
 import BasicDetailsComponent from "./BasicDetailsComponent"
 import SkillDetailsComponent from "./SkillDetailsComponent"
 import AwardsDetailsComponent from "./AwardsDetailsComponent"
@@ -88,7 +88,7 @@ const FormComponent: FC = () => {
                         >
                             <BasicDetailsComponent></BasicDetailsComponent>
                             {/* <EducationDetailsComponent></EducationDetailsComponent> */}
-                            <EducationDetailsComponentCopy></EducationDetailsComponentCopy>
+                            <EducationDetailsComponent></EducationDetailsComponent>
                             <SkillDetailsComponent></SkillDetailsComponent>
                             <WorkExperienceComponent></WorkExperienceComponent>
                             <ProjectComponent></ProjectComponent>

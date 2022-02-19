@@ -1,4 +1,6 @@
+import axios from "axios"
 import { Dispatch } from "redux"
+import { serverURLs } from "../config"
 
 import { IEducation } from "../schema"
 import {
@@ -21,6 +23,14 @@ export const deleteEducation =
             payload: idx,
         })
     }
+
+export const updateEducationFromDB = async (resumeIdx: number) => {
+    const { data: allEducation } = await axios.get(
+        serverURLs.getAllEducation(resumeIdx)
+    )
+
+    updateEducation(allEducation)
+}
 
 export const updateEducation =
     (educationList: IEducation[]) => (dispatch: Dispatch<IEducationAction>) => {
